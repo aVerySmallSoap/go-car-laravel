@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AgentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/users', [UserController::class, 'fetchAll']);
+Route::get('/users/{id}', [UserController::class, 'show']);
+Route::get('/agents', [AgentController::class, 'fetchAll']);
+Route::get('/agent/{id}', [AgentController::class, 'show']);
