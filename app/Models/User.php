@@ -18,7 +18,6 @@ class User extends Model
     protected $fillable = [
         'user_username',
         'user_password',
-        'user_role',
     ];
 
     /**
@@ -28,5 +27,9 @@ class User extends Model
      */
     protected $hidden = [
         'password',
+    ];
+
+    protected $guarded = [
+        'user_role'
     ];
 }

@@ -10,13 +10,11 @@ class UserController extends Controller
 {
     protected string $name = 'Users';
 
-    public function fetchAll(): View
-    {
+    public function fetchAll(): View {
         return view('entity', ['data' => User::all(), 'entity' => $this->name] );
     }
 
-    public function show(string $id): View
-    {
+    public function show(string $id): View {
         return view('entity.profile', ['data' => User::findOrFail($id), 'entity' => $this->name] );
     }
 }

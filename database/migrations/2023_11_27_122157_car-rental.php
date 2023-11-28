@@ -21,7 +21,7 @@ return new class extends Migration
 
         Schema::create('Agents', function (Blueprint $table){
             $table->id('agent_id');
-            $table->string('agent_name')->index('Agents_agent_name_index');
+            $table->string('agent_name')->unique()->index('Agents_agent_name_index');
             $table->integer('agent_age');
             $table->string('agent_address');
         });
@@ -29,7 +29,7 @@ return new class extends Migration
         Schema::create('Customers', function (Blueprint $table){
             $table->id('customer_id');
             $table->string('agent_name');
-            $table->string('customer_name')->index('Customers_customer_name_index');
+            $table->string('customer_name')->unique()->index('Customers_customer_name_index');
             $table->integer('customer_age')->index('Customers_customer_age_index');
             $table->string('customer_civilStatus');
             $table->string('customer_contactNo', 11);
@@ -43,7 +43,7 @@ return new class extends Migration
 
         Schema::create('Leasers', function (Blueprint $table){
             $table->id('leaser_id');
-            $table->string('leaser_name')->index('Leasers_leaser_name');
+            $table->string('leaser_name')->unique()->index('Leasers_leaser_name');
             $table->integer('leaser_age');
             $table->string('leaser_address');
             $table->string('leaser_contactNo', 11);

@@ -12,10 +12,9 @@
     <h1>{{$entity}}</h1>
 
     <h3>
-        {{$data->user_id}}
-        {{$data->user_username}}
-        {{$data->user_password}}
-        {{$data->user_role}}
+        @foreach($data->attributesToArray() as $information)
+            {{$information}}
+        @endforeach
     </h3>
 
 </body>

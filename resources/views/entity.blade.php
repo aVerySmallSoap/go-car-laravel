@@ -13,10 +13,10 @@
 
     <h3>
         @foreach($data as $entity)
-            {{ $entity->user_id }}
-            {{ $entity->user_username }}
-            {{ $entity->user_password }}
-            {{ $entity->user_role }}
+            @foreach($entity->attributesToArray() as $displayable)
+                {{$displayable}}
+            @endforeach
+                <br>
         @endforeach
     </h3>
 

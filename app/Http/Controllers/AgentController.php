@@ -10,13 +10,11 @@ class AgentController extends Controller
 {
     protected string $name = 'Agents';
 
-    public function fetchAll(): View
-    {
+    public function fetchAll(): View {
         return view('entity', ['data' => Agent::all(), 'entity' => $this->name] );
     }
 
-    public function show(string $id): View
-    {
+    public function show(string $id): View {
         return view('entity.profile', ['data' => Agent::findOrFail($id), 'entity' => $this->name] );
     }
 }
