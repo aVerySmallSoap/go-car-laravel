@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Leaser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use JetBrains\PhpStorm\NoReturn;
 
 class LeaserController extends Controller
 {
@@ -17,12 +17,13 @@ class LeaserController extends Controller
         return view('leaser.create');
     }
 
+    /** @noinspection PhpUndefinedMethodInspection */
     public function store(Request $request): RedirectResponse{
         $validated = $request->validate([
             'name' => 'required',
             'age' => 'required',
             'address' => 'required',
-            'contact' => 'required|max:11'
+            'contact' => 'required|min:11|max:11'
         ]);
         Leaser::create([
             'leaser_name' => $validated['name'],
@@ -33,10 +34,16 @@ class LeaserController extends Controller
         return to_route('leasers', ['data' => Leaser::all(), 'entity' => $this->name]);
     }
 
+    public function destroy(string|int $id): RedirectResponse{
+        Leaser::destroy($id);
+        return to_route('leasers', ['data' => Leaser::all(), 'entity' => $this->name]);
+    }
+
     public function fetchAll(): View {
         return view('entity', ['data' => Leaser::all(), 'entity' => $this->name] );
     }
 
+    /** @noinspection PhpUndefinedMethodInspection */
     public function show(string $id): View {
         return view('entity.profile', ['data' => Leaser::findOrFail($id), 'entity' => $this->name] );
     }

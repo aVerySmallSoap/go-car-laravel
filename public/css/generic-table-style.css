@@ -1,0 +1,24 @@
+.container-table{
+    display: flex;
+    justify-content: center;
+}
+
+table{
+    flex: 1 0 100%;
+    border-collapse: collapse;
+}
+
+table th{
+    background-color: #545b62;
+    padding: 1.2rem;
+}
+
+table tr{
+    box-sizing: border-box;
+    text-align: center;
+}
+
+table td{
+    box-sizing: border-box;
+    padding: 10px;
+}

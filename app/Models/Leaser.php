@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Leaser extends Model
 {
@@ -19,4 +21,8 @@ class Leaser extends Model
         'leaser_address',
         'leaser_contactNo'
     ];
+
+    public function cars(): HasMany{
+        return $this->hasMany(Car::class, 'leaser_name', 'leaser_name');
+    }
 }

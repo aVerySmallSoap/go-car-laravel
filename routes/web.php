@@ -26,9 +26,9 @@ Route::get('/agents', [AgentController::class, 'fetchAll']);
 Route::get('/agent/{id}', [AgentController::class, 'show']);
 
 // Create
-
-Route::get('/leaser/create', [LeaserController::class, 'create']);
-Route::post('/leaser', [LeaserController::class, 'store']);
+Route::get('/leaser/create', [LeaserController::class, 'create'])->name('leaser.create');
+Route::get('/leaser/delete/{id}', [LeaserController::class, 'destroy']);
+Route::post('/leaser/store', [LeaserController::class, 'store'])->name('leaser.store');
 
 //View
 
