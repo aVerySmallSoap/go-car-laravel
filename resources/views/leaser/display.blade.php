@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,16 +10,20 @@
 </head>
 <body>
 
-    <h1>{{$entity}}</h1>
+    <h1>Leasers</h1>
     <button onclick="window.location.href='{{ route('leaser.create')}}'">Add</button>
 
     <div class="container-table">
         <table>
             <thead>
-            @foreach(array_keys($data[0]->attributesToArray()) as $headers)
-                <th>{{explode('_', $headers)[1]}}</th>
-            @endforeach
-            <th>Actions</th>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Contact Number</th>
+                <th>Actions</th>
+            </tr>
             </thead>
             <tbody>
             @foreach($data as $element)
@@ -29,12 +33,11 @@
                     @endforeach
                     <td>
                         <form method="POST">
-
                             <button type="submit" formmethod="get" formaction=
-                                "/{{preg_split('/[s]$/', strtolower($entity))[0]}}/{{$element->getAttribute($element->getKeyName())}}">
+                                "/leaser/{{$element->getAttribute($element->getKeyName())}}">
                                 View</button>
                             <button type="submit" formmethod="get" formaction=
-                                "/{{preg_split('/[s]$/', strtolower($entity))[0]}}/delete/{{$element->getAttribute($element->getKeyName())}}">
+                                "/leaser/delete/{{$element->getAttribute($element->getKeyName())}}">
                                 Delete</button>
                         </form>
                     </td>

@@ -13,13 +13,17 @@ class Car extends Model
 
     protected $table = 'cars';
     protected $primaryKey = 'car_plateNo';
+    protected $keyType = 'string';
+    public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
+        'car_plateNo',
         'car_name',
         'car_type',
         'car_color',
-        'car_isAvailable'
+        'car_isAvailable',
+        'leaser_name'
     ];
 
     public function leaser(): BelongsTo{

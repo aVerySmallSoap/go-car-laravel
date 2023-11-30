@@ -2,51 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LeaserRequest;
 use App\Models\Leaser;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class LeaserController extends Controller
 {
-
-    protected string $name = 'Leasers';
-
     public function create(): View{
         return view('leaser.create');
     }
 
     /** @noinspection PhpUndefinedMethodInspection */
-    public function store(Request $request): RedirectResponse{
-        $validated = $request->validate([
-            'name' => 'required',
-            'age' => 'required',
-            'address' => 'required',
-            'contact' => 'required|min:11|max:11'
-        ]);
+    public function store(LeaserRequest $request): RedirectResponse{
+        $validated = $request->validated();
         Leaser::create([
             'leaser_name' => $validated['name'],
             'leaser_age' => $validated['age'],
             'leaser_address' => $validated['address'],
             'leaser_contactNo' => $validated['contact']
         ]);
-        return to_route('leasers', ['data' => Leaser::all(), 'entity' => $this->name]);
+        return to_route('leasers', ['data' => Leaser::all()]);
+    }
+
+    public function update(LeaserRequest $request): JsonResponse{
+        $validated = $request->validated();
+        Leaser::where('leaser_id', $validated['id'])
+            ->update([
+                'leaser_name' => $validated['name'],
+                'leaser_age' => $validated['age'],
+                'leaser_address' => $validated['address'],
+                'leaser_contactNo' => $validated['contact']
+            ]);
+        return response()->json(['Message' => 'Leaser successfully updated!']);
     }
 
     public function destroy(string|int $id): RedirectResponse{
         Leaser::destroy($id);
-        return to_route('leasers', ['data' => Leaser::all(), 'entity' => $this->name]);
+        return to_route('leasers', ['data' => Leaser::all()]);
     }
 
     public function fetchAll(): View {
-        return view('entity', ['data' => Leaser::all(), 'entity' => $this->name] );
+        return view('leaser.display', ['data' => Leaser::all()]);
     }
+
+    public function edit(string $id):View {
+        return view('leaser.edit', ['data' => Leaser::findOrFail($id)]);
+    }
+
 
     /** @noinspection PhpUndefinedMethodInspection */
     public function show(string $id): View {
-        return view('entity.profile', ['data' => Leaser::findOrFail($id), 'entity' => $this->name] );
+        return view('entity.profile', ['data' => Leaser::findOrFail($id)]);
     }
-
-
 }

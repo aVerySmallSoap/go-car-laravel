@@ -22,6 +22,10 @@ class Leaser extends Model
         'leaser_contactNo'
     ];
 
+    protected $guarded = [
+        'leaser_id'
+    ];
+
     public function cars(): HasMany{
         return $this->hasMany(Car::class, 'leaser_name', 'leaser_name');
     }
