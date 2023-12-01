@@ -34,8 +34,8 @@
                     <td>
                         <form method="POST">
                             <button type="submit" formmethod="get" formaction=
-                                "/leaser/{{$element->getAttribute($element->getKeyName())}}">
-                                View</button>
+                                "/leaser/edit/{{$element->getAttribute($element->getKeyName())}}">
+                                Edit</button>
                             <button type="submit" formmethod="get" formaction=
                                 "/leaser/delete/{{$element->getAttribute($element->getKeyName())}}">
                                 Delete</button>

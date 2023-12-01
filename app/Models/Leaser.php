@@ -29,4 +29,8 @@ class Leaser extends Model
     public function cars(): HasMany{
         return $this->hasMany(Car::class, 'leaser_name', 'leaser_name');
     }
+
+    public function motors(): HasMany{
+        return $this->hasMany(Motorcycle::class, 'leaser_name', 'leaser_name');
+    }
 }

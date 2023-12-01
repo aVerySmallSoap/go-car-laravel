@@ -48,5 +48,6 @@
     </form>
 
     <script src="{{asset('/js/vehicles/cars/edit.js')}}"></script>
+    <script src="{{asset('/js/vehicles/edit.js')}}"></script>
 </body>
 </html>

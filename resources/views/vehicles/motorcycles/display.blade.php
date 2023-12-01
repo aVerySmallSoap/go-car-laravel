@@ -10,8 +10,8 @@
 </head>
 <body>
 
-    <h1>Cars</h1>
-    <button onclick="window.location.href='{{ route('vehicles.cars.create')}}'">Add</button>
+    <h1>Motorcycles</h1>
+    <button onclick="window.location.href='{{ route('vehicles.motorcycles.create')}}'">Add</button>
 
     <div class="container-table">
         <table>

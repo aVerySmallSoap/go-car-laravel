@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CarRequest;
+use App\Http\Requests\CarMotorRequest;
 use App\Models\Car;
 use App\Models\Leaser;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +16,7 @@ class CarController extends Controller
     }
 
     /** @noinspection PhpUndefinedMethodInspection */
-    public function store(CarRequest $request): RedirectResponse{
+    public function store(CarMotorRequest $request): RedirectResponse{
         $validated = $request->validated();
         Car::create([
             'car_plateNo' => $validated['plateNo'],
@@ -29,7 +29,7 @@ class CarController extends Controller
         return to_route('vehicles.cars.display', ['data' => Car::all()]);
     }
 
-    public function update(CarRequest $request): JsonResponse{
+    public function update(CarMotorRequest $request): JsonResponse{
         $validated = $request->validated();
         Car::where('car_plateNo', $validated['plateNo'])
             ->update([

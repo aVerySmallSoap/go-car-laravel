@@ -11,7 +11,7 @@ use Illuminate\View\View;
 class LeaserController extends Controller
 {
     public function create(): View{
-        return view('leaser.create');
+        return view('leasers.create');
     }
 
     /** @noinspection PhpUndefinedMethodInspection */
@@ -23,7 +23,7 @@ class LeaserController extends Controller
             'leaser_address' => $validated['address'],
             'leaser_contactNo' => $validated['contact']
         ]);
-        return to_route('leasers', ['data' => Leaser::all()]);
+        return to_route('leasers.display', ['data' => Leaser::all()]);
     }
 
     public function update(LeaserRequest $request): JsonResponse{
@@ -40,20 +40,14 @@ class LeaserController extends Controller
 
     public function destroy(string|int $id): RedirectResponse{
         Leaser::destroy($id);
-        return to_route('leasers', ['data' => Leaser::all()]);
+        return to_route('leasers.display', ['data' => Leaser::all()]);
     }
 
     public function fetchAll(): View {
-        return view('leaser.display', ['data' => Leaser::all()]);
+        return view('leasers.display', ['data' => Leaser::all()]);
     }
 
     public function edit(string $id):View {
-        return view('leaser.edit', ['data' => Leaser::findOrFail($id)]);
-    }
-
-
-    /** @noinspection PhpUndefinedMethodInspection */
-    public function show(string $id): View {
-        return view('entity.profile', ['data' => Leaser::findOrFail($id)]);
+        return view('leasers.edit', ['data' => Leaser::findOrFail($id)]);
     }
 }
