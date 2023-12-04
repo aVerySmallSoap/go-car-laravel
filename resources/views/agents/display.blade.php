@@ -6,22 +6,21 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{asset('/css/generic-table-style.css')}}">
-    <title>Document</title>
+    <title>Agents</title>
 </head>
 <body>
 
-    <h1>Cars</h1>
-    <button onclick="window.location.href='{{ route('vehicles.cars.create')}}'">Add</button>
+    <h1>Agents</h1>
+    <button onclick="window.location.href='{{ route('agents.create')}}'">Add</button>
+
     <div class="container-table">
         <table>
             <thead>
             <tr>
-                <th>Plate Number</th>
+                <th>ID</th>
                 <th>Name</th>
-                <th>Type</th>
-                <th>Color</th>
-                <th>Availability</th>
-                <th>Owner</th>
+                <th>Age</th>
+                <th>Address</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -34,10 +33,10 @@
                     <td>
                         <form method="POST">
                             <button type="submit" formmethod="get" formaction=
-                                "/car/edit/{{$element->getAttribute($element->getKeyName())}}">
+                                "/agent/edit/{{$element->getAttribute($element->getKeyName())}}">
                                 Edit</button>
                             <button type="submit" formmethod="get" formaction=
-                                "/car/delete/{{$element->getAttribute($element->getKeyName())}}">
+                                "/agent/delete/{{$element->getAttribute($element->getKeyName())}}">
                                 Delete</button>
                         </form>
                     </td>

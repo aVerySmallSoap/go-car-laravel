@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <form method="POST" id="form-car-create" action="{{route('vehicles.cars.store')}}">
+    <form method="post" id="form-car-create" action="{{route('vehicles.cars.store')}}">
         @csrf
         <div class="form-row">
             <label for="form-car-plateNo">Plate Number:</label>

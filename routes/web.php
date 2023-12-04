@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LeaserController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
@@ -25,8 +26,22 @@ Route::get('/', function () {
 
 Route::get('/users', [UserController::class, 'fetchAll']);
 Route::get('/user/{id}', [UserController::class, 'show']);
-Route::get('/agents', [AgentController::class, 'fetchAll']);
-Route::get('/agent/{id}', [AgentController::class, 'show']);
+
+//Customers
+Route::get('/customers', [CustomerController::class, 'fetchAll'])->name('customers.display');
+Route::get('/customer/create', [CustomerController::class, 'create'])->name('customers.create');
+Route::get('/customer/edit/{id}', [CustomerController::class, 'edit'])->name('customers.edit');
+Route::get('/customer/delete/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+Route::post('/customer/store', [CustomerController::class, 'store'])->name('customers.store');
+Route::post('/customer/update', [CustomerController::class, 'update'])->name('customers.update');
+
+//Agents
+Route::get('/agents', [AgentController::class, 'fetchAll'])->name('agents.display');
+Route::get('/agent/create', [AgentController::class, 'create'])->name('agents.create');
+Route::get('/agent/edit/{id}', [AgentController::class, 'edit'])->name('agents.edit');
+Route::get('/agent/delete/{id}', [AgentController::class, 'destroy'])->name('agents.destroy');
+Route::post('/agent/store', [AgentController::class, 'store'])->name('agents.store');
+Route::post('/agent/update', [AgentController::class, 'update'])->name('agents.update');
 
 //Leasers
 Route::get('/leasers', [LeaserController::class, 'fetchAll'])->name('leasers.display');

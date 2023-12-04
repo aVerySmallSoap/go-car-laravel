@@ -12,11 +12,6 @@
 
     <h1>Vehicles</h1>
     <button onclick="window.location.href='{{ route('vehicles.motorcycles.create')}}'">Add</button>
-
-    @foreach($data as $element)
-        @dd($element)
-    @endforeach
-
     <div class="container-table">
         <table>
             <thead>
@@ -25,28 +20,28 @@
                 <th>Name</th>
                 <th>Type</th>
                 <th>Color</th>
-                <th>Availability</th>
                 <th>Owner</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             @foreach($data as $element)
-                @dd($element)
                 <tr>
-                    @foreach($element->attributesToArray() as $displayable)
-                        <td>{{$displayable}}</td>
-                    @endforeach
-                    <td>
-                        <form method="POST">
-                            <button type="submit" formmethod="get" formaction=
-                                "/car/edit/{{$element->getAttribute($element->getKeyName())}}">
-                                Edit</button>
-                            <button type="submit" formmethod="get" formaction=
-                                "/car/delete/{{$element->getAttribute($element->getKeyName())}}">
-                                Delete</button>
-                        </form>
-                    </td>
+                        <td>{{$element->vehicle_plateNo}}</td>
+                        <td>{{$element->vehicle_name}}</td>
+                        <td>{{$element->vehicle_type}}</td>
+                        <td>{{$element->vehicle_color}}</td>
+                        <td>{{$element->leaser_name}}</td>
+{{--                    <td>--}}
+{{--                        <form method="POST">--}}
+{{--                            <button type="submit" formmethod="get" formaction=--}}
+{{--                                "/car/edit/{{$element->getAttribute($element->getKeyName())}}">--}}
+{{--                                Edit</button>--}}
+{{--                            <button type="submit" formmethod="get" formaction=--}}
+{{--                                "/car/delete/{{$element->getAttribute($element->getKeyName())}}">--}}
+{{--                                Delete</button>--}}
+{{--                        </form>--}}
+{{--                    </td>--}}
                 </tr>
             @endforeach
             </tbody>
