@@ -11,7 +11,7 @@
 <body>
 
     <h1>Vehicles</h1>
-    <button onclick="window.location.href='{{ route('vehicles.motorcycles.create')}}'">Add</button>
+
     <div class="container-table">
         <table>
             <thead>
@@ -32,16 +32,16 @@
                         <td>{{$element->vehicle_type}}</td>
                         <td>{{$element->vehicle_color}}</td>
                         <td>{{$element->leaser_name}}</td>
-{{--                    <td>--}}
-{{--                        <form method="POST">--}}
-{{--                            <button type="submit" formmethod="get" formaction=--}}
-{{--                                "/car/edit/{{$element->getAttribute($element->getKeyName())}}">--}}
-{{--                                Edit</button>--}}
-{{--                            <button type="submit" formmethod="get" formaction=--}}
-{{--                                "/car/delete/{{$element->getAttribute($element->getKeyName())}}">--}}
-{{--                                Delete</button>--}}
-{{--                        </form>--}}
-{{--                    </td>--}}
+                    <td>
+                        <form method="POST">
+                            <button type="submit" formmethod="get" formaction=
+                                "/car/edit/">
+                                Edit</button>
+                            <button type="submit" formmethod="get" formaction=
+                                "/car/delete/">
+                                Delete</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -16,7 +17,7 @@ class VehicleController extends Controller
                 'car_color as vehicle_color',
                 'leaser_name as leaser_name'
             )
-            ->where('car_isAvailable', 1)
+            ->where('car_isAvailable', '=', 1)
             ->union(
                 DB::table('motorcycles')
                     ->select('motor_plateNo as vehicle_plateNo',
@@ -25,7 +26,7 @@ class VehicleController extends Controller
                         'motor_color as vehicle_color',
                         'leaser_name as leaser_name'
                     )
-                    ->where('motor_isAvailable', 1))
+                    ->where('motor_isAvailable', '=', 1))
             ->get();
         return view('vehicles.display', ['data' => $merged]);
     }

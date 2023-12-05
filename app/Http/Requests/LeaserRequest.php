@@ -22,7 +22,6 @@ class LeaserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required',
             'name' => 'required',
             'age' => 'required',
             'address' => 'required',

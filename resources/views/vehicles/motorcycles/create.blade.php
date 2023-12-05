@@ -21,7 +21,7 @@
         </div>
         <div class="form-row">
             <label for="form-motorcycle-type">Type:</label>
-            <input type="text" id="form-motorcycle-type" name="type">
+            <input type="text" id="form-motorcycle-type" name="type" value="Motorcycle" readonly>
         </div>
         <div class="form-row">
             <label for="form-motorcycle-color">Color:</label>

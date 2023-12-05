@@ -21,7 +21,7 @@
         </div>
         <div class="form-row">
             <label for="form-car-type">Type:</label>
-            <input type="text" id="form-car-type" name="type">
+            <input type="text" id="form-car-type" name="type" value="Car" readonly>
         </div>
         <div class="form-row">
             <label for="form-car-color">Color:</label>

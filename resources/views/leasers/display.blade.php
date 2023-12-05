@@ -11,7 +11,7 @@
 <body>
 
     <h1>Leasers</h1>
-    <button onclick="window.location.href='{{ route('leaser.create')}}'">Add</button>
+    <button onclick="window.location.href='{{ route('leasers.create')}}'">Add</button>
 
     <div class="container-table">
         <table>

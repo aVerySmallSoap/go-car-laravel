@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <form method="POST" action="{{route('leaser.store')}}">
+    <form method="POST" action="{{route('leasers.store')}}">
         @csrf
         <label for="leaser_name">Name:</label>
         <input type="text" id="leaser_name" name="name">

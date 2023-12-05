@@ -4,6 +4,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LeaserController;
+use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\MotorcycleController;
@@ -51,14 +52,6 @@ Route::get('/leaser/delete/{id}', [LeaserController::class, 'destroy'])->name('l
 Route::post('/leaser/store', [LeaserController::class, 'store'])->name('leasers.store');
 Route::post('/leaser/update', [LeaserController::class, 'update'])->name('leasers.update');
 
-//Vehicles
-Route::get('/vehicles', [VehicleController::class, 'fetchAll'])->name('vehicles.display');
-Route::get('/vehicle/create', [VehicleController::class, 'create'])->name('vehicles.create');
-Route::get('/vehicle/edit/{id}', [VehicleController::class, 'edit'])->name('vehicles.edit');
-Route::get('/vehicle/delete/{id}', [VehicleController::class, 'destroy'])->name('vehicles.destroy');
-Route::post('/vehicle/store', [VehicleController::class, 'store'])->name('vehicles.store');
-Route::post('/vehicle/update', [VehicleController::class, 'update'])->name('vehicles.update');
-
 //Cars
 Route::get('/cars', [CarController::class, 'fetchAll'])->name('vehicles.cars.display');
 Route::get('/car/create', [CarController::class, 'create'])->name('vehicles.cars.create');
@@ -74,3 +67,9 @@ Route::get('/motorcycle/edit/{id}', [MotorcycleController::class, 'edit'])->name
 Route::get('/motorcycle/delete/{id}', [MotorcycleController::class, 'destroy'])->name('vehicles.motorcycles.destroy');
 Route::post('/motorcycle/store', [MotorcycleController::class, 'store'])->name('vehicles.motorcycles.store');
 Route::post('/motorcycle/update', [MotorcycleController::class, 'update'])->name('vehicles.motorcycles.update');
+
+//Vehicles
+Route::get('/vehicles', [VehicleController::class, 'fetchAll'])->name('vehicles.display');
+
+//Pre-trip receipt
+Route::get('/generate/pre-trip/{id}/{type}', [ReceiptController::class, 'genPreTripReceipt'])->name('generators.pre-trip');
