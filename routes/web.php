@@ -33,6 +33,7 @@ Route::get('/customers', [CustomerController::class, 'fetchAll'])->name('custome
 Route::get('/customer/create', [CustomerController::class, 'create'])->name('customers.create');
 Route::get('/customer/edit/{id}', [CustomerController::class, 'edit'])->name('customers.edit');
 Route::get('/customer/delete/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+Route::get('/customer/fetch/{id}', [CustomerController::class, 'fetch'])->name('customers.fetch');
 Route::post('/customer/store', [CustomerController::class, 'store'])->name('customers.store');
 Route::post('/customer/update', [CustomerController::class, 'update'])->name('customers.update');
 
@@ -70,6 +71,8 @@ Route::post('/motorcycle/update', [MotorcycleController::class, 'update'])->name
 
 //Vehicles
 Route::get('/vehicles', [VehicleController::class, 'fetchAll'])->name('vehicles.display');
+Route::get('/vehicle/fetch/{type}', [VehicleController::class, 'filterVehicleSelectionByType']);
+Route::get('/vehicle/fetch/{type}/{id}', [VehicleController::class, 'fetchVehicleByTypeID']);
 
 //Pre-trip receipt
-Route::get('/generate/pre-trip/{id}/{type}', [ReceiptController::class, 'genPreTripReceipt'])->name('generators.pre-trip');
+Route::get('/generate/pre-trip', [ReceiptController::class, 'genPreTripReceipt'])->name('generators.pre-trip');
