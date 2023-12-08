@@ -76,3 +76,4 @@ Route::get('/vehicle/fetch/{type}/{id}', [VehicleController::class, 'fetchVehicl
 
 //Pre-trip receipt
 Route::get('/generate/pre-trip', [ReceiptController::class, 'genPreTripReceipt'])->name('generators.pre-trip');
+Route::post('/generate/pre-trip/store', [ReceiptController::class, 'generatePreTrip'])->name('generators.pre-trip.store');

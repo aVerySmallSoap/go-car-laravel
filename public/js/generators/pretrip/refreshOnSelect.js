@@ -64,7 +64,6 @@ document.querySelector("#container-vehicle>div>select[id=pre-receipt-vehicle]")
         xhr.send();
         xhr.onload = () => {
             let res = JSON.parse(xhr.response);
-            console.log(res)
             for (let i = 0; i < fillables.length; ++i) {
                 fillables[i].innerText = res.data[i];
             }

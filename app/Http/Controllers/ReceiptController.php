@@ -18,4 +18,10 @@ class ReceiptController extends Controller
     {
         return view('generators.pre-trip', ['customers' => Customer::all(), 'vehicles' => VehicleController::vehiclesForSelection()]);
     }
+
+    public function generatePreTrip(Request $request){
+        //Store the data on the pre-trip receipt table
+        dd($request);
+        //Change vehicle variables on other table to be unavailable or "reserved"
+    }
 }
