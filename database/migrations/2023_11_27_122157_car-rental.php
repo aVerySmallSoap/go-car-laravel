@@ -91,6 +91,32 @@ return new class extends Migration
             $table->foreign('vehicle_type', 'FK_Vehicles_vehicle_type_motorcycles')
                 ->references('motor_type')->on('Motorcycles');
         });
+
+        Schema::create('pretripReceipts', function (Blueprint $table) {
+            $table->id('pretrip_ID');
+            $table->string('agent_name');
+            $table->string('customer_name');
+            $table->string('vehicle_name');
+            $table->string('pretrip_typeOfID');
+            $table->dateTime('pretrip_datestart')->index('pretrip_datestart_index');
+            $table->dateTime('pretrip_dateend')->index('pretrip_dateend_index');
+            $table->string('pretrip_destination');
+            $table->integer('pretrip_initialGas');
+            $table->boolean('pretrip_requestWash');
+            $table->boolean('pretrip_requestHelmet');
+            $table->float('pretrip_total');
+            $table->dateTime('pretrip_createdAt')->index('pretrip_createdAt_index');
+            $table->foreign('agent_name', 'FK_pretrip_agent_name')
+                ->references('agent_name')
+                ->on('agents');
+            $table->foreign('customer_name', 'FK_pretrip_customer_name')
+                ->references('customer_name')
+                ->on('customers');
+            $table->foreign('vehicle_name', 'FK_pretrip_vehicle_name_cars')
+                ->references('car_name')->on('Cars');
+            $table->foreign('vehicle_name', 'FK_pretrip_vehicle_name_motorcycles')
+                ->references('motor_name')->on('Motorcycles');
+        });
     }
 
     /**
@@ -98,6 +124,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('Users');
+        Schema::dropIfExists('Agents');
+        Schema::dropIfExists('Customers');
+        Schema::dropIfExists('Leasers');
+        Schema::dropIfExists('Cars');
+        Schema::dropIfExists('Motorcycles');
+        Schema::dropIfExists('Vehicles');
+        Schema::dropIfExists('pretripReceipts');
     }
 };
