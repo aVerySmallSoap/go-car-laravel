@@ -35,10 +35,10 @@
                     <td>
                         <form method="POST">
                             <button type="submit" formmethod="get" formaction=
-                                "/car/edit/">
+                                "/{{mb_strtolower($element->vehicle_type)}}/edit/{{$element->vehicle_plateNo}}">
                                 Edit</button>
                             <button type="submit" formmethod="get" formaction=
-                                "/car/delete/">
+                                "/{{mb_strtolower($element->vehicle_type)}}/delete/{{$element->vehicle_plateNo}}">
                                 Delete</button>
                         </form>
                     </td>

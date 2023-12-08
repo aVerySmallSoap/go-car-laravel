@@ -24,6 +24,13 @@
                     <option value="{{$customer['customer_name']}}">{{$customer['customer_name']}}</option>
                 @endforeach
             </select>
+            <label for="pre-receipt-valid-identification">Select valid ID type: </label>
+            <select name="validIdentification" id="pre-receipt-valid-identification">
+                <option value="" disabled selected>Please select a valid ID type</option>
+                <option value="Drivers License">Driver's License</option>
+                <option value="National ID">National ID</option>
+                <option value="SSS">Social Security</option>
+            </select>
             <div class="content-information">
                 <div>
                     <span>ID:</span>
@@ -88,6 +95,8 @@
             <input type="datetime-local" id="pre-receipt-start-date" name="start-date">
             <label for="pre-receipt-end-date">Rent end</label>
             <input type="datetime-local" id="pre-receipt-end-date" name="end-date">
+            <label for="pre-receipt-initial-gas">Gas levels: </label>
+            <input type="number" id="pre-receipt-initial-gas" name="initial-gas" placeholder="0">
             <hr>
         </div>
         <div class="form-row pre-optionals">
