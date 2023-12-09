@@ -96,12 +96,15 @@ return new class extends Migration
             $table->id('pretrip_ID');
             $table->string('agent_name');
             $table->string('customer_name');
-            $table->string('vehicle_name');
+            $table->string('vehicle_type');
+            $table->string('vehicle_plateNo');
             $table->string('pretrip_typeOfID');
             $table->dateTime('pretrip_datestart')->index('pretrip_datestart_index');
             $table->dateTime('pretrip_dateend')->index('pretrip_dateend_index');
             $table->string('pretrip_destination');
             $table->integer('pretrip_initialGas');
+            $table->integer('pretrip_requestGasLiters');
+            $table->integer('pretrip_requestGasPrice');
             $table->boolean('pretrip_requestWash');
             $table->boolean('pretrip_requestHelmet');
             $table->float('pretrip_total');
@@ -112,10 +115,10 @@ return new class extends Migration
             $table->foreign('customer_name', 'FK_pretrip_customer_name')
                 ->references('customer_name')
                 ->on('customers');
-            $table->foreign('vehicle_name', 'FK_pretrip_vehicle_name_cars')
-                ->references('car_name')->on('Cars');
-            $table->foreign('vehicle_name', 'FK_pretrip_vehicle_name_motorcycles')
-                ->references('motor_name')->on('Motorcycles');
+            $table->foreign('vehicle_plateNo', 'FK_pretrip_vehicle_plateNo_cars')
+                ->references('car_plateNo')->on('Cars');
+            $table->foreign('vehicle_plateNo', 'FK_pretrip_vehicle_plateNo_motorcycles')
+                ->references('motor_plateNo')->on('Motorcycles');
         });
     }
 
@@ -124,13 +127,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Users');
-        Schema::dropIfExists('Agents');
+        Schema::dropIfExists('pretripReceipts');
         Schema::dropIfExists('Customers');
-        Schema::dropIfExists('Leasers');
+        Schema::dropIfExists('Vehicles');
         Schema::dropIfExists('Cars');
         Schema::dropIfExists('Motorcycles');
-        Schema::dropIfExists('Vehicles');
-        Schema::dropIfExists('pretripReceipts');
+        Schema::dropIfExists('Leasers');
+        Schema::dropIfExists('Agents');
+        Schema::dropIfExists('Users');
     }
 };

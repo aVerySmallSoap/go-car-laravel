@@ -34,7 +34,7 @@
             <div class="content-information">
                 <div>
                     <span>ID:</span>
-                    <span data-fillable="true" data-mark-important data-mark-label="customer_id"></span>
+                    <span data-fillable="true" ></span>
                 </div>
                 <div>
                     <span>Agent:</span>
@@ -42,7 +42,7 @@
                 </div>
                 <div>
                     <span>Name:</span>
-                    <span data-fillable="true"></span>
+                    <span data-fillable="true" data-mark-important data-mark-label="customer_name"></span>
                 </div>
                 <div>
                     <span>Age:</span>
@@ -110,11 +110,11 @@
             </div>
             <div>
                 <label for="pre-optional-helmet">Helmet:</label>
-                <input type="checkbox" id="pre-optional-helmet" name="helmet" value="true">
+                <input type="checkbox" id="pre-optional-helmet" name="helmet" value="1">
             </div>
             <div>
                 <label for="pre-optional-wash">Car wash:</label>
-                <input type="checkbox" id="pre-optional-wash" name="wash" value="true">
+                <input type="checkbox" id="pre-optional-wash" name="wash" value="1">
             </div>
         </div>
         <div class="form-control">

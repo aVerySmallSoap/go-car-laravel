@@ -21,6 +21,8 @@ document.querySelector("#form-pre-receipt").addEventListener("submit", e => {
         ".pre-optionals>div>input[type=checkbox]").forEach(input => {
             if(input.checked){
                 formData.set(input.name, input.value);
+            }else{
+                formData.set(input.name, '0');
             }
     });
     let xhr = new XMLHttpRequest();

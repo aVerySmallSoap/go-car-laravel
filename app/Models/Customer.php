@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
@@ -27,7 +28,11 @@ class Customer extends Model
         'customer_id'
     ];
 
-    public function agent(): BelongsTo{
+    public function customer(): BelongsTo{
         return $this->belongsTo(Agent::class, 'agent_name', 'agent_name');
+    }
+
+    public function customer_pretrip():hasMany{
+        return $this->hasMany(PreTripReceipt::class, 'customer_name');
     }
 }
