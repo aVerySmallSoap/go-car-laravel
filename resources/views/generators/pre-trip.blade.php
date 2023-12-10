@@ -85,18 +85,34 @@
                     <span>Color:</span>
                     <span data-fillable="true"></span>
                 </div>
+                <div>
+                    <span>Rent price:</span>
+                    <span data-fillable="true" data-mark-important data-mark-label="vehicle_rentPrice"></span>
+                </div>
             </div>
             <hr>
         </div>
         <div id="container-important">
-            <label for="pre-receipt-destination">Destination</label>
-            <input type="text" id="pre-receipt-destination" name="destination">
-            <label for="pre-receipt-start-date">Rent start</label>
-            <input type="datetime-local" id="pre-receipt-start-date" name="start-date">
-            <label for="pre-receipt-end-date">Rent end</label>
-            <input type="datetime-local" id="pre-receipt-end-date" name="end-date">
-            <label for="pre-receipt-initial-gas">Gas levels: </label>
-            <input type="number" id="pre-receipt-initial-gas" name="initial-gas" placeholder="0">
+            <div class="form-row">
+                <label for="pre-receipt-destination">Destination:</label>
+                <input type="text" id="pre-receipt-destination" name="destination">
+            </div>
+            <div class="form-row">
+                <label for="pre-receipt-destination-price">Destination price:</label>
+                <input type="number" id="pre-receipt-destination-price" name="destination-price">
+            </div>
+            <div class="form-row">
+                <label for="pre-receipt-start-date">Rent start:</label>
+                <input type="datetime-local" id="pre-receipt-start-date" name="start-date">
+            </div>
+            <div class="form-row">
+                <label for="pre-receipt-end-date">Rent end:</label>
+                <input type="datetime-local" id="pre-receipt-end-date" name="end-date">
+            </div>
+            <div class="form-row">
+                <label for="pre-receipt-initial-gas">Gas levels:</label>
+                <input type="number" id="pre-receipt-initial-gas" name="initial-gas" placeholder="0">
+            </div>
             <hr>
         </div>
         <div class="form-row pre-optionals">

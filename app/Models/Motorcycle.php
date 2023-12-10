@@ -22,6 +22,7 @@ class Motorcycle extends Model
         'motor_type',
         'motor_color',
         'motor_isAvailable',
+        'motor_rentPrice',
         'leaser_name'
     ];
 

@@ -23,6 +23,7 @@ class Car extends Model
         'car_type',
         'car_color',
         'car_isAvailable',
+        'car_rentPrice',
         'leaser_name'
     ];
 

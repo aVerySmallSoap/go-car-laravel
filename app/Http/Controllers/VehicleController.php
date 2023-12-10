@@ -45,20 +45,26 @@ class VehicleController extends Controller
         switch ($type){
             case 'Car':
                 $vehicle = DB::table('cars')
-                    ->select('car_plateNo as vehicle_plateNo',
+                    ->select(
+                        'car_plateNo as vehicle_plateNo',
                         'car_name as vehicle_name',
                         'car_type as vehicle_type',
-                        'car_color as vehicle_color'
-                    )->where('car_name', '=', $id)
+                        'car_color as vehicle_color',
+                        'car_rentPrice as vehicle_rentPrice')
+                    ->where('car_name', '=', $id)
+                    ->where('car_isAvailable', '=', 1)
                     ->get();
                 break;
             case 'Motorcycle':
                 $vehicle = DB::table('motorcycles')
-                    ->select('motor_plateNo as vehicle_plateNo',
+                    ->select(
+                        'motor_plateNo as vehicle_plateNo',
                         'motor_name as vehicle_name',
                         'motor_type as vehicle_type',
-                        'motor_color as vehicle_color'
-                    )->where('motor_name', '=', $id)
+                        'motor_color as vehicle_color',
+                        'motor_rentPrice as vehicle_rentPrice')
+                    ->where('motor_name', '=', $id)
+                    ->where('motor_isAvailable', '=', 1)
                     ->get();
                 break;
             default:
@@ -78,16 +84,20 @@ class VehicleController extends Controller
                     ->select('car_plateNo as vehicle_plateNo',
                         'car_name as vehicle_name',
                         'car_type as vehicle_type',
-                        'car_color as vehicle_color'
-                    )->get();
+                        'car_color as vehicle_color',
+                        'car_rentPrice as vehicle_rentPrice')
+                    ->where('car_isAvailable', '=', 1)
+                    ->get();
                 break;
             case 'Motorcycle':
                 $vehicle = DB::table('motorcycles')
                     ->select('motor_plateNo as vehicle_plateNo',
                         'motor_name as vehicle_name',
                         'motor_type as vehicle_type',
-                        'motor_color as vehicle_color'
-                    )->get();
+                        'motor_color as vehicle_color',
+                        'motor_rentPrice as vehicle_rentPrice')
+                    ->where('motor_isAvailable', '=', 1)
+                    ->get();
                 break;
             default:
                 return response()->json(['type' => 'error', 'message' => 'type unsupported']);
@@ -96,5 +106,23 @@ class VehicleController extends Controller
             $data[] = $value;
         }
         return response()->json(['type' => 'success', 'data' => $data]);
+    }
+
+    public static function reserveVehicle(string $type, $plateNo): JsonResponse{
+        switch ($type){
+            case 'Car':
+                DB::table('cars')
+                    ->where('car_plateNo', $plateNo)
+                    ->update(['car_isAvailable' => 0]);
+                break;
+            case 'Motorcycle':
+                DB::table('motorcycles')
+                    ->where('motor_plateNo', $plateNo)
+                    ->update(['motor_isAvailable' => 0]);
+                break;
+            default:
+                return response()->json(['type' => 'error', 'message' => 'No such thing as '.$type]);
+        }
+        return response()->json(['type' => 'success']);
     }
 }

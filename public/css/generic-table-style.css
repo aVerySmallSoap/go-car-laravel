@@ -1,6 +1,7 @@
 .container-table{
     display: flex;
     justify-content: center;
+    overflow: auto;
 }
 
 table{

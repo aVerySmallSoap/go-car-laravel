@@ -21,10 +21,11 @@ class MotorcycleController extends Controller
         $validated = $request->validated();
         Motorcycle::create([
             'motor_plateNo' => $validated['plateNo'],
-            'motor_name' => $validated['name'],
+            'motor_name' => $validated['model'],
             'motor_type' => $validated['type'],
             'motor_color' => $validated['color'],
             'motor_isAvailable' => $validated['availability'],
+            'motor_rentPrice' => $validated['rentPrice'],
             'leaser_name' => $validated['leaser']
         ]);
         return to_route('vehicles.motorcycles.display', ['data' => Motorcycle::all()]);
@@ -34,10 +35,11 @@ class MotorcycleController extends Controller
         $validated = $request->validated();
         Motorcycle::where('motor_plateNo', $validated['plateNo'])
             ->update([
-                'motor_name' => $validated['name'],
+                'motor_name' => $validated['model'],
                 'motor_type' => $validated['type'],
                 'motor_color' => $validated['color'],
                 'motor_isAvailable' => $validated['availability'],
+                'motor_rentPrice' => $validated['rentPrice'],
                 'leaser_name' => $validated['leaser']
             ]);
         return response()->json(['Message' => 'Car successfully updated!']);

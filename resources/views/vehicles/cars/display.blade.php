@@ -21,6 +21,7 @@
                 <th>Type</th>
                 <th>Color</th>
                 <th>Availability</th>
+                <th>Rent Price</th>
                 <th>Owner</th>
                 <th>Actions</th>
             </tr>

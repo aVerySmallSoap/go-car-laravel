@@ -55,6 +55,7 @@ return new class extends Migration
             $table->string('car_type')->index('Cars_car_type_index');
             $table->string('car_color')->index('Cars_car_color_index');
             $table->boolean('car_isAvailable')->index('Cars_car_isAvailable_index');
+            $table->double('car_rentPrice')->index('Cars_car_rentPrice_index');
             $table->string('leaser_name');
             $table->foreign('leaser_name')->references('leaser_name')->on('Leasers');
         });
@@ -65,31 +66,9 @@ return new class extends Migration
             $table->string('motor_type')->index('Motorcycles_motor_type_index');
             $table->string('motor_color')->index('Motorcycles_motor_color_index');
             $table->boolean('motor_isAvailable')->index('Motorcycles_motor_isAvailable_index');
+            $table->double('motor_rentPrice')->index('Motorcycles_motor_rentPrice_index');
             $table->string('leaser_name');
             $table->foreign('leaser_name')->references('leaser_name')->on('Leasers');
-        });
-
-        Schema::create('Vehicles', function (Blueprint $table){
-            $table->string('vehicle_plateNo')->primary();
-            $table->string('vehicle_name');
-            $table->string('vehicle_color');
-            $table->string('vehicle_type');
-            $table->foreign('vehicle_plateNo', 'FK_Vehicles_vehicle_plateNo_cars')
-                ->references('car_plateNo')->on('Cars');
-            $table->foreign('vehicle_plateNo', 'FK_Vehicles_vehicle_plateNo_motorcycles')
-                ->references('motor_plateNo')->on('Motorcycles');
-            $table->foreign('vehicle_name', 'FK_Vehicles_vehicle_name_cars')
-                ->references('car_name')->on('Cars');
-            $table->foreign('vehicle_name', 'FK_Vehicles_vehicle_name_motorcycles')
-                ->references('motor_name')->on('Motorcycles');
-            $table->foreign('vehicle_color', 'FK_Vehicles_vehicle_color_cars')
-                ->references('car_color')->on('Cars');
-            $table->foreign('vehicle_color', 'FK_Vehicles_vehicle_color_motorcycles')
-                ->references('motor_color')->on('Motorcycles');
-            $table->foreign('vehicle_type', 'FK_Vehicles_vehicle_type_cars')
-                ->references('car_type')->on('Cars');
-            $table->foreign('vehicle_type', 'FK_Vehicles_vehicle_type_motorcycles')
-                ->references('motor_type')->on('Motorcycles');
         });
 
         Schema::create('pretripReceipts', function (Blueprint $table) {
@@ -101,7 +80,8 @@ return new class extends Migration
             $table->string('pretrip_typeOfID');
             $table->dateTime('pretrip_datestart')->index('pretrip_datestart_index');
             $table->dateTime('pretrip_dateend')->index('pretrip_dateend_index');
-            $table->string('pretrip_destination');
+            $table->string('pretrip_destination')->index('pretrip_destination_index');
+            $table->double('pretrip_destinationPrice');
             $table->integer('pretrip_initialGas');
             $table->integer('pretrip_requestGasLiters');
             $table->integer('pretrip_requestGasPrice');
@@ -115,10 +95,6 @@ return new class extends Migration
             $table->foreign('customer_name', 'FK_pretrip_customer_name')
                 ->references('customer_name')
                 ->on('customers');
-            $table->foreign('vehicle_plateNo', 'FK_pretrip_vehicle_plateNo_cars')
-                ->references('car_plateNo')->on('Cars');
-            $table->foreign('vehicle_plateNo', 'FK_pretrip_vehicle_plateNo_motorcycles')
-                ->references('motor_plateNo')->on('Motorcycles');
         });
     }
 
@@ -129,7 +105,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('pretripReceipts');
         Schema::dropIfExists('Customers');
-        Schema::dropIfExists('Vehicles');
         Schema::dropIfExists('Cars');
         Schema::dropIfExists('Motorcycles');
         Schema::dropIfExists('Leasers');

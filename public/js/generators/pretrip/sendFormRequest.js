@@ -10,7 +10,7 @@ document.querySelector("#form-pre-receipt").addEventListener("submit", e => {
             formData.set(span.dataset.markLabel, span.innerText);
     });
     document.querySelectorAll(
-        "#container-important>input").forEach(input => {
+        "#container-important>.form-row>input").forEach(input => {
             formData.set(input.name, input.value);
     });
     document.querySelectorAll(

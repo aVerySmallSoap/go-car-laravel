@@ -9,6 +9,7 @@ use App\Models\PreTripReceipt;
 use App\Models\Vehicle;
 use DateTimeZone;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -16,16 +17,24 @@ use Illuminate\View\View;
 class ReceiptController extends Controller
 {
 
-    public function genPreTripReceipt(): View|JsonResponse
-    {
+    public function genPreTripReceipt(): View{
         return view('generators.pre-trip', ['customers' => Customer::all(), 'vehicles' => VehicleController::vehiclesForSelection()]);
     }
 
-    public function generatePreTrip(Request $request){
+    public function viewPreTripReceipts(): View{
+        return view('receipts.pretrip.display', ['data' => PreTripReceipt::all()]);
+    }
+
+    public function generatePreTrip(Request $request): RedirectResponse{
         $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
             ->format('Y-m-d H:i:s');
         $input = $request->all();
-        //Store the data on the pre-trip receipt table
+        //Deposit + (Rent Cost + Destination) + (Gas + (Car wash + Helmet))
+        $carwash_cost = ($input['vehicle_type'] == 'Car') ? 200:80;
+        $deposit_cost = (($input['vehicle_type'] == 'Car') ? 500:200);
+        $gas_cost = $input['gas'] * $input['gas_price'];
+        $optionals_cost = $gas_cost + ((($input['wash'] == 1) ? $carwash_cost:0) + (($input['helmet'] == 1) ? 150:0));
+        $total = $deposit_cost + ($input['vehicle_rentPrice'] + $input['destination-price']) + $optionals_cost;
         PreTripReceipt::create([
             'agent_name' => $input['agent_name'],
             'customer_name' => $input['customer_name'],
@@ -35,14 +44,16 @@ class ReceiptController extends Controller
             'pretrip_datestart' => $input['start-date'],
             'pretrip_dateend' => $input['end-date'],
             'pretrip_destination' => $input['destination'],
+            'pretrip_destinationPrice' => $input['destination-price'],
             'pretrip_initialGas' => $input['initial-gas'],
             'pretrip_requestGasLiters' => $input['gas'],
             'pretrip_requestGasPrice' => $input['gas_price'],
             'pretrip_requestWash' => $input['wash'],
             'pretrip_requestHelmet' => $input['helmet'],
-            'pretrip_total' => 100,
+            'pretrip_total' => $total,
             'pretrip_createdAt' => $requestDate,
         ]);
-        //Change vehicle variables on other table to be unavailable or "reserved"
+        VehicleController::reserveVehicle($input['vehicle_type'], $input['vehicle_plateNo']);
+        return response()->redirectTo('receipts.pretrip.display');
     }
 }

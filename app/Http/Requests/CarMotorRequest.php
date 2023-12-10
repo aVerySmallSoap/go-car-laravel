@@ -23,10 +23,11 @@ class CarMotorRequest extends FormRequest
     {
         return [
             'plateNo' => 'required',
-            'name' => 'required',
+            'model' => 'required',
             'type' => 'required',
             'color' => 'required',
             'availability' => 'required|boolean',
+            'rentPrice' => 'required|integer',
             'leaser' => 'required|exists:leasers,leaser_name'
         ];
     }

@@ -16,8 +16,8 @@
             <input type="text" id="form-car-plateNo" name="plateNo">
         </div>
         <div class="form-row">
-            <label for="form-car-name">Name:</label>
-            <input type="text" id="form-car-name" name="name">
+            <label for="form-car-model">Model:</label>
+            <input type="text" id="form-car-model" name="model">
         </div>
         <div class="form-row">
             <label for="form-car-type">Type:</label>
@@ -30,9 +30,13 @@
         <div class="form-row">
             <label>Availability:</label>
             <label for="form-car-availability-true">True</label>
-            <input type="radio" id="form-car-availability-true" name="availability" value="1">
+            <input type="radio" id="form-car-availability-true" name="availability" value="1" checked>
             <label for="form-car-availability-false">False</label>
             <input type="radio" id="form-car-availability-false" name="availability" value="0">
+        </div>
+        <div class="form-row">
+            <label for="form-car-rent-price">Rent price:</label>
+            <input type="number" id="form-car-rent-price" name="rentPrice">
         </div>
         <div class="form-row">
             <label for="form-car-leaser">Leaser:</label>

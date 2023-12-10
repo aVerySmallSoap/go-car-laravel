@@ -15,15 +15,15 @@ class CarController extends Controller
         return view('vehicles.cars.create', ['leasers' => Leaser::all()]);
     }
 
-    /** @noinspection PhpUndefinedMethodInspection */
-    public function store(CarMotorRequest $request): RedirectResponse{
+    public function store(CarMotorRequest $request){
         $validated = $request->validated();
         Car::create([
             'car_plateNo' => $validated['plateNo'],
-            'car_name' => $validated['name'],
+            'car_name' => $validated['model'],
             'car_type' => $validated['type'],
             'car_color' => $validated['color'],
             'car_isAvailable' => $validated['availability'],
+            'car_rentPrice' => $validated['rentPrice'],
             'leaser_name' => $validated['leaser']
         ]);
         return to_route('vehicles.cars.display', ['data' => Car::all()]);
@@ -33,10 +33,11 @@ class CarController extends Controller
         $validated = $request->validated();
         Car::where('car_plateNo', $validated['plateNo'])
             ->update([
-                'car_name' => $validated['name'],
+                'car_name' => $validated['model'],
                 'car_type' => $validated['type'],
                 'car_color' => $validated['color'],
                 'car_isAvailable' => $validated['availability'],
+                'car_rentPrice' => $validated['rent-price'],
                 'leaser_name' => $validated['leaser']
             ]);
         return response()->json(['Message' => 'Car successfully updated!']);
