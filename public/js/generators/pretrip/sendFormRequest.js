@@ -30,4 +30,10 @@ document.querySelector("#form-pre-receipt").addEventListener("submit", e => {
     xhr.setRequestHeader("X-CSRF-TOKEN", document.querySelector("form>input[name='_token']").value);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     xhr.send(formData);
+    xhr.onload = () => {
+        let res = JSON.parse(xhr.response);
+        if(res.type === 'success'){
+            window.location.href = 'http://127.0.0.1:8000/receipts/pre-trip';
+        }
+    }
 })

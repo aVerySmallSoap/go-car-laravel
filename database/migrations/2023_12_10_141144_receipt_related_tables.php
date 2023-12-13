@@ -36,6 +36,10 @@ return new class extends Migration
                 ->references('customer_name')
                 ->on('customers');
         });
+
+        Schema::table('renters', function (Blueprint $table){
+
+        });
     }
 
     /**
@@ -44,5 +48,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('pretripReceipts');
+        Schema::dropIfExists('Agents');
+        Schema::dropIfExists('Customers');
     }
 };

@@ -25,7 +25,7 @@ class ReceiptController extends Controller
         return view('receipts.pretrip.display', ['data' => PreTripReceipt::all()]);
     }
 
-    public function generatePreTrip(Request $request): RedirectResponse{
+    public function generatePreTrip(Request $request): JsonResponse{
         $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
             ->format('Y-m-d H:i:s');
         $input = $request->all();
@@ -54,6 +54,6 @@ class ReceiptController extends Controller
             'pretrip_createdAt' => $requestDate,
         ]);
         VehicleController::reserveVehicle($input['vehicle_type'], $input['vehicle_plateNo']);
-        return response()->redirectTo('receipts.pretrip.display');
+        return response()->json(['type'=>'success']);
     }
 }
