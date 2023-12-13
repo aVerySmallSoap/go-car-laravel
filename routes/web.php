@@ -5,6 +5,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LeaserController;
 use App\Http\Controllers\ReceiptController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\MotorcycleController;
@@ -78,3 +79,6 @@ Route::get('/vehicle/fetch/{type}/{id}', [VehicleController::class, 'fetchVehicl
 Route::get('/generate/pre-trip', [ReceiptController::class, 'genPreTripReceipt'])->name('generators.pre-trip');
 Route::get('/receipts/pre-trip', [ReceiptController::class, 'viewPreTripReceipts'])->name('pre-trip.display');
 Route::post('/generate/pre-trip/store', [ReceiptController::class, 'generatePreTrip'])->name('generators.pre-trip.store');
+
+// momo
+Route::get('/reserved', [ReservationController::class, 'fetchAll']);

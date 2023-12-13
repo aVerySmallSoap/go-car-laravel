@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Motorcycle;
 use App\Models\PreTripReceipt;
+use App\Models\Reserved;
 use App\Models\Vehicle;
 use DateTimeZone;
 use Illuminate\Http\JsonResponse;
@@ -54,6 +55,14 @@ class ReceiptController extends Controller
             'pretrip_createdAt' => $requestDate,
         ]);
         VehicleController::reserveVehicle($input['vehicle_type'], $input['vehicle_plateNo']);
+        $latest_id = DB::select('select max(pretrip_ID) from pretripreceipts');
+        Reserved::created([
+            'vehicle_type' => $input['vehicle_type'],
+            'vehicle_plateNo' => $input['vehicle_plateNo'],
+            'customer_name' => $input['customer_name'],
+            'reserved_reservingPretripID' => ++$latest_id,
+            'reserved_reservationDate' => $requestDate
+        ]);
         return response()->json(['type'=>'success']);
     }
 }

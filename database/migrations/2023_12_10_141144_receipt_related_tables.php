@@ -36,9 +36,22 @@ return new class extends Migration
                 ->references('customer_name')
                 ->on('customers');
         });
-
-        Schema::table('renters', function (Blueprint $table){
-
+        Schema::create('reserved_vehicles', function (Blueprint $table){
+            $table->id('reserved_ID');
+            $table->string('vehicle_type');
+            $table->string('vehicle_plateNo');
+            $table->string('customer_name');
+            $table->unsignedBigInteger('pretrip_ID');
+            $table->dateTime('reserved_reservationDate');
+            $table->foreign('customer_name', 'FK_reserved_customer_name')
+                ->references('customer_name')
+                ->on('customers');
+            $table->foreign('pretrip_ID')
+                ->references('pretrip_ID')
+                ->on('pretripreceipts');
+            $table->foreign('reserved_reservationDate', 'FK_reserved_pretrip_createdAt')
+                ->references('pretrip_createdAt')
+                ->on('pretripreceipts');
         });
     }
 

@@ -1,17 +1,18 @@
 <?php
+date_default_timezone_set('Asia/Manila');
 
 //test formula
 
 $some_value = 10;
 $now = date_create();
-echo $now->format('Y-m-d H:i:s').'<br>';
-$final = date_create('2023-12-14 12:0:0');
-echo $final->format('Y-m-d H:i:s').'<br>';
-$diff = date_diff($now, $final);
-echo $diff->format('%r%d%H').'<br>';
-echo round(
+echo 'Now: '.$now->format('Y-m-d H:i:s').'<br>';
+$final = date_create('2023-12-14 6:0:0');
+echo 'End: '.$final->format('Y-m-d H:i:s').'<br>';
+$calc = round(
     ((strtotime($final->format('Y-m-d H:i:s')) - strtotime($now->format('Y-m-d H:i:s')))
-    /3600) * $some_value);
+        /3600));
+echo 'Hours: '.$calc.'<br>';
+echo 'Debt: '.((($calc < 0) ? abs($calc):0) * 25);
 
 
 // Extension hours
