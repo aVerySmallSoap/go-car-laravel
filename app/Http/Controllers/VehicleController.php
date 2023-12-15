@@ -22,7 +22,7 @@ class VehicleController extends Controller
     public static function vehiclesForSelection(): Collection {
         return DB::table('cars')
             ->select('car_plateNo as vehicle_plateNo',
-                'car_name as vehicle_name',
+                'car_model as vehicle_model',
                 'car_type as vehicle_type',
                 'car_color as vehicle_color',
                 'leaser_name as leaser_name'
@@ -31,7 +31,7 @@ class VehicleController extends Controller
             ->union(
                 DB::table('motorcycles')
                     ->select('motor_plateNo as vehicle_plateNo',
-                        'motor_name as vehicle_name',
+                        'motor_model as vehicle_model',
                         'motor_type as vehicle_type',
                         'motor_color as vehicle_color',
                         'leaser_name as leaser_name'
@@ -40,49 +40,13 @@ class VehicleController extends Controller
             ->get();
     }
 
-    public function fetchVehicleByTypeID(string $type, string $id): JsonResponse{
-        $data = array();
-        switch ($type){
-            case 'Car':
-                $vehicle = DB::table('cars')
-                    ->select(
-                        'car_plateNo as vehicle_plateNo',
-                        'car_name as vehicle_name',
-                        'car_type as vehicle_type',
-                        'car_color as vehicle_color',
-                        'car_rentPrice as vehicle_rentPrice')
-                    ->where('car_name', '=', $id)
-                    ->where('car_isAvailable', '=', 1)
-                    ->get();
-                break;
-            case 'Motorcycle':
-                $vehicle = DB::table('motorcycles')
-                    ->select(
-                        'motor_plateNo as vehicle_plateNo',
-                        'motor_name as vehicle_name',
-                        'motor_type as vehicle_type',
-                        'motor_color as vehicle_color',
-                        'motor_rentPrice as vehicle_rentPrice')
-                    ->where('motor_name', '=', $id)
-                    ->where('motor_isAvailable', '=', 1)
-                    ->get();
-                break;
-            default:
-                return response()->json(['type' => 'error', 'message' => 'type unsupported']);
-        }
-        foreach ($vehicle[0] as $key => $value){
-            $data[] = $value;
-        }
-        return response()->json(['type' => 'success', 'data' => $data]);
-    }
-
     public function filterVehicleSelectionByType(string $type): JsonResponse {
         $data = array();
         switch ($type){
             case 'Car':
                 $vehicle = DB::table('cars')
                     ->select('car_plateNo as vehicle_plateNo',
-                        'car_name as vehicle_name',
+                        'car_model as vehicle_model',
                         'car_type as vehicle_type',
                         'car_color as vehicle_color',
                         'car_rentPrice as vehicle_rentPrice')
@@ -92,7 +56,7 @@ class VehicleController extends Controller
             case 'Motorcycle':
                 $vehicle = DB::table('motorcycles')
                     ->select('motor_plateNo as vehicle_plateNo',
-                        'motor_name as vehicle_name',
+                        'motor_model as vehicle_model',
                         'motor_type as vehicle_type',
                         'motor_color as vehicle_color',
                         'motor_rentPrice as vehicle_rentPrice')
@@ -103,6 +67,42 @@ class VehicleController extends Controller
                 return response()->json(['type' => 'error', 'message' => 'type unsupported']);
         }
         foreach ($vehicle as $key => $value){
+            $data[] = $value;
+        }
+        return response()->json(['type' => 'success', 'data' => $data]);
+    }
+
+    public function fetchVehicleByTypeID(string $type, string $plate): JsonResponse{
+        $data = array();
+        switch ($type){
+            case 'Car':
+                $vehicle = DB::table('cars')
+                    ->select(
+                        'car_plateNo as vehicle_plateNo',
+                        'car_model as vehicle_model',
+                        'car_type as vehicle_type',
+                        'car_color as vehicle_color',
+                        'car_rentPrice as vehicle_rentPrice')
+                    ->where('car_model', '=', $plate)
+                    ->where('car_isAvailable', '=', 1)
+                    ->get();
+                break;
+            case 'Motorcycle':
+                $vehicle = DB::table('motorcycles')
+                    ->select(
+                        'motor_plateNo as vehicle_plateNo',
+                        'motor_model as vehicle_model',
+                        'motor_type as vehicle_type',
+                        'motor_color as vehicle_color',
+                        'motor_rentPrice as vehicle_rentPrice')
+                    ->where('motor_model', '=', $plate)
+                    ->where('motor_isAvailable', '=', 1)
+                    ->get();
+                break;
+            default:
+                return response()->json(['type' => 'error', 'message' => 'type unsupported']);
+        }
+        foreach ($vehicle[0] as $key => $value){
             $data[] = $value;
         }
         return response()->json(['type' => 'success', 'data' => $data]);

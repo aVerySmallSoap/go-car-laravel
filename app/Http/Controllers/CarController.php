@@ -19,7 +19,7 @@ class CarController extends Controller
         $validated = $request->validated();
         Car::create([
             'car_plateNo' => $validated['plateNo'],
-            'car_name' => $validated['model'],
+            'car_model' => $validated['model'],
             'car_type' => $validated['type'],
             'car_color' => $validated['color'],
             'car_isAvailable' => $validated['availability'],
@@ -33,7 +33,7 @@ class CarController extends Controller
         $validated = $request->validated();
         Car::where('car_plateNo', $validated['plateNo'])
             ->update([
-                'car_name' => $validated['model'],
+                'car_model' => $validated['model'],
                 'car_type' => $validated['type'],
                 'car_color' => $validated['color'],
                 'car_isAvailable' => $validated['availability'],

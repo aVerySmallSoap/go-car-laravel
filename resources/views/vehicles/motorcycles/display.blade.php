@@ -36,10 +36,10 @@
                     <td>
                         <form method="POST">
                             <button type="submit" formmethod="get" formaction=
-                                "/car/edit/{{$element->getAttribute($element->getKeyName())}}">
+                                "/motorcycle/edit/{{$element->getAttribute($element->getKeyName())}}">
                                 Edit</button>
                             <button type="submit" formmethod="get" formaction=
-                                "/car/delete/{{$element->getAttribute($element->getKeyName())}}">
+                                "/motorcycle/delete/{{$element->getAttribute($element->getKeyName())}}">
                                 Delete</button>
                         </form>
                     </td>

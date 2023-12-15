@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Car;
 use App\Models\Customer;
-use App\Models\Motorcycle;
 use App\Models\PreTripReceipt;
 use App\Models\Reserved;
-use App\Models\Vehicle;
 use DateTimeZone;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -54,13 +50,13 @@ class ReceiptController extends Controller
             'pretrip_total' => $total,
             'pretrip_createdAt' => $requestDate,
         ]);
+        $latest_id = DB::select('select max(pretrip_ID) as latest from pretripreceipts');
         VehicleController::reserveVehicle($input['vehicle_type'], $input['vehicle_plateNo']);
-        $latest_id = DB::select('select max(pretrip_ID) from pretripreceipts');
-        Reserved::created([
+        Reserved::create([
             'vehicle_type' => $input['vehicle_type'],
             'vehicle_plateNo' => $input['vehicle_plateNo'],
             'customer_name' => $input['customer_name'],
-            'reserved_reservingPretripID' => ++$latest_id,
+            'pretrip_ID' => $latest_id[0]->latest,
             'reserved_reservationDate' => $requestDate
         ]);
         return response()->json(['type'=>'success']);

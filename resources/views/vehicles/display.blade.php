@@ -28,7 +28,7 @@
             @foreach($data as $element)
                 <tr>
                         <td>{{$element->vehicle_plateNo}}</td>
-                        <td>{{$element->vehicle_name}}</td>
+                        <td>{{$element->vehicle_model}}</td>
                         <td>{{$element->vehicle_type}}</td>
                         <td>{{$element->vehicle_color}}</td>
                         <td>{{$element->leaser_name}}</td>

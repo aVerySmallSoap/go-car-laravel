@@ -19,7 +19,7 @@ class Car extends Model
 
     protected $fillable = [
         'car_plateNo',
-        'car_name',
+        'car_model',
         'car_type',
         'car_color',
         'car_isAvailable',

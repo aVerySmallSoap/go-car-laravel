@@ -1,15 +1,17 @@
 .container-table{
     display: flex;
-    justify-content: center;
     overflow: auto;
 }
 
 table{
+    box-sizing: border-box;
     flex: 1 0 100%;
     border-collapse: collapse;
+    width: fit-content;
 }
 
 table th{
+    box-sizing: border-box;
     background-color: #545b62;
     padding: 1.2rem;
 }

@@ -1,5 +1,5 @@
 @php(date_default_timezone_set('Asia/Manila'))
-<!doctype html>
+    <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,42 +7,42 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{asset('/css/generic-table-style.css')}}">
-    <title>Reservations</title>
+    <title>Released</title>
 </head>
 <body>
-
-
 
 <div class="container-table">
     <table>
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Plate No</th>
+            <th>Pretrip ID</th>
+            <th>Plate Number</th>
+            <th>Model</th>
             <th>Customer Name</th>
-            <th>Receipt ID</th>
-            <th>Reservation Date</th>
+            <th>Return Date</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         @foreach($data as $element)
             <tr>
-                <td>{{$element->reserved_ID}}</td>
-                <td>{{$element->vehicle_type}}</td>
-                <td>{{$element->vehicle_plateNo}}</td>
-                <td>{{$element->customer_name}}</td>
                 <td>{{$element->pretrip_ID}}</td>
-                <td>{{date_create($element->reserved_reservationDate)->format('Y-m-d h:i:s A')}}</td>
+                <td>{{$element->vehicle_plateNo}}</td>
+                <td>{{$element->vehicle_model}}</td>
+                <td>{{$element->customer_name}}</td>
+                <td>{{date_create($element->pretrip_dateend)->format('Y-m-d h:i:s A')}}</td>
                 <td>
                     <form method="POST">
+                        {{--Receive all details about released vehicle--}}
                         <button type="submit" formmethod="get" formaction=
-                            "/reserved/release/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->vehicle_plateNo}}">
-                            Release</button>
+                            "">
+                            Details</button>
                         <button type="submit" formmethod="get" formaction=
-                            "/reserved/delete/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->vehicle_plateNo}}">
-                            Delete</button>
+                            "/released/extend/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->pretrip_dateend}}">
+                            Extend</button>
+                        <button type="submit" formmethod="get" formaction=
+                            "">
+                            Return</button>
                     </form>
                 </td>
             </tr>

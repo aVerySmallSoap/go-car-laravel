@@ -16,6 +16,7 @@ class PreTripReceipt extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'pretrip_ID',
         'agent_name',
         'customer_name',
         'vehicle_type',
@@ -32,10 +33,6 @@ class PreTripReceipt extends Model
         'pretrip_requestHelmet',
         'pretrip_total',
         'pretrip_createdAt',
-    ];
-
-    protected $guarded = [
-        'pretrip_ID'
     ];
 
     public function pretripReceipt(): BelongsTo{

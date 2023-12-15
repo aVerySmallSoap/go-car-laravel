@@ -21,7 +21,7 @@ class MotorcycleController extends Controller
         $validated = $request->validated();
         Motorcycle::create([
             'motor_plateNo' => $validated['plateNo'],
-            'motor_name' => $validated['model'],
+            'motor_model' => $validated['model'],
             'motor_type' => $validated['type'],
             'motor_color' => $validated['color'],
             'motor_isAvailable' => $validated['availability'],
@@ -35,7 +35,7 @@ class MotorcycleController extends Controller
         $validated = $request->validated();
         Motorcycle::where('motor_plateNo', $validated['plateNo'])
             ->update([
-                'motor_name' => $validated['model'],
+                'motor_model' => $validated['model'],
                 'motor_type' => $validated['type'],
                 'motor_color' => $validated['color'],
                 'motor_isAvailable' => $validated['availability'],

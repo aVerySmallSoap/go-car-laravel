@@ -34,7 +34,10 @@ return new class extends Migration
             $table->string('customer_civilStatus');
             $table->string('customer_contactNo', 11);
             $table->longText('customer_facebookURL');
-            $table->foreign('agent_name')->references('agent_name')->on('Agents');
+            $table->foreign('agent_name')
+                ->references('agent_name')
+                ->on('Agents')
+                ->cascadeOnUpdate();
         });
 
         /*

@@ -17,7 +17,7 @@
         </div>
         <div class="form-row">
             <label for="form-motorcycle-name">Name:</label>
-            <input type="text" id="form-motorcycle-name" name="name" value="{{$data['motor_name']}}">
+            <input type="text" id="form-motorcycle-name" name="name" value="{{$data['motor_model']}}">
         </div>
         <div class="form-row">
             <label for="form-motorcycle-type">Type:</label>

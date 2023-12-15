@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reserved extends Model
+class Released extends Model
 {
     use HasFactory;
-
-    protected $table = 'reserved_vehicles';
-    protected $primaryKey = 'reserved_id';
+    protected $table = 'released';
+    protected $keyType = 'string';
     public $timestamps = false;
 
     protected $fillable = [
-        'vehicle_type',
-        'vehicle_plateNo',
-        'customer_name',
         'pretrip_ID',
-        'reserved_reservationDate'
+        'vehicle_plateNo',
+        'vehicle_model',
+        'vehicle_type',
+        'customer_name',
+        'pretrip_dateend'
     ];
 }

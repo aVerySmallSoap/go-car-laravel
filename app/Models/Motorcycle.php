@@ -18,7 +18,7 @@ class Motorcycle extends Model
 
     protected $fillable = [
         'motor_plateNo',
-        'motor_name',
+        'motor_model',
         'motor_type',
         'motor_color',
         'motor_isAvailable',

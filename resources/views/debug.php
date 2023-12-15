@@ -5,9 +5,9 @@ date_default_timezone_set('Asia/Manila');
 
 $some_value = 10;
 $now = date_create();
-echo 'Now: '.$now->format('Y-m-d H:i:s').'<br>';
-$final = date_create('2023-12-14 6:0:0');
-echo 'End: '.$final->format('Y-m-d H:i:s').'<br>';
+echo 'Now: '.$now->format('Y-m-d h:i:s A').'<br>';
+$final = date_create('2023-12-11 12:00:00');
+echo 'End: '.$final->format('Y-m-d h:i:s A').'<br>';
 $calc = round(
     ((strtotime($final->format('Y-m-d H:i:s')) - strtotime($now->format('Y-m-d H:i:s')))
         /3600));

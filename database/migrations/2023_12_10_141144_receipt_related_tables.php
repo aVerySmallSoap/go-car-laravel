@@ -31,10 +31,12 @@ return new class extends Migration
             $table->dateTime('pretrip_createdAt')->index('pretrip_createdAt_index');
             $table->foreign('agent_name', 'FK_pretrip_agent_name')
                 ->references('agent_name')
-                ->on('agents');
+                ->on('agents')
+                ->cascadeOnUpdate();
             $table->foreign('customer_name', 'FK_pretrip_customer_name')
                 ->references('customer_name')
-                ->on('customers');
+                ->on('customers')
+                ->cascadeOnUpdate();
         });
         Schema::create('reserved_vehicles', function (Blueprint $table){
             $table->id('reserved_ID');
@@ -45,13 +47,30 @@ return new class extends Migration
             $table->dateTime('reserved_reservationDate');
             $table->foreign('customer_name', 'FK_reserved_customer_name')
                 ->references('customer_name')
-                ->on('customers');
-            $table->foreign('pretrip_ID')
+                ->on('customers')
+                ->cascadeOnUpdate();
+            $table->foreign('pretrip_ID', 'FK_reserved_pretrip_ID')
                 ->references('pretrip_ID')
-                ->on('pretripreceipts');
+                ->on('pretripreceipts')
+                ->cascadeOnUpdate();
             $table->foreign('reserved_reservationDate', 'FK_reserved_pretrip_createdAt')
                 ->references('pretrip_createdAt')
-                ->on('pretripreceipts');
+                ->on('pretripreceipts')
+                ->cascadeOnUpdate();
+        });
+
+        Schema::create('extensions', function (Blueprint $table){
+            $table->ulid('extension_ID');
+            $table->unsignedBigInteger('pretrip_ID');
+            $table->string('vehicle_type');
+            $table->string('vehicle_plateNo');
+            $table->dateTime('extension_originalEndDateTime');
+            $table->dateTime('extension_extendedDateTime');
+            $table->double('extension_cost');
+            $table->foreign('pretrip_ID', 'FK_extension_pretrip_ID')
+                ->references('pretrip_ID')
+                ->on('pretripreceipts')
+                ->cascadeOnUpdate();
         });
     }
 
@@ -60,8 +79,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('extensions');
+        Schema::dropIfExists('reserved_vehicles');
         Schema::dropIfExists('pretripReceipts');
-        Schema::dropIfExists('Agents');
+        Schema::dropIfExists('released');
         Schema::dropIfExists('Customers');
+        Schema::dropIfExists('Agents');
     }
 };

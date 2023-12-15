@@ -3,12 +3,14 @@
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DispatchController;
 use App\Http\Controllers\LeaserController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\MotorcycleController;
+use App\Models\Released;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,5 +82,12 @@ Route::get('/generate/pre-trip', [ReceiptController::class, 'genPreTripReceipt']
 Route::get('/receipts/pre-trip', [ReceiptController::class, 'viewPreTripReceipts'])->name('pre-trip.display');
 Route::post('/generate/pre-trip/store', [ReceiptController::class, 'generatePreTrip'])->name('generators.pre-trip.store');
 
-// momo
+//Reservation
 Route::get('/reserved', [ReservationController::class, 'fetchAll']);
+Route::get('/reserved/release/{receiptID}/{type}/{plateNo}', [ReservationController::class, 'push']);
+Route::get('/reserved/delete/{receiptID}/{type}/{plateNo}', [ReservationController::class, 'destroy']);
+
+//Monitoring
+Route::get('/released', [DispatchController::class, 'fetchAll']);
+Route::get('/released/extend/{pretrip}/{type}/{date}', [DispatchController::class, 'fetchExtend']);
+Route::get('/released/extend', [DispatchController::class, 'extend']);
