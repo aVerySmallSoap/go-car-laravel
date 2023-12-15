@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Extension;
 use App\Models\PreTripReceipt;
 use App\Models\Released;
 use Illuminate\Http\Request;
@@ -13,16 +14,34 @@ class DispatchController extends Controller
         return view('vehicles.released.display', ['data' => Released::all()]);
     }
 
-    public function fetchExtend(string $receipt, string $type, string $date): View{
+    public function fetchExtend(string $id, string $receipt, string $type): View{
         $cost = ($type == 'Car') ? 200:80;
         return view('vehicles.released.extend',
-            ['data' => PreTripReceipt::findOrFail($receipt),
-                'type' => $type,
-                'cost' => $cost,
-                'date' => $date]);
+            ['data' => PreTripReceipt::findOrFail($receipt), 'cost' => $cost, 'ulid' => $id]);
     }
 
     public function extend(Request $request){
-        dd($request->all());
+        $data = $request->all();
+        Extension::create([
+            'pretrip_ID' => $data['id'],
+            'released_ID' => $data['ulid'],
+            'vehicle_type' => $data['type'],
+            'vehicle_plateNo' => $data['plateNo'],
+            'extension_originalEndDateTime' => $data['original-date'],
+            'extension_extendedDateTime' => $data['new-date'],
+            'extension_cost' => $data['cost']
+        ]);
+        PreTripReceipt::where('pretrip_ID', $data['id'])
+            ->update(['pretrip_dateend' => $data['new-date']]);
+        Released::where('pretrip_ID', $data['id'])
+            ->update(['pretrip_dateend' => $data['new-date']]);
+        return response()->json(['type' => 'success']);
+    }
+
+    public function returnVehicle(string $receipt){
+        //generate post-trip receipt;
+        //merge data from pre- and post-receipts to create a single receipt;
+        //remove pre- and post-receipts,
+        dd(PreTripReceipt::findOrFail($receipt));
     }
 }

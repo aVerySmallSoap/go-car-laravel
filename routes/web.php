@@ -89,5 +89,6 @@ Route::get('/reserved/delete/{receiptID}/{type}/{plateNo}', [ReservationControll
 
 //Monitoring
 Route::get('/released', [DispatchController::class, 'fetchAll']);
-Route::get('/released/extend/{pretrip}/{type}/{date}', [DispatchController::class, 'fetchExtend']);
-Route::get('/released/extend', [DispatchController::class, 'extend']);
+Route::get('/released/extend/{ulid}/{pretrip}/{type}/{date}', [DispatchController::class, 'fetchExtend']);
+Route::post('/released/extend', [DispatchController::class, 'extend']);
+Route::post('/released/return/{pretrip}', [DispatchController::class, 'returnVehicle']);

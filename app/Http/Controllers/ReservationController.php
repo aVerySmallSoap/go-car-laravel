@@ -59,5 +59,6 @@ class ReservationController extends Controller{
             'customer_name' => $receipt['customer_name'],
             'pretrip_dateend' => $receipt['pretrip_dateend']
         ]);
+        Reserved::where('pretrip_ID', $receipt)->delete();
     }
 }

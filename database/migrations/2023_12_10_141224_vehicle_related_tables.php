@@ -47,18 +47,7 @@ return new class extends Migration
                 ->cascadeOnUpdate();
         });
 
-        Schema::create('released', function (Blueprint $table){
-            $table->unsignedBigInteger('pretrip_ID')->unique();
-            $table->string('vehicle_plateNo');
-            $table->string('vehicle_model');
-            $table->string('vehicle_type');
-            $table->string('customer_name');
-            $table->dateTime('pretrip_dateend');
-            $table->foreign('customer_name', 'FK_released_customer_name')
-                ->references('customer_name')
-                ->on('customers')
-                ->cascadeOnUpdate();
-        });
+
     }
 
     /**

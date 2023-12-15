@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Released extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
     protected $table = 'released';
-    protected $keyType = 'string';
+    protected $primaryKey = 'released_ID';
+    protected $keyType = 'char';
     public $timestamps = false;
 
     protected $fillable = [

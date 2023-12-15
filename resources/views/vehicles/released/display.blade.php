@@ -15,6 +15,7 @@
     <table>
         <thead>
         <tr>
+            <th>ID</th>
             <th>Pretrip ID</th>
             <th>Plate Number</th>
             <th>Model</th>
@@ -26,6 +27,7 @@
         <tbody>
         @foreach($data as $element)
             <tr>
+                <td>{{$element->released_ID}}</td>
                 <td>{{$element->pretrip_ID}}</td>
                 <td>{{$element->vehicle_plateNo}}</td>
                 <td>{{$element->vehicle_model}}</td>
@@ -33,15 +35,16 @@
                 <td>{{date_create($element->pretrip_dateend)->format('Y-m-d h:i:s A')}}</td>
                 <td>
                     <form method="POST">
+                        @csrf
                         {{--Receive all details about released vehicle--}}
                         <button type="submit" formmethod="get" formaction=
                             "">
                             Details</button>
                         <button type="submit" formmethod="get" formaction=
-                            "/released/extend/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->pretrip_dateend}}">
+                            "/released/extend/{{$element->released_ID}}/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->pretrip_dateend}}">
                             Extend</button>
-                        <button type="submit" formmethod="get" formaction=
-                            "">
+                        <button type="submit" formmethod="post" formaction=
+                            "/released/return/{{$element->pretrip_ID}}">
                             Return</button>
                     </form>
                 </td>

@@ -16,6 +16,7 @@ class Extension extends Model
 
     protected $fillable = [
         'pretrip_ID',
+        'released_ID',
         'vehicle_type',
         'vehicle_plateNo',
         'extension_originalEndDateTime',

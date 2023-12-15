@@ -59,8 +59,23 @@ return new class extends Migration
                 ->cascadeOnUpdate();
         });
 
+        Schema::create('released', function (Blueprint $table){
+            $table->ulid('released_ID')->primary();
+            $table->unsignedBigInteger('pretrip_ID');
+            $table->string('vehicle_plateNo');
+            $table->string('vehicle_model');
+            $table->string('vehicle_type');
+            $table->string('customer_name');
+            $table->dateTime('pretrip_dateend');
+            $table->foreign('customer_name', 'FK_released_customer_name')
+                ->references('customer_name')
+                ->on('customers')
+                ->cascadeOnUpdate();
+        });
+
         Schema::create('extensions', function (Blueprint $table){
-            $table->ulid('extension_ID');
+            $table->ulid('extension_ID')->primary();
+            $table->ulid('released_ID');
             $table->unsignedBigInteger('pretrip_ID');
             $table->string('vehicle_type');
             $table->string('vehicle_plateNo');
@@ -71,6 +86,9 @@ return new class extends Migration
                 ->references('pretrip_ID')
                 ->on('pretripreceipts')
                 ->cascadeOnUpdate();
+            $table->foreign('released_ID', 'FK_extension_released_ID')
+                ->references('released_ID')
+                ->on('released');
         });
     }
 
@@ -80,6 +98,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('extensions');
+        Schema::dropIfExists('released');
         Schema::dropIfExists('reserved_vehicles');
         Schema::dropIfExists('pretripReceipts');
         Schema::dropIfExists('released');
