@@ -83,6 +83,7 @@ return new class extends Migration
             $table->dateTime('extension_originalEndDateTime');
             $table->dateTime('extension_extendedDateTime');
             $table->double('extension_cost');
+            $table->dateTime('extension_createdAt')->index('extension_createdAt_index');
             $table->foreign('pretrip_ID', 'FK_extension_pretrip_ID')
                 ->references('pretrip_ID')
                 ->on('pretripreceipts')
@@ -104,6 +105,7 @@ return new class extends Migration
             $table->double('posttrip_total')
                 ->nullable(false)
                 ->default(0);
+            $table->dateTime('posttrip_createdAt')->index('posttrip_createdAt_index');
             $table->foreign('pretrip_ID', 'FK_posttrip_pretrip_ID')
                 ->references('pretrip_ID')
                 ->on('pretripreceipts')

@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\PostTripReceipt;
 use App\Models\PreTripReceipt;
 use App\Models\Reserved;
+use DateTime;
 use DateTimeZone;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,8 +28,11 @@ class ReceiptController extends Controller
         ]);
     }
 
-    public function genReceipt(string $posttrip){
-        return view('', ['post_trip' => $posttrip]);
+    public function genReceipt(string $posttrip): View{
+        $post_trip = PostTripReceipt::where('pretrip_ID', $posttrip)->get()->first()->attributesToArray();
+        $pre_trip = PreTripReceipt::where('pretrip_ID', $post_trip['pretrip_ID'])->get()->first()->attributesToArray();
+        $debt = $this->generateHourlyDebt($pre_trip['pretrip_dateend'], $post_trip['posttrip_returnDate']);
+        return view('generators.receipt', ['post_trip' => $post_trip, 'pretrip' => $pre_trip, 'debt' => $debt]);
     }
 
     public function viewPreTripReceipts(): View{
@@ -79,7 +83,7 @@ class ReceiptController extends Controller
         return response()->json(['type'=>'success']);
     }
 
-    public function generatePostTrip(Request $request){
+    public function generatePostTrip(Request $request): JsonResponse{
         $input = $request->all();
         $gas_calc = ($input['gas'] < $input['initial-gas']) ?
             (($input['initial-gas'] - $input['gas']) * $input['gas-price']) : 0;
@@ -95,5 +99,16 @@ class ReceiptController extends Controller
             'posttrip_total' => $total
         ]);
         return response()->json(['type' => 'success']);
+    }
+
+    public function generateReceipt(){
+
+    }
+
+    private function generateHourlyDebt(DateTime|string $date1, DateTime|string $date2){
+        $debt = round((
+            (strtotime($date1) - strtotime($date2)) / 3600
+        ));
+        return ((($debt < 0) ? abs($debt):0) * 25);
     }
 }

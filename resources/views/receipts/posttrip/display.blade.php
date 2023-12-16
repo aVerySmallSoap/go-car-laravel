@@ -34,7 +34,7 @@
                 @endforeach
                 <td>
                     <form>
-                        <button type="submit" formmethod="get" formaction="">
+                        <button type="submit" formmethod="get" formaction="/generate/receipt/{{$element['pretrip_ID']}}">
                             Generate a receipt
                         </button>
                         <button type="submit" formmethod="get" formaction="">

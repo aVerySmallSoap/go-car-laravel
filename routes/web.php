@@ -88,7 +88,7 @@ Route::get('/receipts/post-trip', [ReceiptController::class, 'viewPostTripReceip
 Route::post('/generate/post-trip/store', [ReceiptController::class, 'generatePostTrip']);
 
 //Receipt
-
+Route::get('/generate/receipt/{posttrip}', [ReceiptController::class, 'genReceipt']);
 
 //Reservation
 Route::get('/reserved', [ReservationController::class, 'fetchAll']);
