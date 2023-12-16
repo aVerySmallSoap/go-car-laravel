@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Extension;
 use App\Models\PostTripReceipt;
 use App\Models\PreTripReceipt;
 use App\Models\Reserved;
@@ -32,7 +33,13 @@ class ReceiptController extends Controller
         $post_trip = PostTripReceipt::where('pretrip_ID', $posttrip)->get()->first()->attributesToArray();
         $pre_trip = PreTripReceipt::where('pretrip_ID', $post_trip['pretrip_ID'])->get()->first()->attributesToArray();
         $debt = $this->generateHourlyDebt($pre_trip['pretrip_dateend'], $post_trip['posttrip_returnDate']);
-        return view('generators.receipt', ['post_trip' => $post_trip, 'pretrip' => $pre_trip, 'debt' => $debt]);
+        $extensions = Extension::where('pretrip_ID', $pre_trip['pretrip_ID'])->get();
+        return view('generators.receipt', [
+            'post_trip' => $post_trip,
+            'pretrip' => $pre_trip,
+            'debt' => $debt,
+            'extensions' => $extensions
+            ]);
     }
 
     public function viewPreTripReceipts(): View{
@@ -105,7 +112,7 @@ class ReceiptController extends Controller
 
     }
 
-    private function generateHourlyDebt(DateTime|string $date1, DateTime|string $date2){
+    private function generateHourlyDebt(DateTime|string $date1, DateTime|string $date2): float|int {
         $debt = round((
             (strtotime($date1) - strtotime($date2)) / 3600
         ));

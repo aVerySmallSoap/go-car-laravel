@@ -64,7 +64,30 @@
 </div>
 <hr>
 <h4>Details</h4>
-@dd($debt)
+<div class="container">
+    <div class="span-row">
+        <span>Name:</span>
+        <span>{{$pretrip['customer_name']}}</span>
+    </div>
+    <div class="span-row">
+        <span>Agent:</span>
+        <span>{{$pretrip['agent_name']}}</span>
+    </div>
+    <div class="span-row">
+        <span>Location:</span>
+        <span>{{$pretrip['pretrip_destination']}}</span>
+    </div>
+    <div class="span-row">
+        <span>Vehicle:</span>
+        <span>{{$pretrip['vehicle_plateNo']}}</span>
+    </div>
+    <div class="span-row">
+        <span>Location:</span>
+        <span>{{$pretrip['pretrip_destination']}}</span>
+    </div>
+</div>
+@php(var_dump(empty($extensions->all())) )
+@dd($extensions)
 
 </body>
 </html>
