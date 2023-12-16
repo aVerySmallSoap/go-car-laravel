@@ -116,7 +116,10 @@ class ReceiptController extends Controller
             'posttrip_total' => $total,
             'posttrip_createdAt' => $requestDate
         ]);
-        return response()->json(['type' => 'success']);
+        $receipt = PostTripReceipt::select(['pretrip_ID as id'])
+            ->where('pretrip_ID', $input['pretrip'])
+            ->get()->first()->attributesToArray();
+        return response()->json(['type' => 'success', 'id' => $receipt['id']]);
     }
 
     public function generateReceipt(Request $request){

@@ -148,10 +148,10 @@ return new class extends Migration
             $table->foreign('posttrip_ID')
                 ->references('posttrip_ID')
                 ->on('posttripreceipts');
-            $table->foreign('agent_name', 'FK_posttrip_agent_name')
+            $table->foreign('agent_name', 'FK_receipts_agent_name')
                 ->references('agent_name')
                 ->on('agents');
-            $table->foreign('customer_name', 'FK_posttrip_customer_name')
+            $table->foreign('customer_name', 'FK_receipts_customer_name')
                 ->references('customer_name')
                 ->on('customers');
         });

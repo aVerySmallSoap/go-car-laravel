@@ -14,4 +14,8 @@ document.querySelector("#form-post-receipt").addEventListener("submit", e => {
     xhr.setRequestHeader("X-CSRF-TOKEN", document.querySelector("meta[name=csrf_token]").getAttribute('content'));
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     xhr.send(formData);
+    xhr.onload = function (){
+        let res = JSON.parse(xhr.response);
+        if(res.type === 'success') {window.location.href = `/generate/receipt/${res.id}`}
+    }
 });

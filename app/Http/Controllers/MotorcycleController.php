@@ -39,7 +39,7 @@ class MotorcycleController extends Controller
                 'motor_type' => $validated['type'],
                 'motor_color' => $validated['color'],
                 'motor_isAvailable' => $validated['availability'],
-                'motor_rentPrice' => $validated['rentPrice'],
+                'motor_rentPrice' => $validated['rent'],
                 'leaser_name' => $validated['leaser']
             ]);
         return response()->json(['Message' => 'Car successfully updated!']);

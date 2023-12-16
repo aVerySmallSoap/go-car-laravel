@@ -16,8 +16,8 @@
             <input type="text" id="form-motorcycle-plateNo" name="plateNo" value="{{$data['motor_plateNo']}}" readonly>
         </div>
         <div class="form-row">
-            <label for="form-motorcycle-name">Name:</label>
-            <input type="text" id="form-motorcycle-name" name="name" value="{{$data['motor_model']}}">
+            <label for="form-motorcycle-model">Model:</label>
+            <input type="text" id="form-motorcycle-model" name="model" value="{{$data['motor_model']}}">
         </div>
         <div class="form-row">
             <label for="form-motorcycle-type">Type:</label>
@@ -30,9 +30,13 @@
         <div class="form-row">
             <label>Availability:</label>
             <label for="form-motorcycle-availability-true">True</label>
-            <input type="radio" id="form-motorcycle-availability-true" name="availability" value="1">
-            <label for="form-car-availability-false">False</label>
+            <input type="radio" id="form-motorcycle-availability-true" name="availability" value="1" checked>
+            <label for="form-motorcycle-availability-false">False</label>
             <input type="radio" id="form-motorcycle-availability-false" name="availability" value="0">
+        </div>
+        <div class="form-row">
+            <label for="form-motorcycle-rent">Rent price:</label>
+            <input type="number" id="form-motorcycle-rent" name="rent" value="{{$data['motor_rentPrice']}}">
         </div>
         <div class="form-row">
             <label for="form-motorcycle-leaser">Leaser:</label>

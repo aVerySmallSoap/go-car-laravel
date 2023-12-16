@@ -27,7 +27,7 @@ class CarMotorRequest extends FormRequest
             'type' => 'required',
             'color' => 'required',
             'availability' => 'required|boolean',
-            'rentPrice' => 'required|integer',
+            'rent' => 'required|integer',
             'leaser' => 'required|exists:leasers,leaser_name'
         ];
     }

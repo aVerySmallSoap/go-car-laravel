@@ -60,5 +60,6 @@ class ReservationController extends Controller{
             'pretrip_dateend' => $receipt['pretrip_dateend']
         ]);
         Reserved::where('pretrip_ID', $receipt)->delete();
+        return response()->redirectToRoute('/released');
     }
 }

@@ -37,7 +37,7 @@ class CarController extends Controller
                 'car_type' => $validated['type'],
                 'car_color' => $validated['color'],
                 'car_isAvailable' => $validated['availability'],
-                'car_rentPrice' => $validated['rent-price'],
+                'car_rentPrice' => $validated['rent'],
                 'leaser_name' => $validated['leaser']
             ]);
         return response()->json(['Message' => 'Car successfully updated!']);
