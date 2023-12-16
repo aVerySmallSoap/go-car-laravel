@@ -19,29 +19,37 @@
 <div class="container">
     <div class="span-row">
         <span>Pre-trip ID:</span>
-        <span>{{$pretrip['pretrip_ID']}}</span>
+        <span data-mark-important data-mark-label="pretrip-id" data-value="{{$pretrip['pretrip_ID']}}">
+            {{$pretrip['pretrip_ID']}}
+        </span>
     </div>
     <div class="span-row">
         <span>Initial Fuel Levels:</span>
-        <span>{{$pretrip['pretrip_initialGas']}}</span>
+        <span data-mark-important data-mark-label="pretrip-initial-gas" data-value="{{$pretrip['pretrip_initialGas']}}">
+            {{$pretrip['pretrip_initialGas']}}
+        </span
     </div>
     <div class="span-row">
         <span>Fuel Requested:</span>
-        <span>{{$pretrip['pretrip_requestGasLiters']}}</span>
+        <span data-mark-important data-mark-label="pretrip-request-gas" data-value="{{$pretrip['pretrip_requestGasLiters']}}">
+            {{$pretrip['pretrip_requestGasLiters']}}
+        </span>
     </div>
     <div class="span-row">
         <span>Fuel Price:</span>
-        <span>{{$pretrip['pretrip_requestGasPrice']}}</span>
+        <span data-mark-important data-mark-label="pretrip-request-gas-price" data-value="{{$pretrip['pretrip_requestGasLiters']}}">
+            {{$pretrip['pretrip_requestGasPrice']}}
+        </span>
     </div>
     <div class="span-row">
         <span>Requested with car wash:</span>
-        <span>
+        <span data-mark-important data-mark-label="pretrip-request-wash" data-value="{{$pretrip['pretrip_requestWash']}}">
             {{($pretrip['pretrip_requestWash'] == 1) ? "YES": "NO"}}
         </span>
     </div>
     <div class="span-row">
         <span>Requested with helmet:</span>
-        <span>
+        <span data-mark-important data-mark-label="pretrip-request-helmet" data-value="{{$pretrip['pretrip_requestHelmet']}}">
             {{($pretrip['pretrip_requestHelmet'] == 1) ? "YES": "NO"}}
         </span>
     </div>
@@ -51,43 +59,92 @@
 <div class="container">
     <div class="span-row">
         <span>Post-trip ID:</span>
-        <span>{{$post_trip['posttrip_ID']}}</span>
+        <span data-mark-important data-mark-label="posttrip-id" data-value="{{$post_trip['posttrip_ID']}}">
+            {{$post_trip['posttrip_ID']}}
+        </span>
     </div>
     <div class="span-row">
         <span>Fuel Level on return:</span>
-        <span>{{$post_trip['posttrip_gasBar']}}</span>
+        <span data-mark-important data-mark-label="posttrip-gas" data-value="{{$post_trip['posttrip_gasBar']}}">
+            {{$post_trip['posttrip_gasBar']}}
+        </span>
     </div>
     <div class="span-row">
         <span>Damages/Optionals Costs:</span>
-        <span>{{$post_trip['posttrip_optionalCost']}}</span>
+        <span data-mark-important data-mark-label="posttrip-optional" data-value="{{$post_trip['posttrip_optionalCost']}}">
+            {{$post_trip['posttrip_optionalCost']}}
+        </span>
     </div>
 </div>
 <hr>
-<h4>Details</h4>
+<h4>Information</h4>
 <div class="container">
     <div class="span-row">
         <span>Name:</span>
-        <span>{{$pretrip['customer_name']}}</span>
+        <span data-mark-important data-mark-label="customer" data-value="{{$pretrip['customer_name']}}">
+            {{$pretrip['customer_name']}}
+        </span>
     </div>
     <div class="span-row">
         <span>Agent:</span>
-        <span>{{$pretrip['agent_name']}}</span>
+        <span data-mark-important data-mark-label="agent" data-value="{{$pretrip['agent_name']}}">
+            {{$pretrip['agent_name']}}
+        </span>
     </div>
     <div class="span-row">
         <span>Location:</span>
-        <span>{{$pretrip['pretrip_destination']}}</span>
+        <span data-mark-important data-mark-label="pretrip-destination" data-value="{{$pretrip['pretrip_destination']}}">
+            {{$pretrip['pretrip_destination']}}
+        </span>
     </div>
     <div class="span-row">
         <span>Vehicle:</span>
-        <span>{{$pretrip['vehicle_plateNo']}}</span>
+        <span data-mark-important data-mark-label="vehicle-type" data-value="{{$pretrip['vehicle_type']}}">
+            {{$pretrip['vehicle_type']}}
+        </span>
     </div>
     <div class="span-row">
-        <span>Location:</span>
-        <span>{{$pretrip['pretrip_destination']}}</span>
+        <span>Vehicle:</span>
+        <span data-mark-important data-mark-label="vehicle-plateNo" data-value="{{$pretrip['vehicle_plateNo']}}">
+            {{$pretrip['vehicle_plateNo']}}
+        </span>
     </div>
+    <div class="span-row">
+        <span>Return due:</span>
+        <span data-mark-important data-mark-label="pretrip-date-end" data-value="{{$pretrip['pretrip_dateend']}}">
+            {{date_create($pretrip['pretrip_dateend'])->format('Y-m-d h:i:s A')}}
+        </span>
+    </div>
+    <div class="span-row">
+        <span>Return date:</span>
+        <span data-mark-important data-mark-label="posttrip-return-date" data-value="{{$post_trip['posttrip_returnDate']}}">
+            {{date_create($post_trip['posttrip_returnDate'])->format('Y-m-d h:i:s A')}}
+        </span>
+    </div>
+    <div class="span-row">
+        <span>Hour deficit:</span>
+        <span data-mark-important data-mark-label="receipt-hours" data-value="{{$hours}}">
+            {{$hours}}
+        </span>
+    </div>
+    <div class="span-row">
+        <span>Deficit cost:</span>
+        <span data-mark-important data-mark-label="receipt-hours-cost" data-value="{{$costByHour}}">
+            {{$costByHour}}
+        </span>
+    </div>
+    <div class="span-row">
+        <span>Total:</span>
+        <span data-mark-important data-mark-label="receipt-total" data-value="{{$total}}">
+            {{$total}}
+        </span>
+    </div>
+    <form id="form-receipt">
+        <button type="submit">Generate</button>
+    </form>
 </div>
-@php(var_dump(empty($extensions->all())) )
-@dd($extensions)
+
+<script src="{{asset('/js/generators/receipt/sendFormRequest.js')}}"></script>
 
 </body>
 </html>

@@ -119,6 +119,42 @@ return new class extends Migration
                 ->on('customers')
                 ->cascadeOnUpdate();
         });
+
+        Schema::create('receipts', function(Blueprint $table){
+            $table->ulid('receipt_ID')->primary();
+            $table->unsignedBigInteger('pretrip_ID');
+            $table->unsignedBigInteger('posttrip_ID');
+            $table->integer('pretrip_initialGas');
+            $table->integer('pretrip_requestGasLiters');
+            $table->integer('pretrip_requestGasPrice');
+            $table->boolean('pretrip_requestWash');
+            $table->boolean('pretrip_requestHelmet');
+            $table->integer('posttrip_gasBar');
+            $table->boolean('posttrip_optionalCost');
+            $table->string('customer_name');
+            $table->string('agent_name');
+            $table->string('pretrip_destination');
+            $table->string('vehicle_type');
+            $table->string('vehicle_plateNo');
+            $table->dateTime('pretrip_dateend');
+            $table->dateTime('posttrip_returnDate');
+            $table->integer('receipt_hourDeficit');
+            $table->double('receipt_hourCostDeficit');
+            $table->double('receipt_total');
+            $table->dateTime('receipt_createdAt');
+            $table->foreign('pretrip_ID')
+                ->references('pretrip_ID')
+                ->on('pretripreceipts');
+            $table->foreign('posttrip_ID')
+                ->references('posttrip_ID')
+                ->on('posttripreceipts');
+            $table->foreign('agent_name', 'FK_posttrip_agent_name')
+                ->references('agent_name')
+                ->on('agents');
+            $table->foreign('customer_name', 'FK_posttrip_customer_name')
+                ->references('customer_name')
+                ->on('customers');
+        });
     }
 
     /**

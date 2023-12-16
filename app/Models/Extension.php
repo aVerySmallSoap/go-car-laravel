@@ -22,7 +22,8 @@ class Extension extends Model
         'vehicle_plateNo',
         'extension_originalEndDateTime',
         'extension_extendedDateTime',
-        'extension_cost'
+        'extension_cost',
+        'extension_createdAt'
     ];
 
     protected $guarded = [

@@ -23,6 +23,7 @@
             <th>Comments</th>
             <th>Optional Costs</th>
             <th>Total</th>
+            <th>Created At</th>
             <th>Actions</th>
         </tr>
         </thead>

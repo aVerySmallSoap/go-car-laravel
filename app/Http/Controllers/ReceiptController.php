@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Extension;
+use App\Models\Motorcycle;
 use App\Models\PostTripReceipt;
 use App\Models\PreTripReceipt;
+use App\Models\Receipt;
 use App\Models\Reserved;
 use DateTime;
 use DateTimeZone;
@@ -32,13 +35,18 @@ class ReceiptController extends Controller
     public function genReceipt(string $posttrip): View{
         $post_trip = PostTripReceipt::where('pretrip_ID', $posttrip)->get()->first()->attributesToArray();
         $pre_trip = PreTripReceipt::where('pretrip_ID', $post_trip['pretrip_ID'])->get()->first()->attributesToArray();
-        $debt = $this->generateHourlyDebt($pre_trip['pretrip_dateend'], $post_trip['posttrip_returnDate']);
-        $extensions = Extension::where('pretrip_ID', $pre_trip['pretrip_ID'])->get();
+        $hours = ($this->time_diff($pre_trip['pretrip_dateend'], $post_trip['posttrip_returnDate']) < 0) ?
+                $this->time_diff($pre_trip['pretrip_dateend'], $post_trip['posttrip_returnDate']):0;
+        $costByHour = $this->calculateHourlyDebt($pre_trip['pretrip_dateend'], $post_trip['posttrip_returnDate']);
+        $costByExtension = $this->calculateExtensionTotal($pre_trip['pretrip_ID']);
+        $total = $pre_trip['pretrip_total'] + $post_trip['posttrip_total'] + $costByHour + $costByExtension;
         return view('generators.receipt', [
             'post_trip' => $post_trip,
             'pretrip' => $pre_trip,
-            'debt' => $debt,
-            'extensions' => $extensions
+            'costByHour' => $costByHour,
+            'extensions' => $costByExtension,
+            'hours' => $hours,
+            'total' => $total
             ]);
     }
 
@@ -91,6 +99,8 @@ class ReceiptController extends Controller
     }
 
     public function generatePostTrip(Request $request): JsonResponse{
+        $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
+            ->format('Y-m-d H:i:s');
         $input = $request->all();
         $gas_calc = ($input['gas'] < $input['initial-gas']) ?
             (($input['initial-gas'] - $input['gas']) * $input['gas-price']) : 0;
@@ -103,19 +113,67 @@ class ReceiptController extends Controller
             'posttrip_gasBar'  => $input['gas'],
             'posttrip_damageReport' => $input['comment'],
             'posttrip_optionalCost' => $input['optional-cost'],
-            'posttrip_total' => $total
+            'posttrip_total' => $total,
+            'posttrip_createdAt' => $requestDate
         ]);
         return response()->json(['type' => 'success']);
     }
 
-    public function generateReceipt(){
-
+    public function generateReceipt(Request $request){
+        $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
+            ->format('Y-m-d H:i:s');
+        $input = $request->all();
+        switch ($input['vehicle-type']){
+            case 'Car':
+                Car::where('car_plateNo', $input['vehicle-plateNo'])
+                    ->update(['car_isAvailable' => 1]);
+                break;
+            case 'Motorcycle':
+                Motorcycle::where('motor_plateNo', $input['vehicle-plateNo'])
+                    ->update(['motor_isAvailable' => 1]);
+                break;
+            default:
+                return response()->json(['type' => 'error', 'message' => 'no such thing']);
+        }
+        Receipt::create([
+            'pretrip_ID' => $input['pretrip-id'],
+            'posttrip_ID' => $input['posttrip-id'],
+            'pretrip_initialGas' => $input['pretrip-initial-gas'],
+            'pretrip_requestGasLiters' => $input['pretrip-request-gas'],
+            'pretrip_requestGasPrice' => $input['pretrip-request-gas-price'],
+            'pretrip_requestWash' => $input['pretrip-request-wash'],
+            'pretrip_requestHelmet' => $input['pretrip-request-helmet'],
+            'posttrip_gasBar' => $input['posttrip-gas'],
+            'posttrip_optionalCost' => $input['posttrip-optional'],
+            'customer_name' => $input['customer'],
+            'agent_name' => $input['agent'],
+            'pretrip_destination' => $input['pretrip-destination'],
+            'vehicle_type' => $input['vehicle-type'],
+            'vehicle_plateNo' => $input['vehicle-plateNo'],
+            'pretrip_dateend' => $input['pretrip-date-end'],
+            'posttrip_returnDate' => $input['posttrip-return-date'],
+            'receipt_hourDeficit' => $input['receipt-hours'],
+            'receipt_hourCostDeficit' => $input['receipt-hours-cost'],
+            'receipt_total' => $input['receipt-total'],
+            'receipt_createdAt' => $requestDate
+        ]);
+        return response()->json(['type' => 'success']);
     }
 
-    private function generateHourlyDebt(DateTime|string $date1, DateTime|string $date2): float|int {
-        $debt = round((
+    private function calculateHourlyDebt(DateTime|string $date1, DateTime|string $date2): float|int {
+        $debt = $this->time_diff($date1, $date2);
+        return ((($debt < 0) ? abs($debt):0) * 25);
+    }
+
+    private function time_diff(DateTime|string $date1, DateTime|string $date2): float|int{
+        return round((
             (strtotime($date1) - strtotime($date2)) / 3600
         ));
-        return ((($debt < 0) ? abs($debt):0) * 25);
+    }
+
+    private function calculateExtensionTotal(string $pretrip){
+        $data = Extension::selectRaw('sum(extension_cost) as total')
+            ->where('pretrip_ID', $pretrip)->get()->first()->attributesToArray()['total'];
+        return $data;
     }
 }

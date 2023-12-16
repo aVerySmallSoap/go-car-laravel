@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Extension;
 use App\Models\PreTripReceipt;
 use App\Models\Released;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -21,6 +22,8 @@ class DispatchController extends Controller
     }
 
     public function extend(Request $request){
+        $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
+            ->format('Y-m-d H:i:s');
         $data = $request->all();
         Extension::create([
             'pretrip_ID' => $data['id'],
@@ -29,7 +32,8 @@ class DispatchController extends Controller
             'vehicle_plateNo' => $data['plateNo'],
             'extension_originalEndDateTime' => $data['original-date'],
             'extension_extendedDateTime' => $data['new-date'],
-            'extension_cost' => $data['cost']
+            'extension_cost' => $data['cost'],
+            'extension_createdAt' => $requestDate
         ]);
         PreTripReceipt::where('pretrip_ID', $data['id'])
             ->update(['pretrip_dateend' => $data['new-date']]);

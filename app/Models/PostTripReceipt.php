@@ -21,7 +21,8 @@ class PostTripReceipt extends Model
         'posttrip_gasBar',
         'posttrip_damageReport',
         'posttrip_optionalCost',
-        'posttrip_total'
+        'posttrip_total',
+        'posttrip_createdAt'
     ];
 
     protected $guarded = [
