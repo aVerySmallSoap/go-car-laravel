@@ -38,6 +38,7 @@ return new class extends Migration
                 ->on('customers')
                 ->cascadeOnUpdate();
         });
+
         Schema::create('reserved_vehicles', function (Blueprint $table){
             $table->id('reserved_ID');
             $table->string('vehicle_type');
@@ -89,6 +90,32 @@ return new class extends Migration
             $table->foreign('released_ID', 'FK_extension_released_ID')
                 ->references('released_ID')
                 ->on('released');
+        });
+
+        Schema::create('posttripReceipts', function (Blueprint $table){
+            $table->id('posttrip_ID');
+            $table->unsignedBigInteger('pretrip_ID');
+            $table->string('agent_name');
+            $table->string('customer_name');
+            $table->dateTime('posttrip_returnDate');
+            $table->integer('posttrip_gasBar');
+            $table->longText('posttrip_damageReport');
+            $table->float('posttrip_optionalCost');
+            $table->double('posttrip_total')
+                ->nullable(false)
+                ->default(0);
+            $table->foreign('pretrip_ID', 'FK_posttrip_pretrip_ID')
+                ->references('pretrip_ID')
+                ->on('pretripreceipts')
+                ->cascadeOnUpdate();
+            $table->foreign('agent_name', 'FK_posttrip_agent_name')
+                ->references('agent_name')
+                ->on('agents')
+                ->cascadeOnUpdate();
+            $table->foreign('customer_name', 'FK_posttrip_customer_name')
+                ->references('customer_name')
+                ->on('customers')
+                ->cascadeOnUpdate();
         });
     }
 

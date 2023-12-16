@@ -37,11 +37,4 @@ class DispatchController extends Controller
             ->update(['pretrip_dateend' => $data['new-date']]);
         return response()->json(['type' => 'success']);
     }
-
-    public function returnVehicle(string $receipt){
-        //generate post-trip receipt;
-        //merge data from pre- and post-receipts to create a single receipt;
-        //remove pre- and post-receipts,
-        dd(PreTripReceipt::findOrFail($receipt));
-    }
 }

@@ -82,6 +82,10 @@ Route::get('/generate/pre-trip', [ReceiptController::class, 'genPreTripReceipt']
 Route::get('/receipts/pre-trip', [ReceiptController::class, 'viewPreTripReceipts'])->name('pre-trip.display');
 Route::post('/generate/pre-trip/store', [ReceiptController::class, 'generatePreTrip'])->name('generators.pre-trip.store');
 
+//Post-trip receipt
+Route::get('/generate/post-trip/{pretrip}', [ReceiptController::class, 'genPostTripReceipt']);
+Route::post('/generate/post-trip/store', [ReceiptController::class, 'generatePostTrip']);
+
 //Reservation
 Route::get('/reserved', [ReservationController::class, 'fetchAll']);
 Route::get('/reserved/release/{receiptID}/{type}/{plateNo}', [ReservationController::class, 'push']);
@@ -91,4 +95,3 @@ Route::get('/reserved/delete/{receiptID}/{type}/{plateNo}', [ReservationControll
 Route::get('/released', [DispatchController::class, 'fetchAll']);
 Route::get('/released/extend/{ulid}/{pretrip}/{type}/{date}', [DispatchController::class, 'fetchExtend']);
 Route::post('/released/extend', [DispatchController::class, 'extend']);
-Route::post('/released/return/{pretrip}', [DispatchController::class, 'returnVehicle']);

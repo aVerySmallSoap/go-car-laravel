@@ -34,8 +34,7 @@
                 <td>{{$element->customer_name}}</td>
                 <td>{{date_create($element->pretrip_dateend)->format('Y-m-d h:i:s A')}}</td>
                 <td>
-                    <form method="POST">
-                        @csrf
+                    <form method="get">
                         {{--Receive all details about released vehicle--}}
                         <button type="submit" formmethod="get" formaction=
                             "">
@@ -43,8 +42,8 @@
                         <button type="submit" formmethod="get" formaction=
                             "/released/extend/{{$element->released_ID}}/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->pretrip_dateend}}">
                             Extend</button>
-                        <button type="submit" formmethod="post" formaction=
-                            "/released/return/{{$element->pretrip_ID}}">
+                        <button type="submit" formmethod="get" formaction=
+                            "/generate/post-trip/{{$element->pretrip_ID}}">
                             Return</button>
                     </form>
                 </td>

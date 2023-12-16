@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Extension extends Model
 {
@@ -27,4 +28,8 @@ class Extension extends Model
     protected $guarded = [
         'extension_ID'
     ];
+
+    public function belongsToPreReceipt():BelongsTo{
+        return $this->belongsTo(PreTripReceipt::class, 'pretrip_ID', 'pretrip_ID');
+    }
 }

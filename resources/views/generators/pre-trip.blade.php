@@ -6,14 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf_token" content="{{csrf_token()}}">
-    <title>Test</title>
+    <title>Pre Trip Generation</title>
 </head>
 <body>
 
-    <h3>GENERATE A RECEIPT</h3>
+    <h3>Generate A pre-report</h3>
 
     <form id="form-pre-receipt">
-        @csrf
+        {{--@csrf--}}
         {{-- Customer --}}
         <div id="container-customer">
             <label for="pre-receipt-customer">Select customer: </label>

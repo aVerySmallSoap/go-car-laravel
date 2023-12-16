@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\PostTripReceipt;
 use App\Models\PreTripReceipt;
 use App\Models\Reserved;
 use DateTimeZone;
@@ -16,6 +17,15 @@ class ReceiptController extends Controller
 
     public function genPreTripReceipt(): View{
         return view('generators.pre-trip', ['customers' => Customer::all(), 'vehicles' => VehicleController::vehiclesForSelection()]);
+    }
+
+    //TODO: generate post-trip receipt;
+    //TODO: merge data from pre- and post-receipts to create a single receipt.
+    public function genPostTripReceipt(string $pretrip): View{
+        return view('generators.post-trip', [
+            'pretrip' => PreTripReceipt::findOrFail($pretrip),
+            'return_date' => date_create('now', new DateTimeZone('Asia/Manila'))
+        ]);
     }
 
     public function viewPreTripReceipts(): View{
@@ -60,5 +70,23 @@ class ReceiptController extends Controller
             'reserved_reservationDate' => $requestDate
         ]);
         return response()->json(['type'=>'success']);
+    }
+
+    public function generatePostTrip(Request $request){
+        $input = $request->all();
+        $gas_calc = ($input['gas'] < $input['initial-gas']) ?
+            (($input['initial-gas'] - $input['gas']) * $input['gas-price']) : 0;
+        $total = $input['optional-cost'] + $gas_calc;
+        PostTripReceipt::create([
+            'pretrip_ID' => $input['pretrip'],
+            'agent_name' => $input['agent'],
+            'customer_name' => $input['customer'],
+            'posttrip_returnDate' => $input['return-date'],
+            'posttrip_gasBar'  => $input['gas'],
+            'posttrip_damageReport' => $input['comment'],
+            'posttrip_optionalCost' => $input['optional-cost'],
+            'posttrip_total' => $total
+        ]);
+        return response()->json(['type' => 'success']);
     }
 }
