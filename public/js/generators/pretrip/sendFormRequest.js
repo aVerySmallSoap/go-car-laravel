@@ -27,7 +27,7 @@ document.querySelector("#form-pre-receipt").addEventListener("submit", e => {
     });
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/generate/pre-trip/store", true);
-    xhr.setRequestHeader("X-CSRF-TOKEN", document.querySelector("form>input[name='_token']").value);
+    xhr.setRequestHeader("X-CSRF-TOKEN", document.querySelector("meta[name=csrf_token]").getAttribute('content'));
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     xhr.send(formData);
     xhr.onload = () => {

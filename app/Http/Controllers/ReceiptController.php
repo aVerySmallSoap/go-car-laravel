@@ -19,7 +19,6 @@ class ReceiptController extends Controller
         return view('generators.pre-trip', ['customers' => Customer::all(), 'vehicles' => VehicleController::vehiclesForSelection()]);
     }
 
-    //TODO: generate post-trip receipt;
     //TODO: merge data from pre- and post-receipts to create a single receipt.
     public function genPostTripReceipt(string $pretrip): View{
         return view('generators.post-trip', [
@@ -28,8 +27,16 @@ class ReceiptController extends Controller
         ]);
     }
 
+    public function genReceipt(string $posttrip){
+        return view('', ['post_trip' => $posttrip]);
+    }
+
     public function viewPreTripReceipts(): View{
         return view('receipts.pretrip.display', ['data' => PreTripReceipt::all()]);
+    }
+
+    public function viewPostTripReceipts(): View{
+        return view('receipts.posttrip.display', ['data' => PostTripReceipt::all()]);
     }
 
     public function generatePreTrip(Request $request): JsonResponse{
@@ -81,7 +88,7 @@ class ReceiptController extends Controller
             'pretrip_ID' => $input['pretrip'],
             'agent_name' => $input['agent'],
             'customer_name' => $input['customer'],
-            'posttrip_returnDate' => $input['return-date'],
+            'posttrip_returnDate' => date_create($input['return-date']),
             'posttrip_gasBar'  => $input['gas'],
             'posttrip_damageReport' => $input['comment'],
             'posttrip_optionalCost' => $input['optional-cost'],

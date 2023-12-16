@@ -13,7 +13,6 @@
     <h3>Generate A pre-report</h3>
 
     <form id="form-pre-receipt">
-        {{--@csrf--}}
         {{-- Customer --}}
         <div id="container-customer">
             <label for="pre-receipt-customer">Select customer: </label>
