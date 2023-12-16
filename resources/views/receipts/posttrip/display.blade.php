@@ -21,7 +21,7 @@
             <th>Return Date</th>
             <th>Initial Gas Levels</th>
             <th>Comments</th>
-            <th>Return Gas Levels</th>
+            <th>Optional Costs</th>
             <th>Total</th>
             <th>Actions</th>
         </tr>
@@ -32,6 +32,16 @@
                 @foreach($element->attributesToArray() as $displayable)
                     <td>{{$displayable}}</td>
                 @endforeach
+                <td>
+                    <form>
+                        <button type="submit" formmethod="get" formaction="">
+                            Generate a receipt
+                        </button>
+                        <button type="submit" formmethod="get" formaction="">
+                            Delete
+                        </button>
+                    </form>
+                </td>
             </tr>
         @endforeach
         </tbody>

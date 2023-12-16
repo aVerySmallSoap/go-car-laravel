@@ -100,7 +100,7 @@ return new class extends Migration
             $table->dateTime('posttrip_returnDate');
             $table->integer('posttrip_gasBar');
             $table->longText('posttrip_damageReport');
-            $table->float('posttrip_optionalCost');
+            $table->double('posttrip_optionalCost');
             $table->double('posttrip_total')
                 ->nullable(false)
                 ->default(0);
