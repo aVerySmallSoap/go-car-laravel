@@ -36,6 +36,6 @@
         </div>
     </form>
 
-    <script src="{{asset('/js/leasers/editRequest.js')}}"></script>
+    <script src="{{asset('/js/leasers/sendRequest.js')}}"></script>
 </body>
 </html>

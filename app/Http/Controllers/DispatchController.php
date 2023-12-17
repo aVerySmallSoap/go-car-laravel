@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExtensionRequest;
 use App\Models\Extension;
 use App\Models\PreTripReceipt;
 use App\Models\Released;
@@ -21,10 +22,10 @@ class DispatchController extends Controller
             ['data' => PreTripReceipt::findOrFail($receipt), 'cost' => $cost, 'ulid' => $id]);
     }
 
-    public function extend(Request $request){
+    public function extend(ExtensionRequest $request){
+        $data = $request->validated();
         $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
             ->format('Y-m-d H:i:s');
-        $data = $request->all();
         Extension::create([
             'pretrip_ID' => $data['id'],
             'released_ID' => $data['ulid'],

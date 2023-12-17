@@ -39,8 +39,8 @@ document.querySelector("#container-vehicle>div>select[id=pre-receipt-vehicle-typ
             selection.appendChild(placeholder);
             res.data.forEach(elem => {
                 let option = document.createElement('option');
-                option.value = elem.vehicle_model;
-                option.innerText = elem.vehicle_model;
+                option.value = elem;
+                option.innerText = elem;
                 selection.appendChild(option);
             })
         }

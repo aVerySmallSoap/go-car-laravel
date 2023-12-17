@@ -8,6 +8,7 @@ use App\Models\PreTripReceipt;
 use App\Models\Released;
 use App\Models\Reserved;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ReservationController extends Controller{
@@ -37,25 +38,18 @@ class ReservationController extends Controller{
 
     //Push vehicles out of yard(reservation) to monitor
     public function push(string $receipt, string $type, string $plate){
-        if($type == 'Car'){
-            $vehicle = Car::query()
-                ->selectRaw('car_plateNo as vehicle_plateNo, car_model as vehicle_model, car_type as vehicle_type')
-                ->where('car_plateNo', '=', $plate)
-                ->get();
-        }else{
-            $vehicle = Motorcycle::query()
-                ->selectRaw('motor_plateNo as vehicle_plateNo, motor_model as vehicle_model, motor_type as vehicle_type')
-                ->where('motor_plateNo', '=', $plate)
-                ->get();
-        }
+        $vehicle = DB::table('vehicles')
+            ->select(['vehicle_plateNo', 'vehicle_model', 'vehicle_type'])
+            ->where('vehicle_type', '=', $type)
+            ->where('vehicle_plateNo', '=', $plate)->get();
         $receipt = PreTripReceipt::findOrFail($receipt);
         $receipt = $receipt->attributesToArray();
-        $vehicle = $vehicle->all()[0]->attributesToArray();
+        $vehicle = $vehicle->all()[0];
         Released::create([
             'pretrip_ID' => $receipt['pretrip_ID'],
-            'vehicle_plateNo' => $vehicle['vehicle_plateNo'],
-            'vehicle_model' => $vehicle['vehicle_model'],
-            'vehicle_type' => $vehicle['vehicle_type'],
+            'vehicle_plateNo' => $vehicle->vehicle_plateNo,
+            'vehicle_model' => $vehicle->vehicle_model,
+            'vehicle_type' => $vehicle->vehicle_type,
             'customer_name' => $receipt['customer_name'],
             'pretrip_dateend' => $receipt['pretrip_dateend']
         ]);

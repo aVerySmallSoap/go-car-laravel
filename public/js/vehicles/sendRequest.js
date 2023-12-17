@@ -1,4 +1,4 @@
-function sendRequest(Selector, URL){
+function sendRequest(Selector, URL, callback){
     let formData = new FormData();
     let xhr = new XMLHttpRequest();
     xhr.open("POST", URL, true);
@@ -12,8 +12,10 @@ function sendRequest(Selector, URL){
                 formData.set(element.name, element.value);
             }
         });
-    formData.set(
-        document.querySelector('form>.form-row>select').name,
-        document.querySelector('form>.form-row>select').value);
+    document.querySelectorAll("form>.form-row>select")
+        .forEach(elem => {
+            formData.set(elem.name, elem.value);
+        });
     xhr.send(formData);
+    xhr.onload = callback;
 }

@@ -11,6 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('Leasers', function (Blueprint $table){
+            $table->id('leaser_id');
+            $table->string('leaser_name')->unique()->index('Leasers_leaser_name');
+            $table->integer('leaser_age');
+            $table->string('leaser_address');
+            $table->string('leaser_contactNo', 11);
+        });
+
+        Schema::create('vehicles', function(Blueprint $table){
+            $table->string('vehicle_plateNo')->primary();
+            $table->string('vehicle_model')->index('Vehicles_vehicle_model_index');
+            $table->string('vehicle_type')->index('Vehicles_vehicle_type_index');
+            $table->string('vehicle_color')->index('Vehicles_vehicle_color_index');
+            $table->string('vehicle_isAvailable')->index('Vehicles_vehicle_isAvailable_index');
+            $table->string('vehicle_rentPrice')->index('Vehicles_vehicle_rentPrice_index');
+            $table->string('leaser_name');
+            $table->foreign('leaser_name', 'FK_vehicles_leaser_name')
+                ->references('leaser_name')
+                ->on('leasers')->cascadeOnUpdate();
+        });
+
         Schema::create('pretripReceipts', function (Blueprint $table) {
             $table->id('pretrip_ID');
             $table->string('agent_name');
@@ -31,12 +52,16 @@ return new class extends Migration
             $table->dateTime('pretrip_createdAt')->index('pretrip_createdAt_index');
             $table->foreign('agent_name', 'FK_pretrip_agent_name')
                 ->references('agent_name')
-                ->on('agents')
-                ->cascadeOnUpdate();
+                ->on('agents')->cascadeOnUpdate();
             $table->foreign('customer_name', 'FK_pretrip_customer_name')
                 ->references('customer_name')
-                ->on('customers')
-                ->cascadeOnUpdate();
+                ->on('customers')->cascadeOnUpdate();
+            $table->foreign('vehicle_type', 'FK_pretrip_vehicle_type')
+                ->references('vehicle_type')
+                ->on('vehicles')->cascadeOnUpdate();
+            $table->foreign('vehicle_plateNo', 'FK_pretrip_vehicle_plateNo')
+                ->references('vehicle_plateNo')
+                ->on('vehicles')->cascadeOnUpdate();
         });
 
         Schema::create('reserved_vehicles', function (Blueprint $table){
@@ -48,16 +73,19 @@ return new class extends Migration
             $table->dateTime('reserved_reservationDate');
             $table->foreign('customer_name', 'FK_reserved_customer_name')
                 ->references('customer_name')
-                ->on('customers')
-                ->cascadeOnUpdate();
+                ->on('customers')->cascadeOnUpdate();
             $table->foreign('pretrip_ID', 'FK_reserved_pretrip_ID')
                 ->references('pretrip_ID')
-                ->on('pretripreceipts')
-                ->cascadeOnUpdate();
+                ->on('pretripreceipts')->cascadeOnUpdate();
             $table->foreign('reserved_reservationDate', 'FK_reserved_pretrip_createdAt')
                 ->references('pretrip_createdAt')
-                ->on('pretripreceipts')
-                ->cascadeOnUpdate();
+                ->on('pretripreceipts')->cascadeOnUpdate();
+            $table->foreign('vehicle_type', 'FK_reserved_vehicle_type')
+                ->references('vehicle_type')
+                ->on('vehicles')->cascadeOnUpdate();
+            $table->foreign('vehicle_plateNo', 'FK_reserved_vehicle_plateNo')
+                ->references('vehicle_plateNo')
+                ->on('vehicles')->cascadeOnUpdate();
         });
 
         Schema::create('released', function (Blueprint $table){
@@ -70,8 +98,16 @@ return new class extends Migration
             $table->dateTime('pretrip_dateend');
             $table->foreign('customer_name', 'FK_released_customer_name')
                 ->references('customer_name')
-                ->on('customers')
-                ->cascadeOnUpdate();
+                ->on('customers')->cascadeOnUpdate();
+            $table->foreign('vehicle_plateNo', 'FK_released_vehicle_plateNo')
+                ->references('vehicle_plateNo')
+                ->on('vehicles')->cascadeOnUpdate();
+            $table->foreign('vehicle_model', 'FK_released_vehicle_model')
+                ->references('vehicle_model')
+                ->on('vehicles')->cascadeOnUpdate();
+            $table->foreign('vehicle_type', 'FK_released_vehicle_type')
+                ->references('vehicle_type')
+                ->on('vehicles')->cascadeOnUpdate();
         });
 
         Schema::create('extensions', function (Blueprint $table){
@@ -91,6 +127,12 @@ return new class extends Migration
             $table->foreign('released_ID', 'FK_extension_released_ID')
                 ->references('released_ID')
                 ->on('released');
+            $table->foreign('vehicle_type', 'FK_extension_vehicle_type')
+                ->references('vehicle_type')
+                ->on('vehicles')->cascadeOnUpdate();
+            $table->foreign('vehicle_plateNo', 'FK_extension_vehicle_plateNo')
+                ->references('vehicle_plateNo')
+                ->on('vehicles')->cascadeOnUpdate();
         });
 
         Schema::create('posttripReceipts', function (Blueprint $table){
@@ -108,16 +150,13 @@ return new class extends Migration
             $table->dateTime('posttrip_createdAt')->index('posttrip_createdAt_index');
             $table->foreign('pretrip_ID', 'FK_posttrip_pretrip_ID')
                 ->references('pretrip_ID')
-                ->on('pretripreceipts')
-                ->cascadeOnUpdate();
+                ->on('pretripreceipts')->cascadeOnUpdate();
             $table->foreign('agent_name', 'FK_posttrip_agent_name')
                 ->references('agent_name')
-                ->on('agents')
-                ->cascadeOnUpdate();
+                ->on('agents')->cascadeOnUpdate();
             $table->foreign('customer_name', 'FK_posttrip_customer_name')
                 ->references('customer_name')
-                ->on('customers')
-                ->cascadeOnUpdate();
+                ->on('customers')->cascadeOnUpdate();
         });
 
         Schema::create('receipts', function(Blueprint $table){
@@ -144,16 +183,22 @@ return new class extends Migration
             $table->dateTime('receipt_createdAt');
             $table->foreign('pretrip_ID')
                 ->references('pretrip_ID')
-                ->on('pretripreceipts');
+                ->on('pretripreceipts')->cascadeOnUpdate();
             $table->foreign('posttrip_ID')
                 ->references('posttrip_ID')
-                ->on('posttripreceipts');
+                ->on('posttripreceipts')->cascadeOnUpdate();
             $table->foreign('agent_name', 'FK_receipts_agent_name')
                 ->references('agent_name')
-                ->on('agents');
+                ->on('agents')->cascadeOnUpdate();
             $table->foreign('customer_name', 'FK_receipts_customer_name')
                 ->references('customer_name')
-                ->on('customers');
+                ->on('customers')->cascadeOnUpdate();
+            $table->foreign('vehicle_type', 'FK_receipts_vehicle_type')
+                ->references('vehicle_type')
+                ->on('vehicles')->cascadeOnUpdate();
+            $table->foreign('vehicle_plateNo', 'FK_receipts_vehicle_plateNo')
+                ->references('vehicle_plateNo')
+                ->on('vehicles')->cascadeOnUpdate();
         });
     }
 
@@ -168,6 +213,8 @@ return new class extends Migration
         Schema::dropIfExists('reserved_vehicles');
         Schema::dropIfExists('pretripReceipts');
         Schema::dropIfExists('released');
+        Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('Leasers');
         Schema::dropIfExists('Customers');
         Schema::dropIfExists('Agents');
     }

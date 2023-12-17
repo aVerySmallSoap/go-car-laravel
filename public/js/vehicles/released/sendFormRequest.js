@@ -1,5 +1,4 @@
 let csrf = document.querySelector("meta[name=csrf-token]").getAttribute("content");
-
 document.querySelector("#form-extension").addEventListener("submit", e=> {
     e.preventDefault();
     let xhr = new XMLHttpRequest();
@@ -14,6 +13,7 @@ document.querySelector("#form-extension").addEventListener("submit", e=> {
     formData.set(
         document.querySelector("#form-extension-new-date").name,
         document.querySelector("#form-extension-new-date").value);
+    console.log(formData)
     xhr.send(formData);
     xhr.onload = function (){
         let res = JSON.parse(xhr.response);

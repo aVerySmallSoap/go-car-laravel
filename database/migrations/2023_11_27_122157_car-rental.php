@@ -36,8 +36,7 @@ return new class extends Migration
             $table->longText('customer_facebookURL');
             $table->foreign('agent_name')
                 ->references('agent_name')
-                ->on('Agents')
-                ->cascadeOnUpdate();
+                ->on('Agents')->cascadeOnUpdate();
         });
 
         /*

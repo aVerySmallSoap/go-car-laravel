@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
-
+    protected $table = 'users';
     protected $primaryKey = 'user_id';
-
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,8 @@ class User extends Model
      */
     protected $fillable = [
         'user_username',
-        'user_password',
+        'user_role',
+        'user_createdAt'
     ];
 
     /**
@@ -26,10 +27,14 @@ class User extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'user_password',
     ];
 
     protected $guarded = [
-        'user_role'
+        'user_password'
     ];
+
+    public function getAuthPassword(){
+        return $this->user_password;
+    }
 }

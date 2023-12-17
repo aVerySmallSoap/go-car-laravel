@@ -18,9 +18,12 @@ class Vehicle extends Model
 
     protected $fillable = [
         'vehicle_plateNo',
-        'vehicle_name',
+        'vehicle_model',
+        'vehicle_type',
         'vehicle_color',
-        'vehicle_type'
+        'vehicle_isAvailable',
+        'vehicle_rentPrice',
+        'leaser_name'
     ];
 
     public function leaser(): BelongsTo{

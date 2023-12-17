@@ -11,7 +11,7 @@
 <body>
 
     <h1>Vehicles</h1>
-
+    <button onclick="window.location.href='{{ route('vehicle.create')}}'">Add</button>
     <div class="container-table">
         <table>
             <thead>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostTripReceiptRequest;
+use App\Http\Requests\PreTripReceiptRequest;
 use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Extension;
@@ -10,6 +12,7 @@ use App\Models\PostTripReceipt;
 use App\Models\PreTripReceipt;
 use App\Models\Receipt;
 use App\Models\Reserved;
+use App\Models\Vehicle;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +24,7 @@ class ReceiptController extends Controller
 {
 
     public function genPreTripReceipt(): View{
-        return view('generators.pre-trip', ['customers' => Customer::all(), 'vehicles' => VehicleController::vehiclesForSelection()]);
+        return view('generators.pre-trip', ['customers' => Customer::all()]);
     }
 
     //TODO: merge data from pre- and post-receipts to create a single receipt.
@@ -58,10 +61,27 @@ class ReceiptController extends Controller
         return view('receipts.posttrip.display', ['data' => PostTripReceipt::all()]);
     }
 
-    public function generatePreTrip(Request $request): JsonResponse{
+    public function viewReceipts(): View{
+        $receipts = DB::table('receipts')
+            ->select([
+                'receipt_ID',
+                'pretrip_ID',
+                'posttrip_ID',
+                'customer_name',
+                'agent_name',
+                'vehicle_type',
+                'vehicle_plateNo',
+                'pretrip_destination',
+                'receipt_total'
+            ])
+            ->get();
+        return view('receipts.display', ['data' => $receipts]);
+    }
+
+    public function generatePreTrip(PreTripReceiptRequest $request): JsonResponse{
+        $input = $request->validated();
         $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
             ->format('Y-m-d H:i:s');
-        $input = $request->all();
         //Deposit + (Rent Cost + Destination) + (Gas + (Car wash + Helmet))
         $carwash_cost = ($input['vehicle_type'] == 'Car') ? 200:80;
         $deposit_cost = (($input['vehicle_type'] == 'Car') ? 500:200);
@@ -98,10 +118,10 @@ class ReceiptController extends Controller
         return response()->json(['type'=>'success']);
     }
 
-    public function generatePostTrip(Request $request): JsonResponse{
+    public function generatePostTrip(PostTripReceiptRequest $request): JsonResponse{
+        $input = $request->validated();
         $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
             ->format('Y-m-d H:i:s');
-        $input = $request->all();
         $gas_calc = ($input['gas'] < $input['initial-gas']) ?
             (($input['initial-gas'] - $input['gas']) * $input['gas-price']) : 0;
         $total = $input['optional-cost'] + $gas_calc;
@@ -126,18 +146,8 @@ class ReceiptController extends Controller
         $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
             ->format('Y-m-d H:i:s');
         $input = $request->all();
-        switch ($input['vehicle-type']){
-            case 'Car':
-                Car::where('car_plateNo', $input['vehicle-plateNo'])
-                    ->update(['car_isAvailable' => 1]);
-                break;
-            case 'Motorcycle':
-                Motorcycle::where('motor_plateNo', $input['vehicle-plateNo'])
-                    ->update(['motor_isAvailable' => 1]);
-                break;
-            default:
-                return response()->json(['type' => 'error', 'message' => 'no such thing']);
-        }
+        Vehicle::where('vehicle_type', $input['vehicle-type'])
+            ->where('vehicle_plateNo', $input['vehicle-plateNo'])->update(['vehicle_isAvailable' => 1]);
         Receipt::create([
             'pretrip_ID' => $input['pretrip-id'],
             'posttrip_ID' => $input['posttrip-id'],
