@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\MotorcycleController;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 })->middleware('auth');
 
 Route::middleware(['auth', VerifyRole::class])->group(function(){
@@ -108,3 +109,4 @@ Route::post('/login/verify', [LoginController::class, 'authenticate'])->name('lo
 Route::get('/register', [RegistrationController::class, 'view'])->name('register');
 Route::post('/register/store', [RegistrationController::class, 'store'])->name('register.store');
 
+Route::post('/search', [SearchController::class, 'search']);

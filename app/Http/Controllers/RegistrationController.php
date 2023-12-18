@@ -20,7 +20,7 @@ class RegistrationController extends Controller
         $user = new User;
         $user->fill([
             'user_username' => $input['username'],
-            'user_role' => 'User',
+            'user_role' => $input['role'],
             'user_createdAt' => date_create()
         ]);
         $user->user_password = Hash::make($input['password']);

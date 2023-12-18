@@ -20,6 +20,13 @@
             <label for="form-register-password">Password:</label>
             <input type="password" id="form-register-password" name="password" placeholder="password">
         </div>
+        <div class="form-row">
+            <label for="form-register-role">Role</label>
+            <select name="role" id="form-register-role">
+                <option value="User">User</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
         <div class="form-control">
             <button type="submit" class="btn" >Register</button>
         </div>

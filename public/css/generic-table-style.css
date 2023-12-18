@@ -1,18 +1,45 @@
+.container-search{
+    display: flex;
+    flex: 1 0 100%;
+    padding: 12px;
+}
+
+.container-search .actionable{
+    display: flex;
+    flex-basis: 100%;
+    justify-content: end;
+}
+
+.actionable-content{
+    display: flex;
+    align-items: center;
+}
+
+.container-search .actionable-content>input{
+    width: 200px;
+    margin-right: 0.5rem;
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
 .container-table{
     display: flex;
     overflow: auto;
+    padding: .85dvw;
 }
 
 table{
-    box-sizing: border-box;
-    flex: 1 0 100%;
     border-collapse: collapse;
     width: fit-content;
+    flex: 1 0 100%;
+    min-height: fit-content;
+    max-height: 25svh;
 }
 
 table th{
-    box-sizing: border-box;
-    background-color: #545b62;
+    background-color: #941510;
+    color: white;
     padding: 1.2rem;
 }
 

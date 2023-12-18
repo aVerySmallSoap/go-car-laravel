@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostTripReceiptRequest;
 use App\Http\Requests\PreTripReceiptRequest;
-use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Extension;
-use App\Models\Motorcycle;
 use App\Models\PostTripReceipt;
 use App\Models\PreTripReceipt;
 use App\Models\Receipt;
+use App\Models\Released;
 use App\Models\Reserved;
 use App\Models\Vehicle;
 use DateTime;
@@ -54,11 +53,29 @@ class ReceiptController extends Controller
     }
 
     public function viewPreTripReceipts(): View{
-        return view('receipts.pretrip.display', ['data' => PreTripReceipt::all()]);
+        return view('receipts.pretrip.display',
+            ['data' => PreTripReceipt::all([
+                'pretrip_ID',
+                'customer_name',
+                'vehicle_plateNo',
+                'pretrip_datestart',
+                'pretrip_dateend',
+                'pretrip_destination',
+                'pretrip_total',
+                'pretrip_createdAt'
+            ])]);
     }
 
     public function viewPostTripReceipts(): View{
-        return view('receipts.posttrip.display', ['data' => PostTripReceipt::all()]);
+        return view('receipts.posttrip.display', ['data' => PostTripReceipt::all([
+            'posttrip_ID',
+            'pretrip_ID',
+            'agent_name',
+            'customer_name',
+            'posttrip_returnDate',
+            'posttrip_total',
+            'posttrip_createdAt'])
+        ]);
     }
 
     public function viewReceipts(): View{
@@ -139,6 +156,7 @@ class ReceiptController extends Controller
         $receipt = PostTripReceipt::select(['pretrip_ID as id'])
             ->where('pretrip_ID', $input['pretrip'])
             ->get()->first()->attributesToArray();
+        Released::destroy($input['pretrip']);
         return response()->json(['type' => 'success', 'id' => $receipt['id']]);
     }
 

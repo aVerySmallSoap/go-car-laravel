@@ -1,0 +1,10 @@
+.content,
+.content *{
+    box-sizing: border-box;
+}
+
+.content{
+    min-width: fit-content;
+    flex-grow: 1;
+    flex-shrink: 0;
+}

@@ -11,7 +11,7 @@ class Vehicle extends Model
     use HasFactory;
 
     protected $table = 'vehicles';
-    protected $primaryKey = 'car_plateNo';
+    protected $primaryKey = 'vehicle_plateNo';
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
