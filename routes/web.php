@@ -95,7 +95,7 @@ Route::middleware(['auth', VerifyRole::class])->group(function(){
         Route::get('/reserved/delete/{receiptID}/{type}/{plateNo}', [ReservationController::class, 'destroy']);
 
         //Monitoring
-        Route::get('/released', [DispatchController::class, 'fetchAll']);
+        Route::get('/released', [DispatchController::class, 'fetchAll'])->name('released');
         Route::get('/released/extend/{ulid}/{pretrip}/{type}/{date}', [DispatchController::class, 'fetchExtend']);
         Route::post('/released/extend', [DispatchController::class, 'extend']);
     });

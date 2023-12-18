@@ -82,8 +82,6 @@ class ReceiptController extends Controller
         $receipts = DB::table('receipts')
             ->select([
                 'receipt_ID',
-                'pretrip_ID',
-                'posttrip_ID',
                 'customer_name',
                 'agent_name',
                 'vehicle_type',

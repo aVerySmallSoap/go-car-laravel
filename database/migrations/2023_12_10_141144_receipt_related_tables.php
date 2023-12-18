@@ -207,6 +207,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('receipts');
         Schema::dropIfExists('posttripReceipts');
         Schema::dropIfExists('extensions');
         Schema::dropIfExists('released');

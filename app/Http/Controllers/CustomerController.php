@@ -18,6 +18,10 @@ class CustomerController extends Controller
         return view('customers.create', ['agents' => Agent::all()]);
     }
 
+    public function edit(string $id): View{
+        return view('customers.edit', ['agents' => Agent::all(['agent_name']), 'data' => Customer::findOrFail($id)]);
+    }
+
     /** @noinspection PhpUndefinedMethodInspection */
     public function store(CustomerRequest $request): RedirectResponse{
         $validated = $request->validated();
@@ -34,7 +38,7 @@ class CustomerController extends Controller
 
     public function update(CustomerRequest $request): JsonResponse{
         $validated = $request->validated();
-        Customer::where('customer_id', $validated['id'])
+        Customer::where('customer_id', $request['id'])
             ->update([
                 'agent_name' => $validated['agent'],
                 'customer_name' => $validated['name'],
@@ -43,7 +47,7 @@ class CustomerController extends Controller
                 'customer_contactNo' => $validated['contact'],
                 'customer_facebookURL' => $validated['facebook']
             ]);
-        return response()->json(['Message' => 'Agents successfully updated!']);
+        return response()->json(['type' => 'success']);
     }
 
     public function destroy(string|int $id): RedirectResponse{

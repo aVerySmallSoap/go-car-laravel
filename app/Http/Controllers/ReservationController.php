@@ -7,6 +7,7 @@ use App\Models\Motorcycle;
 use App\Models\PreTripReceipt;
 use App\Models\Released;
 use App\Models\Reserved;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -18,18 +19,7 @@ class ReservationController extends Controller{
     }
 
     public function destroy(string $receipt, string $type, string $plate){
-        switch ($type){
-            case 'Car':
-                Car::where('car_plateNo', $plate)
-                    ->update(['car_isAvailable' => 1]);
-                break;
-            case 'Motorcycle':
-                Motorcycle::where('motor_plateNo', $plate)
-                    ->update(['motor_isAvailable' => 1]);
-                break;
-            default:
-                return response()->json(['type' => 'error', 'message' => 'no such thing']);
-        }
+        Vehicle::where('vehicle_plateNo', $plate)->update(['vehicle_isAvailable' => 1]);
         Reserved::where('pretrip_ID', $receipt)
             ->delete();
         PreTripReceipt::destroy($receipt);
@@ -54,6 +44,6 @@ class ReservationController extends Controller{
             'pretrip_dateend' => $receipt['pretrip_dateend']
         ]);
         Reserved::where('pretrip_ID', $receipt)->delete();
-        return response()->redirectToRoute('/released');
+        return response()->redirectToRoute('released');
     }
 }

@@ -36,20 +36,27 @@ document.querySelector("#search-bar").addEventListener("keyup", evt => {
 });
 
 function createActions(data){
-    let icon = document.querySelector("#edit-icon");
+    let icon = document.querySelector("#generate-icon");
     let td = document.createElement("td");
     let form = document.createElement("form");
     let button = document.createElement("button");
     button.type = "submit";
     button.formMethod = "get";
-    button.formAction = `/vehicle/edit/${data[0]}`;
+    button.formAction = `generate`;
+    button.append(icon.content.cloneNode(true).childNodes[1]);
+    form.append(button);
+    button = document.createElement("button")
+    icon = document.querySelector("#view-icon");
+    button.type = "submit";
+    button.formMethod = "get";
+    button.formAction = `view`;
     button.append(icon.content.cloneNode(true).childNodes[1]);
     form.append(button);
     button = document.createElement("button");
     icon = document.querySelector("#bin-icon");
     button.type = "submit";
     button.formMethod = "get";
-    button.formAction = `/vehicle/delete/${data[0]}`;
+    button.formAction = `/leaser/delete/${data[0]}`;
     button.append(icon.content.cloneNode(true).childNodes[1]);
     form.append(button);
     td.append(form);

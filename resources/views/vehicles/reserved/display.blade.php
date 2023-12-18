@@ -6,48 +6,123 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf_token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{asset('/css/generic-table-style.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/navigation-style.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/content-style.css')}}">
     <title>Reservations</title>
 </head>
 <body>
 
-<div class="container-table">
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Plate No</th>
-            <th>Customer Name</th>
-            <th>Receipt ID</th>
-            <th>Reservation Date</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($data as $element)
-            <tr>
-                <td>{{$element->reserved_ID}}</td>
-                <td>{{$element->vehicle_type}}</td>
-                <td>{{$element->vehicle_plateNo}}</td>
-                <td>{{$element->customer_name}}</td>
-                <td>{{$element->pretrip_ID}}</td>
-                <td>{{date_create($element->reserved_reservationDate)->format('Y-m-d h:i:s A')}}</td>
-                <td>
-                    <form method="POST">
-                        <button type="submit" formmethod="get" formaction=
-                            "/reserved/release/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->vehicle_plateNo}}">
-                            Release</button>
-                        <button type="submit" formmethod="get" formaction=
-                            "/reserved/delete/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->vehicle_plateNo}}">
-                            Delete</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-</div>
+    <x-navigation />
+    <div class="content">
+        <div class="container-search">
+            <div class="actionable">
+                <div class="actionable-content">
+                    <svg id="Glyph" width="24" height="24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m57.43912 57.55984-12.53612-14.54825a22.58833 22.58833 0 0 0 6.77517-14.54959c1.57683-20.0629-22.3539-32.12578-37.5801-18.93981-15.97607 13.95881-6.08427 39.95005 14.88377 40.01781a22.67416 22.67416 0 0 0 13.69116-4.601l12.53273 14.54435a1.47393 1.47393 0 0 0 2.23339-1.92351zm-43.49346-17.84118c-11.07256-12.74753-1.71407-32.88705 15.00653-32.76242 11.10839-.24055 20.85452 9.96065 19.78728 21.28776-1.22532 17.48-23.37979 24.78391-34.79381 11.47466z"/>
+                    </svg>
+                    <input type="text" id="search-bar" name="search">
+                </div>
+            </div>
+        </div>
+        <div class="container-table">
+            <table data-table="reserved_vehicles">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Plate No</th>
+                    <th>Customer Name</th>
+                    <th>Receipt ID</th>
+                    <th>Reservation Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($data as $element)
+                    <tr>
+                        <td>{{$element->reserved_ID}}</td>
+                        <td>{{$element->vehicle_type}}</td>
+                        <td>{{$element->vehicle_plateNo}}</td>
+                        <td>{{$element->customer_name}}</td>
+                        <td>{{$element->pretrip_ID}}</td>
+                        <td>{{date_create($element->reserved_reservationDate)->format('Y-m-d h:i:s A')}}</td>
+                        <td>
+                            <form method="POST">
+                                <button type="submit" formmethod="get" formaction=
+                                    "/reserved/release/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->vehicle_plateNo}}">
+                                    <svg style="width: 18px; height: 18px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         viewBox="0 0 612 612">
+                                        <g>
+                                            <g>
+                                                <path d="M504.9,395.756c-28.684,0-52.02,23.342-52.02,52.02c0,28.684,23.336,52.02,52.02,52.02c28.678,0,52.02-23.336,52.02-52.02
+                                                    C556.92,419.098,533.578,395.756,504.9,395.756z M504.9,463.076c-8.439,0-15.3-6.861-15.3-15.3c0-8.439,6.861-15.3,15.3-15.3
+                                                    s15.3,6.861,15.3,15.3C520.2,456.215,513.339,463.076,504.9,463.076z"/>
+                                                <path d="M499.918,179.518H410.04c-6.763,0-12.24,5.484-12.24,12.24v238.68c0,6.756,5.477,12.24,12.24,12.24h12.981
+                                                    c6.059,0,11.426-4.364,12.209-10.373c4.804-36.806,34.162-59.633,69.676-59.633s64.872,22.828,69.676,59.633
+                                                    c0.783,6.01,6.144,10.373,12.209,10.373h12.968c6.756,0,12.24-5.484,12.24-12.24v-119.34c0-2.876-1.01-5.655-2.852-7.852
+                                                    l-99.842-119.34C506.981,181.128,503.541,179.518,499.918,179.518z M422.28,277.438v-61.2c0-6.756,5.477-12.24,12.24-12.24h53.917
+                                                    c3.629,0,7.075,1.616,9.4,4.406l50.998,61.2c6.64,7.974,0.973,20.074-9.406,20.074H434.52
+                                                    C427.757,289.678,422.28,284.201,422.28,277.438z"/>
+                                                <path d="M12.24,442.684h31.341c6.059,0,11.426-4.364,12.209-10.373c4.804-36.806,34.162-59.633,69.676-59.633
+                                                    s64.872,22.828,69.676,59.633c0.783,6.01,6.144,10.373,12.209,10.373H361.08c6.757,0,12.24-5.484,12.24-12.24v-306
+                                                    c0-6.756-5.484-12.24-12.24-12.24H12.24c-6.763,0-12.24,5.484-12.24,12.24v306C0,437.201,5.477,442.684,12.24,442.684z"/>
+                                                <path d="M125.46,395.756c-28.684,0-52.02,23.342-52.02,52.02c0,28.684,23.336,52.02,52.02,52.02
+                                                    c28.678,0,52.02-23.336,52.02-52.02C177.48,419.098,154.138,395.756,125.46,395.756z M125.46,463.076
+                                                    c-8.439,0-15.3-6.861-15.3-15.3c0-8.439,6.861-15.3,15.3-15.3s15.3,6.861,15.3,15.3
+                                                    C140.76,456.215,133.899,463.076,125.46,463.076z"/>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button type="submit" formmethod="get" formaction=
+                                    "/reserved/delete/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->vehicle_plateNo}}">
+                                    <svg style="width: 18px; height: 18px;" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="m25 5h-6.1a5 5 0 0 0 -9.8 0h-6.1a1 1 0 0 0 0 2h1v15.331a4.675 4.675 0 0 0 4.67 4.669h10.66a4.675 4.675 0 0 0 4.67-4.669v-15.331h1a1 1 0 0 0 0-2zm-11-2a3.006 3.006 0 0 1 2.829 2h-5.658a3.006 3.006 0 0 1 2.829-2zm-2 17a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0zm6 0a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0z"/>
+                                    </svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <template id="deliver-icon">
+        <svg style="width: 18px; height: 18px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             viewBox="0 0 612 612">
+            <g>
+                <g>
+                    <path d="M504.9,395.756c-28.684,0-52.02,23.342-52.02,52.02c0,28.684,23.336,52.02,52.02,52.02c28.678,0,52.02-23.336,52.02-52.02
+                        C556.92,419.098,533.578,395.756,504.9,395.756z M504.9,463.076c-8.439,0-15.3-6.861-15.3-15.3c0-8.439,6.861-15.3,15.3-15.3
+                        s15.3,6.861,15.3,15.3C520.2,456.215,513.339,463.076,504.9,463.076z"/>
+                    <path d="M499.918,179.518H410.04c-6.763,0-12.24,5.484-12.24,12.24v238.68c0,6.756,5.477,12.24,12.24,12.24h12.981
+                        c6.059,0,11.426-4.364,12.209-10.373c4.804-36.806,34.162-59.633,69.676-59.633s64.872,22.828,69.676,59.633
+                        c0.783,6.01,6.144,10.373,12.209,10.373h12.968c6.756,0,12.24-5.484,12.24-12.24v-119.34c0-2.876-1.01-5.655-2.852-7.852
+                        l-99.842-119.34C506.981,181.128,503.541,179.518,499.918,179.518z M422.28,277.438v-61.2c0-6.756,5.477-12.24,12.24-12.24h53.917
+                        c3.629,0,7.075,1.616,9.4,4.406l50.998,61.2c6.64,7.974,0.973,20.074-9.406,20.074H434.52
+                        C427.757,289.678,422.28,284.201,422.28,277.438z"/>
+                    <path d="M12.24,442.684h31.341c6.059,0,11.426-4.364,12.209-10.373c4.804-36.806,34.162-59.633,69.676-59.633
+                        s64.872,22.828,69.676,59.633c0.783,6.01,6.144,10.373,12.209,10.373H361.08c6.757,0,12.24-5.484,12.24-12.24v-306
+                        c0-6.756-5.484-12.24-12.24-12.24H12.24c-6.763,0-12.24,5.484-12.24,12.24v306C0,437.201,5.477,442.684,12.24,442.684z"/>
+                    <path d="M125.46,395.756c-28.684,0-52.02,23.342-52.02,52.02c0,28.684,23.336,52.02,52.02,52.02
+                        c28.678,0,52.02-23.336,52.02-52.02C177.48,419.098,154.138,395.756,125.46,395.756z M125.46,463.076
+                        c-8.439,0-15.3-6.861-15.3-15.3c0-8.439,6.861-15.3,15.3-15.3s15.3,6.861,15.3,15.3
+                        C140.76,456.215,133.899,463.076,125.46,463.076z"/>
+                </g>
+            </g>
+        </svg>
+        </template>
+    <template id="bin-icon">
+        <svg style="width: 18px; height: 18px;" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+            <path d="m25 5h-6.1a5 5 0 0 0 -9.8 0h-6.1a1 1 0 0 0 0 2h1v15.331a4.675 4.675 0 0 0 4.67 4.669h10.66a4.675 4.675 0 0 0 4.67-4.669v-15.331h1a1 1 0 0 0 0-2zm-11-2a3.006 3.006 0 0 1 2.829 2h-5.658a3.006 3.006 0 0 1 2.829-2zm-2 17a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0zm6 0a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0z"/>
+        </svg>
+    </template>
+
+    <script src="{{asset('/js/vehicles/reserved/search.js')}}"></script>
 
 </body>
 </html>

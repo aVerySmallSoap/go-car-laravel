@@ -11,7 +11,7 @@ body{
 .navigation,
 .navigation * {
     box-sizing: border-box;
-    z-index: 1;
+    overflow-x: visible;
 }
 
 .navigation{
@@ -54,14 +54,61 @@ body{
 }
 
 .nav-item{
+    display: flex;
+    position: relative;
     list-style: none;
-    font-size: 18px;
+    font-size: 20px;
     padding: 14px;
+    align-content: center;
+}
+
+.nav-item>svg{
+    margin-right: 1rem;
+}
+
+.nav-item.active{
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background: #941510;
+    color: #ffffff;
 }
 
 .nav-item:hover{
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    background: #941510;
+    color: #ffffff;
+}
+
+.nav-item:hover>svg{
+    fill: white;
+}
+
+/* Drop down related style */
+.drop-down{
+    position: fixed;
+    background: #ffffff;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,25%);
+    z-index: 2;
+}
+
+.drop-down-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.drop-down-container>a{
+    text-align: center;
+    padding: 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.drop-down-container>a:hover{
     background: #941510;
     color: #ffffff;
 }

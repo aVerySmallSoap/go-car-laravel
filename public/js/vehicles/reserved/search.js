@@ -36,7 +36,7 @@ document.querySelector("#search-bar").addEventListener("keyup", evt => {
 });
 
 function createActions(data){
-    let icon = document.querySelector("#edit-icon");
+    let icon = document.querySelector("#deliver-icon");
     let td = document.createElement("td");
     let form = document.createElement("form");
     let button = document.createElement("button");

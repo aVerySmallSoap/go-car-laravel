@@ -42,14 +42,14 @@ function createActions(data){
     let button = document.createElement("button");
     button.type = "submit";
     button.formMethod = "get";
-    button.formAction = `/vehicle/edit/${data[0]}`;
+    button.formAction = `/customer/edit/${data[0]}`;
     button.append(icon.content.cloneNode(true).childNodes[1]);
     form.append(button);
     button = document.createElement("button");
     icon = document.querySelector("#bin-icon");
     button.type = "submit";
     button.formMethod = "get";
-    button.formAction = `/vehicle/delete/${data[0]}`;
+    button.formAction = `/customer/delete/${data[0]}`;
     button.append(icon.content.cloneNode(true).childNodes[1]);
     form.append(button);
     td.append(form);

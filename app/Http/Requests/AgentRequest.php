@@ -23,7 +23,7 @@ class AgentRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'age' => 'required',
+            'age' => 'required|integer',
             'address' => 'required'
         ];
     }

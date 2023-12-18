@@ -1,0 +1,97 @@
+*{
+    box-sizing: border-box;
+}
+html,body{
+    margin: 0;
+    height: 100%;
+    overflow: clip;
+}
+
+body{
+    display: flex;
+}
+
+.grid{
+    display: grid;
+    flex-grow: 1;
+    grid-template: 50% / 50%;
+}
+
+.design-container{
+    display: flex;
+    border-radius: 8px;
+    padding-right: 12px;
+    background: rgba(0,0,0,80%);
+    box-shadow: 5px 0 5px 2px rgba(0,0,0,25%);
+    grid-column: 1;
+    grid-row: span 2;
+}
+
+.container{
+    display: flex;
+    border-radius: 8px;
+    padding-right: 12px;
+    background: #941510;
+    box-shadow: 5px 0 5px 2px rgba(0,0,0,25%);
+    min-width: fit-content;
+}
+
+.inner-container{
+    flex-grow: 1;
+    background: #ffffff;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    flex-grow: 1;
+    margin-bottom: 0;
+    text-align: center;
+    font-size: 32px;
+}
+
+form{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 3rem 3rem 3rem;
+}
+
+.form-row{
+    display: flex;
+    flex: 1 0 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.form-row>*{
+    flex: 1 0 100%;
+}
+
+.form-row>label{
+    font-size: 24px;
+    padding: .5rem;
+}
+
+.form-row>input,
+.form-row>select{
+    border-radius: 4px;
+    padding: 8px;
+    border: 1px solid black;
+}
+
+.form-control{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+}
+
+.form-control>button{
+    padding: 8px;
+    border: none;
+    border-radius: 2px;
+    background: #941510;
+    color: white;
+}
