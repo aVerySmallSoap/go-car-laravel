@@ -25,6 +25,7 @@
                 </div>
                 <div class="form-control">
                     <button type="submit" class="btn">Login</button>
+                    <button type="submit" formaction="/register" class="btn">Register</button>
                 </div>
             </form>
         </div>
