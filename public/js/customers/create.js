@@ -4,6 +4,6 @@ document.querySelector("#form-customer-create").addEventListener("submit", e=> {
         "form>.form-row>input:not([type='hidden'])",
         '/customer/store',
         function (){
-            window.location.href = '/vehicles';
+            window.location.href = '/customers';
         });
 });

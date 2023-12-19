@@ -4,6 +4,6 @@ document.querySelector("#form-agent-create").addEventListener("submit", e=> {
         "form>.form-row>input:not([type='hidden'])",
         '/agent/store',
         function (){
-            window.location.href = '/vehicles';
+            window.location.href = '/agents';
         });
 });

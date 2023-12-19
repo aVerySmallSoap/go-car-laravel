@@ -2,8 +2,8 @@ document.querySelector("#form-vehicle-create").addEventListener("submit", e=> {
     e.preventDefault();
     sendRequest(
         "form>.form-row>input:not([type='hidden'])",
-        '/vehicle/store',
+        '/leaser/store',
         function (){
-            window.location.href = '/vehicles';
+            window.location.href = '/leasers';
         });
 });
