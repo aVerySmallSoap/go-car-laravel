@@ -6,7 +6,10 @@ document.querySelector("li[data-dropdown=units]")
         let vehicles = document.createElement("a");
         let reserved = document.createElement("a");
         let released = document.createElement("a");
+        let leasers = document.createElement("a");
         dropDown.className = "drop-down";
+        leasers.innerText = "Leasers";
+        leasers.href = "/leasers";
         vehicles.innerText = "Vehicles";
         vehicles.href = "/vehicles";
         reserved.innerText = "Reserved";
@@ -14,7 +17,7 @@ document.querySelector("li[data-dropdown=units]")
         released.innerText = "Released";
         released.href = "/released";
         container.className = "drop-down-container";
-        container.append(vehicles, reserved, released);
+        container.append(leasers, vehicles, reserved, released);
         dropDown.append(container);
         dropDown.addEventListener("click", e => {
             e.stopImmediatePropagation();
