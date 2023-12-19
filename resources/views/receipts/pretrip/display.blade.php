@@ -17,7 +17,7 @@
 
     <div class="content">
         <div class="container-search">
-            <button onclick="window.location.href='{{ route('vehicle.create')}}'">Add</button>
+            <button class="btn" onclick="window.location.href='{{ route('generators.pre-trip')}}'">Generate a receipt</button>
             <div class="actionable">
                 <div class="actionable-content">
                     <svg id="Glyph" width="24" height="24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +50,7 @@
                         @endforeach
                         <td>
                             <form>
-                                <button type="submit">
+                                <button type="submit" formaction="/receipt/pre-trip/{{$element->attributesToArray()['pretrip_ID']}}">
                                     <svg style="width: 18px; height: 18px;" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                                         <g id="_44_Visibility" data-name="44 Visibility">
                                             <path d="m16 13c-4 0-4 6 0 6s4-6 0-6z"/>
@@ -58,14 +58,7 @@
                                         </g>
                                     </svg>
                                 </button>
-                                <button type="submit">
-                                    <svg style="width: 18px; height: 18px;" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="m25.287 8.025a2.431 2.431 0 0 0 0-3.44l-1.872-1.873a2.437 2.437 0 0 0 -3.44 0l-1.2 1.2 5.313 5.312z"/>
-                                        <path d="m9 14.1v3.9a1 1 0 0 0 1 1h3.9a1 1 0 0 0 .707-.293l8.065-8.065-5.315-5.312-8.064 8.07a1 1 0 0 0 -.293.7z"/>
-                                        <path d="m26 13a1 1 0 0 0 -1 1v7.853a3.151 3.151 0 0 1 -3.147 3.147h-15.706a3.151 3.151 0 0 1 -3.147-3.147v-15.706a3.151 3.151 0 0 1 3.147-3.147h7.853a1 1 0 0 0 0-2h-7.853a5.154 5.154 0 0 0 -5.147 5.147v15.706a5.154 5.154 0 0 0 5.147 5.147h15.706a5.154 5.154 0 0 0 5.147-5.147v-7.853a1 1 0 0 0 -1-1z"/>
-                                    </svg>
-                                </button>
-                                <button type="submit">
+                                <button type="submit" formaction="/reserved">
                                     <svg style="width: 18px; height: 18px;" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
                                         <path d="m25 5h-6.1a5 5 0 0 0 -9.8 0h-6.1a1 1 0 0 0 0 2h1v15.331a4.675 4.675 0 0 0 4.67 4.669h10.66a4.675 4.675 0 0 0 4.67-4.669v-15.331h1a1 1 0 0 0 0-2zm-11-2a3.006 3.006 0 0 1 2.829 2h-5.658a3.006 3.006 0 0 1 2.829-2zm-2 17a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0zm6 0a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0z"/>
                                     </svg>
@@ -85,13 +78,6 @@
                 <path d="m16 13c-4 0-4 6 0 6s4-6 0-6z"/>
                 <path d="m29 14.214c-3.312-4.585-8.051-7.214-13-7.214s-9.688 2.629-13 7.214a3.043 3.043 0 0 0 0 3.572c3.312 4.585 8.051 7.214 13 7.214s9.688-2.629 13-7.214a3.043 3.043 0 0 0 0-3.572zm-13 6.786c-6.6 0-6.6-10 0-10 6.526 0 6.807 10 0 10z"/>
             </g>
-        </svg>
-    </template>
-    <template id="edit-icon">
-        <svg style="width: 18px; height: 18px;" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-            <path d="m25.287 8.025a2.431 2.431 0 0 0 0-3.44l-1.872-1.873a2.437 2.437 0 0 0 -3.44 0l-1.2 1.2 5.313 5.312z"/>
-            <path d="m9 14.1v3.9a1 1 0 0 0 1 1h3.9a1 1 0 0 0 .707-.293l8.065-8.065-5.315-5.312-8.064 8.07a1 1 0 0 0 -.293.7z"/>
-            <path d="m26 13a1 1 0 0 0 -1 1v7.853a3.151 3.151 0 0 1 -3.147 3.147h-15.706a3.151 3.151 0 0 1 -3.147-3.147v-15.706a3.151 3.151 0 0 1 3.147-3.147h7.853a1 1 0 0 0 0-2h-7.853a5.154 5.154 0 0 0 -5.147 5.147v15.706a5.154 5.154 0 0 0 5.147 5.147h15.706a5.154 5.154 0 0 0 5.147-5.147v-7.853a1 1 0 0 0 -1-1z"/>
         </svg>
     </template>
     <template id="bin-icon">

@@ -19,14 +19,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class ReceiptController extends Controller
-{
+class ReceiptController extends Controller{
 
     public function genPreTripReceipt(): View{
         return view('generators.pre-trip', ['customers' => Customer::all()]);
     }
 
-    //TODO: merge data from pre- and post-receipts to create a single receipt.
     public function genPostTripReceipt(string $pretrip): View{
         return view('generators.post-trip', [
             'pretrip' => PreTripReceipt::findOrFail($pretrip),
@@ -93,6 +91,21 @@ class ReceiptController extends Controller
         return view('receipts.display', ['data' => $receipts]);
     }
 
+    public function detailsPreTrip(string $id): View{
+        return view('receipts.pretrip.view', ['data' => PreTripReceipt::findOrFail($id)]);
+    }
+    public function detailsPostTrip(string $id): View{
+        return view('receipts.posttrip.view', ['data' => PostTripReceipt::findOrFail($id)]);
+    }
+    public function detailsReceipt(string $id): View{
+        return view('receipts.view', ['data' => Receipt::findOrFail($id)]);
+    }
+
+    public function destroyReceipt(string $id): View{
+        Receipt::destroy($id);
+        return $this->viewReceipts();
+    }
+
     public function generatePreTrip(PreTripReceiptRequest $request): JsonResponse{
         $input = $request->validated();
         $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
@@ -154,7 +167,6 @@ class ReceiptController extends Controller
         $receipt = PostTripReceipt::select(['pretrip_ID as id'])
             ->where('pretrip_ID', $input['pretrip'])
             ->get()->first()->attributesToArray();
-        Released::destroy($input['pretrip']);
         return response()->json(['type' => 'success', 'id' => $receipt['id']]);
     }
 
@@ -163,7 +175,8 @@ class ReceiptController extends Controller
             ->format('Y-m-d H:i:s');
         $input = $request->all();
         Vehicle::where('vehicle_type', $input['vehicle-type'])
-            ->where('vehicle_plateNo', $input['vehicle-plateNo'])->update(['vehicle_isAvailable' => 1]);
+            ->where('vehicle_plateNo', $input['vehicle-plateNo'])
+            ->update(['vehicle_isAvailable' => 1]);
         Receipt::create([
             'pretrip_ID' => $input['pretrip-id'],
             'posttrip_ID' => $input['posttrip-id'],
@@ -186,6 +199,8 @@ class ReceiptController extends Controller
             'receipt_total' => $input['receipt-total'],
             'receipt_createdAt' => $requestDate
         ]);
+        Released::where('pretrip_ID', $input['pretrip-id'])
+            ->delete();
         return response()->json(['type' => 'success']);
     }
 

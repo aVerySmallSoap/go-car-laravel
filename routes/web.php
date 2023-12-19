@@ -77,22 +77,26 @@ Route::middleware(['auth', VerifyRole::class])->group(function(){
         //Pre-trip receipt
         Route::get('/generate/pre-trip', [ReceiptController::class, 'genPreTripReceipt'])->name('generators.pre-trip');
         Route::get('/receipts/pre-trip', [ReceiptController::class, 'viewPreTripReceipts'])->name('pre-trip.display');
+        Route::get('/receipt/pre-trip/{id}', [ReceiptController::class, 'detailsPreTrip'])->name('pre-trip.view');
         Route::post('/generate/pre-trip/store', [ReceiptController::class, 'generatePreTrip'])->name('generators.pre-trip.store');
 
         //Post-trip receipt
         Route::get('/generate/post-trip/{pretrip}', [ReceiptController::class, 'genPostTripReceipt']);
         Route::get('/receipts/post-trip', [ReceiptController::class, 'viewPostTripReceipts']);
+        Route::get('/receipt/post-trip/{id}', [ReceiptController::class, 'detailsPostTrip']);
         Route::post('/generate/post-trip/store', [ReceiptController::class, 'generatePostTrip']);
 
         //Receipt
         Route::get('/receipts', [ReceiptController::class, 'viewReceipts']);
         Route::get('/generate/receipt/{posttrip}', [ReceiptController::class, 'genReceipt']);
+        Route::get('/receipt/{id}', [ReceiptController::class, 'detailsReceipt']);
+        Route::get('/receipt/delete/{id}', [ReceiptController::class, 'destroyReceipt']);
         Route::post('/generate/receipt/store', [ReceiptController::class, 'generateReceipt']);
 
         //Reservation
         Route::get('/reserved', [ReservationController::class, 'fetchAll']);
         Route::get('/reserved/release/{receiptID}/{type}/{plateNo}', [ReservationController::class, 'push']);
-        Route::get('/reserved/delete/{receiptID}/{type}/{plateNo}', [ReservationController::class, 'destroy']);
+        Route::get('/reserved/delete/{receiptID}/{plateNo}', [ReservationController::class, 'destroy']);
 
         //Monitoring
         Route::get('/released', [DispatchController::class, 'fetchAll'])->name('released');
@@ -103,6 +107,7 @@ Route::middleware(['auth', VerifyRole::class])->group(function(){
 
 //Login
 Route::get('/login', [LoginController::class, 'view'])->name('login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/login/verify', [LoginController::class, 'authenticate'])->name('login.verify');
 
 //Register

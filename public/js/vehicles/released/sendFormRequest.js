@@ -6,14 +6,13 @@ document.querySelector("#form-extension").addEventListener("submit", e=> {
     xhr.open("post", "/released/extend", true);
     xhr.setRequestHeader("X-CSRF-TOKEN", csrf);
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-    document.querySelectorAll(".container>span[data-mark-important]")
+    document.querySelectorAll(".inner-container>span[data-mark-important]")
         .forEach(elem => {
             formData.set(elem.dataset.markLabel, elem.dataset.value);
         });
     formData.set(
         document.querySelector("#form-extension-new-date").name,
         document.querySelector("#form-extension-new-date").value);
-    console.log(formData)
     xhr.send(formData);
     xhr.onload = function (){
         let res = JSON.parse(xhr.response);

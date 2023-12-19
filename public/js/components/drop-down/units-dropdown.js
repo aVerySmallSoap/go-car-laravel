@@ -8,11 +8,11 @@ document.querySelector("li[data-dropdown=units]")
         let released = document.createElement("a");
         dropDown.className = "drop-down";
         vehicles.innerText = "Vehicles";
-        vehicles.href = "/receipts/pre-trip";
+        vehicles.href = "/vehicles";
         reserved.innerText = "Reserved";
-        reserved.href = "/receipts/post-trip";
+        reserved.href = "/reserved";
         released.innerText = "Released";
-        released.href = "/receipts/post-trip";
+        released.href = "/released";
         container.className = "drop-down-container";
         container.append(vehicles, reserved, released);
         dropDown.append(container);

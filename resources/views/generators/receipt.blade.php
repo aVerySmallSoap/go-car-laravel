@@ -9,14 +9,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf_token" content="{{csrf_token()}}">
+    <link rel="stylesheet" href="{{asset('/css/receipt-style.css')}}">
     <title>Post Trip Generation</title>
 </head>
 
 <body>
 <h3>Generate A post-report</h3>
-<h4>DETAILS</h4>
-<h4>Pre-release information</h4>
 <div class="container">
+    <h4>Pre-release information</h4>
     <div class="span-row">
         <span>Pre-trip ID:</span>
         <span data-mark-important data-mark-label="pretrip-id" data-value="{{$pretrip['pretrip_ID']}}">
@@ -27,7 +27,7 @@
         <span>Initial Fuel Levels:</span>
         <span data-mark-important data-mark-label="pretrip-initial-gas" data-value="{{$pretrip['pretrip_initialGas']}}">
             {{$pretrip['pretrip_initialGas']}}
-        </span
+        </span>
     </div>
     <div class="span-row">
         <span>Fuel Requested:</span>
@@ -54,9 +54,8 @@
         </span>
     </div>
 </div>
-<hr>
-<h4>Post-rental information</h4>
 <div class="container">
+    <h4>Post-rental information</h4>
     <div class="span-row">
         <span>Post-trip ID:</span>
         <span data-mark-important data-mark-label="posttrip-id" data-value="{{$post_trip['posttrip_ID']}}">
@@ -76,9 +75,8 @@
         </span>
     </div>
 </div>
-<hr>
-<h4>Information</h4>
 <div class="container">
+    <h4>Information</h4>
     <div class="span-row">
         <span>Name:</span>
         <span data-mark-important data-mark-label="customer" data-value="{{$pretrip['customer_name']}}">
@@ -140,7 +138,9 @@
         </span>
     </div>
     <form id="form-receipt">
-        <button type="submit">Generate</button>
+        <div class="form-control">
+            <button type="submit">Generate</button>
+        </div>
     </form>
 </div>
 

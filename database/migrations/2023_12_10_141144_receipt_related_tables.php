@@ -112,7 +112,6 @@ return new class extends Migration
 
         Schema::create('extensions', function (Blueprint $table){
             $table->ulid('extension_ID')->primary();
-            $table->ulid('released_ID');
             $table->unsignedBigInteger('pretrip_ID');
             $table->string('vehicle_type');
             $table->string('vehicle_plateNo');
@@ -124,9 +123,6 @@ return new class extends Migration
                 ->references('pretrip_ID')
                 ->on('pretripreceipts')
                 ->cascadeOnUpdate();
-            $table->foreign('released_ID', 'FK_extension_released_ID')
-                ->references('released_ID')
-                ->on('released');
             $table->foreign('vehicle_type', 'FK_extension_vehicle_type')
                 ->references('vehicle_type')
                 ->on('vehicles')->cascadeOnUpdate();
@@ -161,8 +157,8 @@ return new class extends Migration
 
         Schema::create('receipts', function(Blueprint $table){
             $table->ulid('receipt_ID')->primary();
-            $table->unsignedBigInteger('pretrip_ID');
-            $table->unsignedBigInteger('posttrip_ID');
+            $table->unsignedBigInteger('pretrip_ID')->unique();
+            $table->unsignedBigInteger('posttrip_ID')->unique();
             $table->integer('pretrip_initialGas');
             $table->integer('pretrip_requestGasLiters');
             $table->integer('pretrip_requestGasPrice');

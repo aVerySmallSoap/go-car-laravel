@@ -1,0 +1,65 @@
+*{
+    font-family: "Inter", sans-serif;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+    overflow: clip;
+}
+
+h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #941510;
+}
+
+.container{
+    display: grid;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px 2px rgba(0,0,0,25%);
+    padding: 4px;
+    font-size: 16px;
+    margin-top: 1svh;
+    grid-column: 2;
+    max-height: fit-content;
+}
+
+.container h4{
+    text-align: center;
+}
+
+.container>div{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.form-row{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+}
+
+.form-row>input{
+    padding: 4px;
+    margin: 2px;
+}
+
+.form-control{
+    display: flex;
+    justify-content: center;
+}
+
+.form-control>button{
+    margin: 4px;
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    background-color: #941510;
+    color: white;
+}

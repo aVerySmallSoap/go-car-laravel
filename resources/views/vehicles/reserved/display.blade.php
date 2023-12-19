@@ -77,7 +77,7 @@
                                     </svg>
                                 </button>
                                 <button type="submit" formmethod="get" formaction=
-                                    "/reserved/delete/{{$element->pretrip_ID}}/{{$element->vehicle_type}}/{{$element->vehicle_plateNo}}">
+                                    "/reserved/delete/{{$element->pretrip_ID}}/{{$element->vehicle_plateNo}}">
                                     <svg style="width: 18px; height: 18px;" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
                                         <path d="m25 5h-6.1a5 5 0 0 0 -9.8 0h-6.1a1 1 0 0 0 0 2h1v15.331a4.675 4.675 0 0 0 4.67 4.669h10.66a4.675 4.675 0 0 0 4.67-4.669v-15.331h1a1 1 0 0 0 0-2zm-11-2a3.006 3.006 0 0 1 2.829 2h-5.658a3.006 3.006 0 0 1 2.829-2zm-2 17a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0zm6 0a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0z"/>
                                     </svg>

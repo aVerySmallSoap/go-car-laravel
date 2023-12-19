@@ -1,7 +1,7 @@
 document.querySelector("#form-post-receipt").addEventListener("submit", e => {
     e.preventDefault();
     let formData = new FormData;
-    document.querySelectorAll(".container>.span-row>span[data-mark-important]")
+    document.querySelectorAll(".inner-container>.span-row>span[data-mark-important]")
         .forEach(elem => {
             formData.set(elem.dataset.markLabel, elem.dataset.value);
         });

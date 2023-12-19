@@ -28,7 +28,6 @@ class DispatchController extends Controller
             ->format('Y-m-d H:i:s');
         Extension::create([
             'pretrip_ID' => $data['id'],
-            'released_ID' => $data['ulid'],
             'vehicle_type' => $data['type'],
             'vehicle_plateNo' => $data['plateNo'],
             'extension_originalEndDateTime' => $data['original-date'],

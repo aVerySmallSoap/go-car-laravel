@@ -22,28 +22,19 @@ document.querySelector("#search-bar").addEventListener("keyup", evt => {
                 tbody.replaceChildren();
                 res.data.forEach(element => {
                     let tr = document.createElement("tr");
-                    let td = document.createElement("td");
-                    td.innerText = element[0]
-                    tr.append(td);
-                    td = document.createElement("td")
-                    td.innerText = element[1];
-                    tr.append(td);
-                    td = document.createElement("td")
-                    td.innerText = element[2];
-                    tr.append(td);
-                    td = document.createElement("td")
-                    td.innerText = element[3];
-                    tr.append(td);
-                    td = document.createElement("td")
-                    td.innerText = element[4];
-                    tr.append(td);
-                    tr.append(createActions(element));
+                    element.forEach(data => {
+                        let td = document.createElement("td");
+                        td.innerHTML = data;
+                        tr.append(td);
+                    });
+                    tr.append(createActions(element))
                     tbody.append(tr);
                 });
             }
         }
     }, 500);
 });
+
 
 function createActions(data){
     let icon = document.querySelector("#edit-icon");

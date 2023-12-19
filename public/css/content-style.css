@@ -8,3 +8,19 @@
     flex-grow: 1;
     flex-shrink: 0;
 }
+
+.btn{
+    font-size: 14px;
+    padding: 4px;
+    border-radius: 2px;
+    border: none;
+    background: #941510;
+    color: white;
+    transition: all ease-in-out 500ms;
+}
+
+.btn:hover{
+    transform: translateY(-2px);
+    background: #941510;
+    box-shadow: 0 2px 5px -1px rgba(0,0,0,25%);
+}

@@ -49,14 +49,14 @@ function createActions(data){
     icon = document.querySelector("#view-icon");
     button.type = "submit";
     button.formMethod = "get";
-    button.formAction = `view`;
+    button.formAction = `/receipt/${data[0]}`;
     button.append(icon.content.cloneNode(true).childNodes[1]);
     form.append(button);
     button = document.createElement("button");
     icon = document.querySelector("#bin-icon");
     button.type = "submit";
     button.formMethod = "get";
-    button.formAction = `/leaser/delete/${data[0]}`;
+    button.formAction = `/receipt/delete/${data[0]}`;
     button.append(icon.content.cloneNode(true).childNodes[1]);
     form.append(button);
     td.append(form);

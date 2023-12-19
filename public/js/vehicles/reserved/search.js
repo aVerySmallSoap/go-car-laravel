@@ -21,6 +21,7 @@ document.querySelector("#search-bar").addEventListener("keyup", evt => {
             if(res.type === 'success'){
                 tbody.replaceChildren();
                 res.data.forEach(element => {
+                    console.log(element);
                     let tr = document.createElement("tr");
                     element.forEach(data => {
                         let td = document.createElement("td");
@@ -42,14 +43,14 @@ function createActions(data){
     let button = document.createElement("button");
     button.type = "submit";
     button.formMethod = "get";
-    button.formAction = `/vehicle/edit/${data[0]}`;
+    button.formAction = `/reserved/release/${data[0]}/${data[1]}/${data[2]}}`;
     button.append(icon.content.cloneNode(true).childNodes[1]);
     form.append(button);
     button = document.createElement("button");
     icon = document.querySelector("#bin-icon");
     button.type = "submit";
     button.formMethod = "get";
-    button.formAction = `/vehicle/delete/${data[0]}`;
+    button.formAction = `/reserved/delete/${data[0]}/${data[2]}`;
     button.append(icon.content.cloneNode(true).childNodes[1]);
     form.append(button);
     td.append(form);

@@ -18,7 +18,7 @@ class ReservationController extends Controller{
         return view('vehicles.reserved.display', ['data' => Reserved::all()]);
     }
 
-    public function destroy(string $receipt, string $type, string $plate){
+    public function destroy(string $receipt, string $plate){
         Vehicle::where('vehicle_plateNo', $plate)->update(['vehicle_isAvailable' => 1]);
         Reserved::where('pretrip_ID', $receipt)
             ->delete();

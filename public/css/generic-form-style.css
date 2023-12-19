@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    font-family: "Inter", sans-serif;
 }
 html,body{
     margin: 0;
@@ -70,14 +71,14 @@ form{
 }
 
 .form-row>label{
-    font-size: 24px;
+    font-size: 18px;
     padding: .5rem;
 }
 
 .form-row>input,
 .form-row>select{
     border-radius: 4px;
-    padding: 8px;
+    padding: 4px;
     border: 1px solid black;
 }
 

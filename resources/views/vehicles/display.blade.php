@@ -17,7 +17,7 @@
 
     <div class="content">
         <div class="container-search">
-            <button onclick="window.location.href='{{ route('vehicle.create')}}'">Add</button>
+            <button class="btn" onclick="window.location.href='{{ route('vehicle.create')}}'">Add a vehicle</button>
             <div class="actionable">
                 <div class="actionable-content">
                     <svg id="Glyph" width="24" height="24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">

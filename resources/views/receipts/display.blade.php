@@ -60,7 +60,7 @@
                                     </g>
                                 </svg>
                             </button>
-                            <button>
+                            <button formaction="/receipt/{{$element->receipt_ID}}">
                                 <svg style="width: 18px; height: 18px;" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                                     <g id="_44_Visibility" data-name="44 Visibility">
                                         <path d="m16 13c-4 0-4 6 0 6s4-6 0-6z"/>
@@ -68,7 +68,7 @@
                                     </g>
                                 </svg>
                             </button>
-                            <button>
+                            <button formaction="/receipt/delete/{{$element->receipt_ID}}">
                                 <svg style="width: 18px; height: 18px;" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
                                     <path d="m25 5h-6.1a5 5 0 0 0 -9.8 0h-6.1a1 1 0 0 0 0 2h1v15.331a4.675 4.675 0 0 0 4.67 4.669h10.66a4.675 4.675 0 0 0 4.67-4.669v-15.331h1a1 1 0 0 0 0-2zm-11-2a3.006 3.006 0 0 1 2.829 2h-5.658a3.006 3.006 0 0 1 2.829-2zm-2 17a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0zm6 0a1 1 0 0 1 -2 0v-8a1 1 0 0 1 2 0z"/>
                                 </svg>
