@@ -167,6 +167,8 @@ class ReceiptController extends Controller{
         $receipt = PostTripReceipt::select(['pretrip_ID as id'])
             ->where('pretrip_ID', $input['pretrip'])
             ->get()->first()->attributesToArray();
+        Released::where('pretrip_ID', $input['pretrip-id'])
+            ->delete();
         return response()->json(['type' => 'success', 'id' => $receipt['id']]);
     }
 
@@ -199,8 +201,6 @@ class ReceiptController extends Controller{
             'receipt_total' => $input['receipt-total'],
             'receipt_createdAt' => $requestDate
         ]);
-        Released::where('pretrip_ID', $input['pretrip-id'])
-            ->delete();
         return response()->json(['type' => 'success']);
     }
 
