@@ -16,3 +16,7 @@ document.querySelector("#form-login").addEventListener("submit", e => {
         if(res.type === 'success'){window.location.href = "/"}
     }
 });
+
+document.querySelector(".register").addEventListener("click", ()=> {
+    window.location.href = "/register";
+})

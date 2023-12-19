@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-control">
                     <button type="submit" class="btn" >Register</button>
-                    <button type="submit" formaction="/login" class="btn">Go to Login</button>
+                    <button class="btn login">Go to Login</button>
                 </div>
             </form>
         </div>

@@ -34,7 +34,7 @@
                     <th>Type</th>
                     <th>Plate No</th>
                     <th>Customer Name</th>
-                    <th>Receipt ID</th>
+                    <th>Pre-trip ID</th>
                     <th>Reservation Date</th>
                     <th>Actions</th>
                 </tr>

@@ -69,7 +69,7 @@ return new class extends Migration
             $table->string('vehicle_type');
             $table->string('vehicle_plateNo');
             $table->string('customer_name');
-            $table->unsignedBigInteger('pretrip_ID');
+            $table->unsignedBigInteger('pretrip_ID')->unique();
             $table->dateTime('reserved_reservationDate');
             $table->foreign('customer_name', 'FK_reserved_customer_name')
                 ->references('customer_name')
@@ -90,7 +90,7 @@ return new class extends Migration
 
         Schema::create('released', function (Blueprint $table){
             $table->ulid('released_ID')->primary();
-            $table->unsignedBigInteger('pretrip_ID');
+            $table->unsignedBigInteger('pretrip_ID')->unique();
             $table->string('vehicle_plateNo');
             $table->string('vehicle_model');
             $table->string('vehicle_type');
@@ -133,7 +133,7 @@ return new class extends Migration
 
         Schema::create('posttripReceipts', function (Blueprint $table){
             $table->id('posttrip_ID');
-            $table->unsignedBigInteger('pretrip_ID');
+            $table->unsignedBigInteger('pretrip_ID')->unique();
             $table->string('agent_name');
             $table->string('customer_name');
             $table->dateTime('posttrip_returnDate');
