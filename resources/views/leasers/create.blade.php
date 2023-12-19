@@ -15,7 +15,7 @@
         <div class="design-container">
             <div class="container">
                 <div class="inner-container">
-                    <h3>Add a leaser</h3>
+                    <h2 class="title">Add a leaser</h2>
                     <form id="form-leaser-create">
                         @csrf
                         <div class="form-row">

@@ -1,4 +1,4 @@
-document.querySelector("#form-vehicle-create").addEventListener("submit", e=> {
+document.querySelector("#form-leaser-create").addEventListener("submit", e=> {
     e.preventDefault();
     sendRequest(
         "form>.form-row>input:not([type='hidden'])",

@@ -15,6 +15,7 @@
     <div class="design-container">
         <div class="container">
             <div class="inner-container">
+                <h2 class="title">Add a vehicle</h2>
                 <form id="form-vehicle-create">
                     @csrf
                     <div class="form-row">
