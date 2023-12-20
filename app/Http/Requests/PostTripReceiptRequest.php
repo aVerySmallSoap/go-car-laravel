@@ -27,7 +27,7 @@ class PostTripReceiptRequest extends FormRequest
             'customer' => 'required|exists:customers,customer_name',
             'return-date' => 'required|date',
             'initial-gas' => 'required|integer',
-            'comment' => '',
+            'comment' => 'required',
             'gas' => 'required|integer',
             'gas-price' => 'required|integer|decimal:0,2',
             'optional-cost' => 'required|integer|decimal:0,2',

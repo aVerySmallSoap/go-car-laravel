@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf_token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{asset('/css/pretrip-gen-style.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/input-error.css')}}">
     <title>Pre Trip Generation</title>
 </head>
 <body>
@@ -138,6 +139,6 @@
 
     <script src="{{asset('/js/generators/pretrip/sendFormRequest.js')}}"></script>
     <script src="{{asset('/js/generators/pretrip/refreshOnSelect.js')}}"></script>
-
+    <script src="{{asset('/js/inputValidation/validate_input.js')}}"></script>
 </body>
 </html>

@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf_token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{asset('/css/posttrip-gen-style.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/input-error.css')}}">
     <title>Post Trip Generation</title>
 </head>
 <body>
@@ -73,13 +74,13 @@
         <form id="form-post-receipt">
             <div class="form-row">
                 <label for="form-post-receipt-gas">Gas Bar:</label>
-                <input data-easy-input type="number" name="gas" id="form-post-receipt-gas">
+                <input data-easy-input type="number" name="gas" id="form-post-receipt-gas" placeholder="0">
                 <label for="form-post-receipt-gas-price">Price per bar deficit:</label>
-                <input data-easy-input type="number" name="gas-price" id="form-post-receipt-gas-price">
+                <input data-easy-input type="number" name="gas-price" id="form-post-receipt-gas-price" placeholder="0">
             </div>
             <div class="form-row">
                 <label for="form-post-receipt-optional-cost">Optional/Damage Costs:</label>
-                <input data-easy-input type="number" name="optional-cost" id="form-post-receipt-optional-cost">
+                <input data-easy-input type="number" name="optional-cost" id="form-post-receipt-optional-cost" placeholder="0">
             </div>
             <div class="form-row">
                 <label for="form-post-receipt-comment">Notes/Comments:</label>
@@ -92,6 +93,7 @@
     </div>
 
     <script src="{{asset('/js/generators/posttrip/sendFormRequest.js')}}"></script>
+    <script src="{{asset('/js/inputValidation/validate_input.js')}}"></script>
 
 </body>
 </html>

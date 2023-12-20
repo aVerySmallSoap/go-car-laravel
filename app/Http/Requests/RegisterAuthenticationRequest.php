@@ -22,7 +22,7 @@ class RegisterAuthenticationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required',
+            'username' => 'required|unique:users,user_username',
             'role' => '',
             'password' => 'required'
         ];

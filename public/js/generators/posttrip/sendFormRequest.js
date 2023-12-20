@@ -16,7 +16,10 @@ document.querySelector("#form-post-receipt").addEventListener("submit", e => {
     xhr.send(formData);
     xhr.onload = function (){
         let res = JSON.parse(xhr.response);
-        // console.log(res.errors != null)
-        if(res.type === 'success') {window.location.href = `/generate/receipt/${res.id}`}
+        if(res.type === 'success') {
+            window.location.href = `/generate/receipt/${res.id}`
+        }else if(res.errors !== null){
+            validate_input(res.errors);
+        }
     }
 });

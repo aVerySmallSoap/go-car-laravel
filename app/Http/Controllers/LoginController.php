@@ -21,7 +21,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return response()->json(['type' => 'success', 'message' => 'login successful!']);
         }
-        return response()->json(['message' => 'something went wrong']);
+        return response()->json(['errors' => ['password' => 'Wrong password']]);
     }
 
     public function logout(): RedirectResponse{

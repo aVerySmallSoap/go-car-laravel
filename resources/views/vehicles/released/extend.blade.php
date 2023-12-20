@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{asset('/css/extend-style.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/input-error.css')}}">
     <title>Something</title>
 </head>
 <body>
@@ -53,5 +54,7 @@
     </div>
 
     <script src="{{asset('/js/vehicles/released/sendFormRequest.js')}}"></script>
+    <script src="{{asset('/js/inputValidation/validate_input.js')}}"></script>
+
 </body>
 </html>

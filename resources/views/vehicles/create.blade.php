@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf_token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{asset('/css/generic-form-style.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/input-error.css')}}">
     <title>Add Vehicle</title>
 </head>
 <body>
@@ -67,5 +68,6 @@
 
 <script src="{{asset('/js/vehicles/create.js')}}"></script>
 <script src="{{asset('/js/vehicles/sendRequest.js')}}"></script>
+<script src="{{asset('/js/inputValidation/validate_input.js')}}"></script>
 </body>
 </html>

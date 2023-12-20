@@ -11,4 +11,11 @@ document.querySelector("#form-leaser-edit").addEventListener("submit", e=> {
             formData.set(element.name, element.value);
     });
     xhr.send(formData);
+    xhr.onload = function (){
+        let res = JSON.parse(xhr.response)
+        if(res.type === 'success'){window.location.href = '/leasers'}
+        if(res.errors !== null){
+            validate_input(res.errors);
+        }
+    }
 });

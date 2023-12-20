@@ -35,7 +35,7 @@ class LeaserController extends Controller
                 'leaser_address' => $validated['address'],
                 'leaser_contactNo' => $validated['contact']
             ]);
-        return response()->json(['Message' => 'Leaser successfully updated!']);
+        return response()->json(['type' => 'success']);
     }
 
     public function destroy(string|int $id): RedirectResponse{

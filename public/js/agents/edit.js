@@ -14,5 +14,8 @@ document.querySelector("#form-agent-edit").addEventListener("submit", e=> {
     xhr.onload = () => {
         let res = JSON.parse(xhr.response);
         if(res.type === 'success'){ window.location.href = "/agents"}
+        if(res.errors !== null){
+            validate_input(res.errors);
+        }
     }
 });

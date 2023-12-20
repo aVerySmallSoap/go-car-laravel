@@ -33,7 +33,9 @@ document.querySelector("#form-pre-receipt").addEventListener("submit", e => {
     xhr.onload = () => {
         let res = JSON.parse(xhr.response);
         if(res.type === 'success'){
-            window.location.href = 'http://127.0.0.1:8000/receipts/pre-trip';
+            window.location.href = '/receipts/pre-trip';
+        }else if(res.errors !== null){
+            validate_input(res.errors);
         }
     }
 })

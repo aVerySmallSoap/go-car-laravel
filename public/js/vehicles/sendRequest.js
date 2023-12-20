@@ -1,4 +1,4 @@
-function sendRequest(Selector, URL, callback){
+function sendRequest(Selector, URL, Success){
     let formData = new FormData();
     let xhr = new XMLHttpRequest();
     xhr.open("POST", URL, true);
@@ -17,5 +17,11 @@ function sendRequest(Selector, URL, callback){
             formData.set(elem.name, elem.value);
         });
     xhr.send(formData);
-    xhr.onload = callback;
+    xhr.onload = function (){
+        let res = JSON.parse(xhr.response);
+        if(res.type === 'success'){window.location.href = Success}
+        if(res.errors !== null){
+            validate_input(res.errors);
+        }
+    };
 }

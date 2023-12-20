@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="csrf_token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{asset('/css/login-style.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/input-error.css')}}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
 </head>
@@ -33,5 +34,6 @@
 
 
 <script src="{{asset('/js/authentication/login.js')}}"></script>
+<script src="{{asset('/js/inputValidation/validate_input.js')}}"></script>
 </body>
 </html>

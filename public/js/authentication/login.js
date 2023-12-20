@@ -13,7 +13,11 @@ document.querySelector("#form-login").addEventListener("submit", e => {
     xhr.send(formData);
     xhr.onload = function (){
         let res = JSON.parse(xhr.response);
-        if(res.type === 'success'){window.location.href = "/"}
+        if(res.type === 'success'){
+            window.location.href = "/"
+        }else if(res.errors !== null){
+            validate_input(res.errors);
+        }
     }
 });
 

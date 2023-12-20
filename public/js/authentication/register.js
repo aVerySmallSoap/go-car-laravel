@@ -17,6 +17,9 @@ document.querySelector("#form-register").addEventListener("submit", e => {
    xhr.onload = function (){
        let res = JSON.parse(xhr.response);
        if(res.type === 'success'){window.location.href = '/login'}
+       if(res.errors !== null){
+           validate_input(res.errors);
+       }
    }
 });
 

@@ -22,7 +22,7 @@ class AgentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:agents,agent_name',
             'age' => 'required|integer',
             'address' => 'required'
         ];
