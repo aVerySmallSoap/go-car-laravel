@@ -15,7 +15,7 @@ class LeaserController extends Controller
     }
 
     /** @noinspection PhpUndefinedMethodInspection */
-    public function store(LeaserRequest $request): RedirectResponse{
+    public function store(LeaserRequest $request): JsonResponse{
         $validated = $request->validated();
         Leaser::create([
             'leaser_name' => $validated['name'],
@@ -23,7 +23,7 @@ class LeaserController extends Controller
             'leaser_address' => $validated['address'],
             'leaser_contactNo' => $validated['contact']
         ]);
-        return to_route('leasers.display', ['data' => Leaser::all()]);
+        return response()->json(['type' => 'success']);
     }
 
     public function update(LeaserRequest $request): JsonResponse{

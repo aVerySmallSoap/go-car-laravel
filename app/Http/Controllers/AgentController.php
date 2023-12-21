@@ -19,14 +19,14 @@ class AgentController extends Controller
     }
 
     /** @noinspection PhpUndefinedMethodInspection */
-    public function store(AgentRequest $request): RedirectResponse{
+    public function store(AgentRequest $request): JsonResponse{
         $validated = $request->validated();
         Agent::create([
             'agent_name' => $validated['name'],
             'agent_age' => $validated['age'],
             'agent_address' => $validated['address']
         ]);
-        return to_route('agents.display', ['data' => Agent::all()]);
+        return response()->json(['type' => 'success']);
     }
 
     public function update(AgentRequest $request): JsonResponse{

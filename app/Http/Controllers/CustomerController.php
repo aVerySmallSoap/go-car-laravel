@@ -23,7 +23,7 @@ class CustomerController extends Controller
     }
 
     /** @noinspection PhpUndefinedMethodInspection */
-    public function store(CustomerRequest $request): RedirectResponse{
+    public function store(CustomerRequest $request): JsonResponse{
         $validated = $request->validated();
         Customer::create([
             'agent_name' => $validated['agent'],
@@ -33,7 +33,7 @@ class CustomerController extends Controller
             'customer_contactNo' => $validated['contact'],
             'customer_facebookURL' => $validated['facebook']
         ]);
-        return to_route('customers.display', ['data' => Customer::all()]);
+        return response()->json(['type' => 'success']);
     }
 
     public function update(CustomerRequest $request): JsonResponse{
