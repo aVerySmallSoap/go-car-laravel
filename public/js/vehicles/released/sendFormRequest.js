@@ -16,7 +16,7 @@ document.querySelector("#form-extension").addEventListener("submit", e=> {
     xhr.send(formData);
     xhr.onload = function (){
         let res = JSON.parse(xhr.response);
-        if(res.type === 'success') {window.location.href = 'released'}
+        if(res.type === 'success') {window.location.href = '/released'}
         if(res.errors !== null){
             validate_input(res.errors);
         }
