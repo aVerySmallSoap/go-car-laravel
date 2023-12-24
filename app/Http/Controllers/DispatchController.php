@@ -24,6 +24,10 @@ class DispatchController extends Controller
 
     public function extend(ExtensionRequest $request){
         $data = $request->validated();
+        if(date_create($data['new-date'])->format('Y-m-d H:i:s') <
+            date_create($data['original-date'])->format('Y-m-d H:i:s')){
+            return response()->json(['errors' => ['new-date' => 'Date chosen is prior to the original date']]);
+        }
         $requestDate = date_create('now', new DateTimeZone('Asia/Manila'))
             ->format('Y-m-d H:i:s');
         Extension::create([
