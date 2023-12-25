@@ -5,11 +5,14 @@ document.querySelector("li[data-dropdown=receipts]")
         let container = document.createElement("div");
         let pre = document.createElement("a");
         let post = document.createElement("a");
+        let receipt = document.createElement("a");
         dropDown.className = "drop-down";
         pre.innerText = "Pre-trip Receipts";
         pre.href = "/receipts/pre-trip";
         post.innerText = "Post-trip Receipts";
         post.href = "/receipts/post-trip";
+        receipt.innerText = "Receipts";
+        receipt.href = "/receipts";
         container.className = "drop-down-container";
         container.append(pre, post);
         dropDown.append(container);
