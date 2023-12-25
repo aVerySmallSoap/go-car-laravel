@@ -14,7 +14,7 @@ document.querySelector("li[data-dropdown=receipts]")
         receipt.innerText = "Receipts";
         receipt.href = "/receipts";
         container.className = "drop-down-container";
-        container.append(pre, post);
+        container.append(pre, post, receipt);
         dropDown.append(container);
         dropDown.addEventListener("click", e => {
             e.stopImmediatePropagation();
