@@ -90,12 +90,15 @@ return new class extends Migration
 
         Schema::create('released', function (Blueprint $table){
             $table->ulid('released_ID')->primary();
-            $table->unsignedBigInteger('pretrip_ID')->unique();
+            $table->unsignedBigInteger('pretrip_ID');
             $table->string('vehicle_plateNo');
             $table->string('vehicle_model');
             $table->string('vehicle_type');
             $table->string('customer_name');
             $table->dateTime('pretrip_dateend');
+            $table->foreign('pretrip_ID')
+                ->references('pretrip_ID')
+                ->on('pretripreceipts')->cascadeOnUpdate();
             $table->foreign('customer_name', 'FK_released_customer_name')
                 ->references('customer_name')
                 ->on('customers')->cascadeOnUpdate();

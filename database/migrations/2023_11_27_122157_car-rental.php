@@ -39,9 +39,6 @@ return new class extends Migration
                 ->on('Agents')->cascadeOnUpdate();
         });
 
-        /*
-        STAMP EMERGENCY CONTACTS HERE
-        */
     }
 
     /**
