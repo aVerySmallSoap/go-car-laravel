@@ -22,7 +22,7 @@ class LeaserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|exists:leasers,leaser_name',
             'age' => 'required',
             'address' => 'required',
             'contact' => 'required|min:11|max:11'
