@@ -23,7 +23,7 @@ class CustomerRequest extends FormRequest
     {
         return [
             'agent' => 'required',
-            'name' => 'required|exists:customers,customer_name',
+            'name' => 'required',
             'age' => 'required',
             'civil' => 'required',
             'contact' => 'required',
